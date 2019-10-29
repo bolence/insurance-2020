@@ -3,6 +3,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import BootstrapVue from 'bootstrap-vue'
+import store from './store/store'
 
 Vue.use(BootstrapVue);
 
@@ -19,4 +20,5 @@ Vue.config.productionTip = false
 
 const app = new Vue({
     el: '#app',
+    store,
 });
