@@ -7,10 +7,12 @@ export default new Vuex.Store({
         hide_vehicle_form: false,
         vehicles: [],
         vehiclesCount: 0,
+        button_title_add_new_vehicle: 'Dodaj novo vozilo',
     },
     mutations: {
         show_vehicle_form(state) {
             state.hide_vehicle_form = !state.hide_vehicle_form;
+            state.button_title_add_new_vehicle = state.hide_vehicle_form ? 'Sakrij formu' : 'Dodaj novo vozilo';
         },
 
         setVehicles(state, vehicles) {
@@ -30,5 +32,11 @@ export default new Vuex.Store({
                     commit('setVehiclesCount', response.data.count);
                 });
         },
+
+        saveVehicle({commit}, vehicle) {
+            state.vehicle.push(vehicle); // push to array and show immediatelly
+            // axions.post
+            console.log(vehicle);
+        }
     },
 })

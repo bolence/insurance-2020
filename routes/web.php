@@ -9,3 +9,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::group(['prefix' => 'vehicles'], function() {
+
+    Route::get('/', 'VehicleController@index')->name('vehicles.list');
+
+});

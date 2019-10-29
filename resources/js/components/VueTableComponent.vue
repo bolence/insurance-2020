@@ -1,16 +1,24 @@
 <template>
+
+
+<div>
+
+
+ <button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('show_vehicle_form')"><i class="fa fa-car"></i> {{ button_title }}</button>
+<AddNewVehicleForm></AddNewVehicleForm>
+
   <b-container fluid>
     <!-- User Interface controls -->
 <br>
 <b-row>
       <b-col sm="3" md="3" class="my-1" >
         <b-form-group
-          label="Per page"
-          label-cols-sm="6"
-          label-cols-md="4"
-          label-cols-lg="3"
+          label="Po strani"
+          label-cols-sm="2"
+          label-cols-md="2"
           label-align-sm="right"
           label-size="sm"
+          align="left"
           label-for="perPageSelect"
           class="mb-0"
         >
@@ -23,8 +31,8 @@
         </b-form-group>
       </b-col>
 <b-col cols="5">
-            <b-form-group
-          label="Sort"
+        <b-form-group
+          label="Sortiraj"
           label-cols-sm="3"
           label-align-sm="right"
           label-size="sm"
@@ -62,7 +70,7 @@
               placeholder="Type to Search"
             ></b-form-input>
             <b-input-group-append>
-              <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+              <b-button :disabled="!filter" @click="filter = ''">Izbriši</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
@@ -76,6 +84,7 @@
       bordered
       show-empty
       small
+      head-variant="light"
       stacked="md"
       :items="items"
       :fields="fields"
@@ -101,7 +110,7 @@
         </b-button>
       </template>
 
-      <template v-slot:row-details="row">
+      <template v-slot:row-details="row" class="w-25">
         <b-card>
           <ul>
             <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
@@ -110,9 +119,10 @@
       </template>
     </b-table>
 
-    <b-row class="footer-color">
+    <b-row>
 
     <b-col md="4" class="my-2">
+      <span class="label label-success">Strana: {{ currentPage }} | Ukupno redova: {{ totalRows }}</span>
         <!-- <b-form-group
           label="Filter On"
           label-cols-sm="3"
@@ -121,14 +131,14 @@
           description="Leave all unchecked to filter on all data"
           class="my-0">
           <b-form-checkbox-group v-model="filterOn" class="mt-1">
-            <b-form-checkbox value="name">Name</b-form-checkbox>
-            <b-form-checkbox value="age">Age</b-form-checkbox>
-            <b-form-checkbox value="isActive">Active</b-form-checkbox>
+            <b-form-checkbox value="name">Vozilo</b-form-checkbox>
+            <b-form-checkbox value="age">Reg.broj</b-form-checkbox>
+            <b-form-checkbox value="isActive">Broj motora</b-form-checkbox>
           </b-form-checkbox-group>
         </b-form-group> -->
     </b-col>
 
-      <b-col sm="7" md="8" class="my-3">
+      <b-col sm="7" md="8" class="my-0">
         <b-pagination
           v-model="currentPage"
           :total-rows="totalRows"
@@ -147,55 +157,44 @@
       <pre>{{ infoModal.content }}</pre>
     </b-modal>
   </b-container>
+  </div>
 </template>
 
 <script>
+
+import store from '../store/store';
+import AddNewVehicleForm from '../components/forms/AddNewVehicle';
+import { mapState } from 'vuex'
+
   export default {
+    components: {
+        AddNewVehicleForm,
+    },
     data() {
       return {
-        items: [
-          { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-          { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-          {
-            isActive: false,
-            age: 9,
-            name: { first: 'Mini', last: 'Navarro' },
-            _rowVariant: 'success'
-          },
-          { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-          { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-          { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-          { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-          {
-            isActive: true,
-            age: 87,
-            name: { first: 'Larsen', last: 'Shaw' },
-            _cellVariants: { age: 'danger', isActive: 'warning' }
-          },
-          { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-          { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-          { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-          { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-        ],
+        vozilo: '',
+        reg_broj: '',
+        broj_motora: '',
         fields: [
-          { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-          { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
+          { key: 'vozilo', label: 'Vehicle', sortable: true, sortDirection: 'desc' },
+          { key: 'reg_broj', label: 'Reg.broj', sortable: true, class: 'text-center', status: 'awesome' },
           {
-            key: 'isActive',
-            label: 'is Active',
-            formatter: (value, key, item) => {
-              return value ? 'Yes' : 'No'
-            },
+            key: 'broj_motora',
+            label: 'Broj motora',
+            class: 'text-center',
+            // formatter: (value, key, item) => {
+            //   return value ? 'Yes' : 'No'
+            // },
             sortable: true,
             sortByFormatted: true,
             filterByFormatted: true
           },
-          { key: 'actions', label: 'Actions' }
+          { key: 'actions', label: 'Actions', class: 'text-right' }
         ],
-        totalRows: 1,
+        // totalRows: 1,
         currentPage: 1,
-        perPage: 5,
-        pageOptions: [5, 10, 15],
+        perPage: 25,
+        pageOptions: [5, 10, 15, 25, 50, 100, 1000],
         sortBy: '',
         sortDesc: false,
         sortDirection: 'asc',
@@ -208,6 +207,8 @@
         }
       }
     },
+
+
     computed: {
       sortOptions() {
         // Create an options list from our fields
@@ -216,15 +217,32 @@
           .map(f => {
             return { text: f.label, value: f.key }
           })
-      }
+      },
+        ...mapState({
+            hide_form: state => state.hide_vehicle_form,
+            items: state => state.vehicles,
+            totalRows: state => state.vehiclesCount,
+            button_title: state => state.button_title_add_new_vehicle,
+        })
+    //   hide_form () {
+    //         return this.$store.state.hide_vehicle_form;
+    //     }
     },
     mounted() {
-      // Set the initial number of items
-      this.totalRows = this.items.length
+        // axios.get('/api/vehicles').then( response => {
+        //     this.items = response.data.vehicles;
+        //     this.totalRows = response.data.count;
+        // }).catch( error => error.response.data.errors);
+
+
+        store.dispatch('fetchVehicles');
+
+        // console.log(this.hide_form);
+
     },
     methods: {
       info(item, index, button) {
-        this.infoModal.title = `Row index: ${index}`
+        this.infoModal.title = `Vozilo: ${item.reg_broj}`
         this.infoModal.content = JSON.stringify(item, null, 2)
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
@@ -233,19 +251,29 @@
         this.infoModal.content = ''
       },
       onFiltered(filteredItems) {
-        // Trigger pagination to update the number of buttons/pages due to filtering
-        this.totalRows = filteredItems.length
+
+        store.commit('setVehiclesCount', filteredItems.length);
         this.currentPage = 1
+      },
+
+      saveVehicle()
+      {
+        let data = {
+          vozilo: this.vozilo,
+          reg_broj: this.reg_broj,
+          broj_motora: this.broj_motora
+        }
+
+        this.items.unshift(data);
       }
     }
   }
 </script>
 
 <style scoped>
-  .footer-color {
-    background-color:beige;
-    margin: 0px;
-    /* padding: 10px; */
-    margin-top: -14px;
-  }
+.text-white {
+    color: white;
+    font-weight: bolder;
+    font-size: 15px;
+}
 </style>
