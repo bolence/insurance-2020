@@ -24,7 +24,8 @@
             <label class="j-icon-right" for="first_name">
             <i class="icofont icofont-ui-user"></i>
             </label>
-            <input type="text" id="first_name" name="first_name" placeholder="First name">
+            <input type="text" placeholder="Vozilo" id="vozilo" name="vozilo" v-model="vozilo">
+            <span class="j-hint text-danger" v-if="errors.vozilo">{{ errors.vozilo[0] }}</span>
             </div>
         </div>
         <div class="j-span6 j-unit">
@@ -32,7 +33,8 @@
             <label class="j-icon-right" for="last_name">
             <i class="icofont icofont-ui-user"></i>
             </label>
-            <input type="text" id="last_name" name="last_name" placeholder="Last name">
+            <input type="text" placeholder="Registarski broj" id="reg_broj" name="reg_broj" v-model="reg_broj">
+            <span class="j-hint text-danger" v-if="errors.reg_broj">{{ errors.reg_broj[0] }}</span>
             </div>
         </div>
     </div>
@@ -45,7 +47,7 @@
 <label class="j-icon-right" for="email">
 <i class="icofont icofont-envelope"></i>
 </label>
-<input type="email" placeholder="Email" id="email" name="email">
+<input type="text" placeholder="Vozilo" id="vozilo" name="vozilo" v-model="vozilo">
 </div>
 </div>
 <div class="j-span6 j-unit">
@@ -53,7 +55,7 @@
 <label class="j-icon-right" for="phone">
 <i class="icofont icofont-phone"></i>
 </label>
-<input type="text" placeholder="Phone" id="phone" name="phone">
+<input type="text" placeholder="Registarski broj" id="reg_broj" name="reg_broj" v-model="reg_broj">
 <span class="j-tooltip j-tooltip-right-top">Your contact phone number</span>
 </div>
 </div>
@@ -208,6 +210,8 @@ export default {
             reg_broj: '',
             broj_motora: '',
 
+
+
         }
 
 
@@ -218,6 +222,7 @@ export default {
 
         ...mapState({
             hide_form: state => state.hide_vehicle_form,
+            errors: state => state.errors,
         }),
 
     },
@@ -226,13 +231,14 @@ export default {
 
         saveVehicle()
         {
+
             let data = {
                 vozilo: this.vozilo,
                 reg_broj: this.reg_broj,
                 broj_motora: this.broj_motora,
             };
 
-            store.dispatch('saveVehicle', data); // save vehicle in vuex state
+            store.dispatch('saveVehicle', data); // save vehicle vuex actions
         }
 
     }

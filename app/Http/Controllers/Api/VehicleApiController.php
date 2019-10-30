@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use Throwable;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
+use App\Http\Requests\VehiclePostRequest;
 
 class VehicleApiController extends Controller
 {
@@ -16,22 +18,14 @@ class VehicleApiController extends Controller
      */
     public function index()
     {
+
         $vehicles = Cache::remember('vehicles', 3600, function () {
             return Vehicle::with('insurance')->orderBy('id', 'desc')->get();
         });
-        $count = Vehicle::count();
-        return response()->json(['vehicles' => $vehicles, 'count' => $count], 200);
+
+        return response()->json(['vehicles' => $vehicles, 'count' => Vehicle::count()], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,9 +33,21 @@ class VehicleApiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VehiclePostRequest $request)
     {
-        //
+
+        try {
+
+            Vehicle::create( $request->all() );
+
+        } catch (\Throwable $th) {
+
+            Log::error('Update vehicle error: '  . $th->getMessage() );
+            return response()->json(['message' => 'Snimanje vozila nije uspešno'], 400);
+
+        }
+
+        return response()->json(['message' => 'Novo vozilo uspešno snimljeno', 'vehicles' => $this->return_vehicles_order_by(), 'count' => Vehicle::count() ], 200);
     }
 
     /**
@@ -52,19 +58,12 @@ class VehicleApiController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $vehicle = Vehicle::findOrFail($id);
+        return response()->json(['vehicle' => $vehicle], 200);
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -75,7 +74,22 @@ class VehicleApiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $vehicle = Vehicle::findOrFail($id);
+
+        try {
+
+            $vehicle->update( $request->all() );
+
+        } catch (Throwable $th) {
+
+            Log::error('Update vehicle error: '  . $th->getMessage() );
+            return response()->json(['message' => 'Izmena vozila nije uspešna'], 400);
+
+        }
+
+        return response()->json(['message' => 'Uspešno izmenjeno vozilo', 'vehicles' => $this->return_vehicles_order_by(), 'count' => Vehicle::count() ], 200);
+
     }
 
     /**
@@ -99,8 +113,17 @@ class VehicleApiController extends Controller
 
         }
 
-        $vehicles = Vehicle::orderBy('id', 'desc')->get();
+        return response()->json([ 'vehicles' => $this->return_vehicles_order_by() , 'count' => Vehicle::count() ], 200);
 
-        return response()->json([ 'vehicles' => $vehicles , 'count' => Vehicle::count() ], 200);
+    }
+
+    /**
+     * Helper function to return vehicles ordered by
+     *
+     * @return void
+     */
+    private function return_vehicles_order_by()
+    {
+        return Vehicle::orderBy('id', 'desc')->get();
     }
 }

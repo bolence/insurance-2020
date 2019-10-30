@@ -5,13 +5,38 @@ window.Vue = require('vue');
 import BootstrapVue from 'bootstrap-vue'
 import store from './store/store'
 import moment from 'moment'
+import VueAWN from "vue-awesome-notifications";
+import VueSweetAlert from 'vue-sweetalert';
+import VuejsDialog from "vuejs-dialog";
 
-Vue.use(BootstrapVue);
 
-
-import 'bootstrap/dist/css/bootstrap.css'
+// import css
+import "vue-awesome-notifications/dist/styles/style.css"; // vue notification css
+import "vuejs-dialog/dist/vuejs-dialog.min.css"; // vue confirmation css
+// import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+
+var options = {
+    position: 'top-right',
+    duration: 3000,
+    maxNotifications: 10,
+}
+
+
+Vue.use(VuejsDialog, {
+    html: false,
+    loader: true,
+    okText: 'Nastavi',
+    cancelText: 'Otkaži',
+    animation: 'bounce',
+});
+
+
+Vue.use(VueAWN, options); // toastr notifications
+Vue.use(VueSweetAlert); // sweet alert js
+Vue.use(VuejsDialog); // vue confirmation dialog
+Vue.use(BootstrapVue);
 
 Vue.component('vuetable-component', require('./components/VueTableComponent.vue').default);
 Vue.component('sidebar-menu-component', require('./components/SidebarMenuComponent.vue').default);
@@ -26,7 +51,7 @@ Vue.filter('formatDate', function(value) {
     }
 });
 
-Vue.config.productionTip = true
+Vue.config.productionTip = true;
 
 const app = new Vue({
     el: '#app',

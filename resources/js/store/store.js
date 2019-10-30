@@ -25,7 +25,7 @@ export default new Vuex.Store({
             state.vehiclesCount = count;
         },
 
-        setErrors( state, errors){
+        setErrors(state, errors){
             state.errors = errors;
         }
     },
@@ -53,9 +53,15 @@ export default new Vuex.Store({
         },
 
         saveVehicle({commit}, vehicle) {
-            state.vehicle.push(vehicle); // push to array and show immediatelly
-            // axions.post
             console.log(vehicle);
+            // state.vehicle.push(vehicle); // push to array and show immediatelly
+            axion.post('api/vehicles', vehicle).then( response => {
+                commit('setVehicles', response.data.vehicles);
+                commit('setVehiclesCount', response.data.count);
+            }).catch( error => {
+                commit('setErrors', error.response.data.errors);
+            })
+
         }
     },
 })
