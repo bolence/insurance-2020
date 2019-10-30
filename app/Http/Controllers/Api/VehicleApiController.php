@@ -17,7 +17,7 @@ class VehicleApiController extends Controller
     public function index()
     {
         $vehicles = Cache::remember('vehicles', 3600, function () {
-            return Vehicle::with('insurance')->get();
+            return Vehicle::with('insurance')->orderBy('id', 'desc')->get();
         });
         $count = Vehicle::count();
         return response()->json(['vehicles' => $vehicles, 'count' => $count], 200);
@@ -86,6 +86,21 @@ class VehicleApiController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $vehicle = Vehicle::findOrFail($id);
+
+        try {
+
+            $vehicle->delete();
+
+        } catch (\Throwable $th) {
+
+            return response()->json(['success' => false, 'errors' => $th->getMessage()], 400);
+
+        }
+
+        $vehicles = Vehicle::orderBy('id', 'desc')->get();
+
+        return response()->json([ 'vehicles' => $vehicles , 'count' => Vehicle::count() ], 200);
     }
 }

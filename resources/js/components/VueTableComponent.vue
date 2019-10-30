@@ -3,31 +3,31 @@
 
 <div>
 
-
- <button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('show_vehicle_form')"><i class="fa fa-car"></i> {{ button_title }}</button>
+<button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('show_vehicle_form')"><i class="fa fa-car"></i> {{ button_title }}</button>
 <AddNewVehicleForm></AddNewVehicleForm>
 
-  <b-container fluid>
-    <!-- User Interface controls -->
-<br>
+
+<div v-show="show_vehicle_table">
+<b-container fluid>
+<!-- <br> -->
 <b-row>
       <b-col sm="3" md="3" class="my-1" >
         <b-form-group
-          label="Po strani"
+          label="Limit"
           label-cols-sm="2"
           label-cols-md="2"
           label-align-sm="right"
           label-size="sm"
           align="left"
           label-for="perPageSelect"
-          class="mb-0"
-        >
+          class="mb-0">
+
         <b-form-select
             v-model="perPage"
             id="perPageSelect"
             size="md"
-            :options="pageOptions"
-          ></b-form-select>
+            :options="pageOptions">
+        </b-form-select>
         </b-form-group>
       </b-col>
 <b-col cols="5">
@@ -37,8 +37,7 @@
           label-align-sm="right"
           label-size="sm"
           label-for="sortBySelect"
-          class="mb-0"
-        >
+          class="mb-0">
           <b-input-group size="md">
             <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
               <template v-slot:first>
@@ -67,7 +66,7 @@
               type="search"
               id="filterInput"
               align="fill"
-              placeholder="Type to Search"
+              placeholder="Pretraga"
             ></b-form-input>
             <b-input-group-append>
               <b-button :disabled="!filter" @click="filter = ''">Izbriši</b-button>
@@ -96,29 +95,66 @@
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
       @filtered="onFiltered"
+
     >
       <template v-slot:cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
       </template>
 
       <template v-slot:cell(actions)="row">
-          <a class="edit">
-              <i class="material-icons" data-toggle="tooltip" >&#xE254;</i>
-          </a>
-        <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
+        <!-- <a href="" class="view" @click.prevent="info(row.item, row.index, $event.target)"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a> -->
+        <a href="" class="view" @click.prevent="row.toggleDetails"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a>
+        <a href="" class="edit" @click.prevent="editVehicle(row.item)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
+        <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
+        <!-- <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
           Info modal
-        </b-button>
-        <b-button size="sm" @click="row.toggleDetails">
+        </b-button> -->
+        <!-- <b-button size="sm" @click="row.toggleDetails">
           {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-        </b-button>
+        </b-button> -->
       </template>
 
-      <template v-slot:row-details="row" class="w-25">
-        <b-card>
-          <ul>
-            <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-          </ul>
+      <template v-slot:row-details="row">
+        <b-card-group deck>
+           <b-card
+            style="max-width: 30rem;"
+            border-variant="primary"
+            header="Tehničke karakteristike"
+            header-bg-variant="primary"
+            header-text-variant="white"
+            align="center" class="text-center mb-3">
+            <b-card-text>
+                <ul style="font-size: 15px;">
+                    <li>ID: {{ row.item.id }}</li>
+                    <li>Vozilo: {{ row.item.vozilo }}</li>
+                    <li>Regist.broj: {{ row.item.reg_broj }}</li>
+                    <li>Broj motora: {{ row.item.broj_motora }}</li>
+                    <li>Broj sasije: {{ row.item.broj_sasije }}</li>
+                    <li>Godina proizvodnje: {{ row.item.godina_proizvodnje }}</li>
+                    <li>KS: {{ row.item.ks }}</li>
+                    <li>Radna zapremina: {{ row.item.radna_zapremina }}</li>
+                    <li>Dozvoljena nosivost: {{ row.item.dozvoljena_nosivost }}</li>
+                    <li>Broj sedista: {{ row.item.broj_sedista }}</li>
+                    <!-- <li v-for="(value, key) in row.item"  :key="key">{{ key }}: {{ row.item.id }}</li> -->
+                </ul>
+            </b-card-text>
         </b-card>
+        <b-card
+            style="max-width: 30rem;"
+            border-variant="success"
+            header="Osiguranje"
+            header-bg-variant="success"
+            header-text-variant="white"
+            align="center" class="text-center mb-3">
+             <ul style="font-size: 15px;">
+                <li>OS drustvo: {{ row.item.insurance.os_drustvo }}</li>
+                <li>Broj polise: {{ row.item.insurance.broj_polise }}</li>
+                <li>Visina premije: {{ row.item.insurance.visina_premije }}</li>
+                <li>Datum isticanja osiguranja: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</li>
+            <!-- <li v-for="(value, key) in row.item"  :key="key">{{ key }}: {{ row.item.id }}</li> -->
+            </ul>
+        </b-card>
+        </b-card-group>
       </template>
     </b-table>
 
@@ -156,10 +192,30 @@
     </b-row>
 
     <!-- Info modal -->
-    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-      <pre>{{ infoModal.content }}</pre>
+    <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal" size="lg">
+        <table class="table-md table-bordered table-striped">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                   <td>{{ infoModal.vehicle.vozilo }}</td>
+                   <td></td>
+                   <td></td>
+                   <td></td>
+                </tr>
+            </tbody>
+        </table>
+      <!-- <pre>{{ infoModal.content }}</pre> -->
     </b-modal>
   </b-container>
+  </div>
   </div>
 </template>
 
@@ -168,6 +224,7 @@
 import store from '../store/store';
 import AddNewVehicleForm from '../components/forms/AddNewVehicle';
 import { mapState } from 'vuex'
+import moment from 'moment'
 
   export default {
     components: {
@@ -181,32 +238,35 @@ import { mapState } from 'vuex'
         fields: [
           { key: 'vozilo', label: 'Vehicle', sortable: true, sortDirection: 'desc' },
           { key: 'reg_broj', label: 'Reg.broj', sortable: true, class: 'text-center', status: 'awesome' },
+          { key: 'broj_motora', label: 'Broj motora', class: 'text-center'},
+          { key: 'inv_broj', label: 'Inv. broj', class: 'text-center'},
+          { key: 'broj_sasije', label: 'Broj šasije', class: 'text-center'},
+        //   { key: 'godina_proizvodnje', label: 'Godina proiz.', class: 'text-center'},
+          { key: 'insurance.os_drustvo', label: 'Os.društvo', class: 'text-center'},
           {
-            key: 'broj_motora',
-            label: 'Broj motora',
-            class: 'text-center',
-            // formatter: (value, key, item) => {
-            //   return value ? 'Yes' : 'No'
-            // },
-            sortable: true,
-            sortByFormatted: true,
-            filterByFormatted: true
-          },
-          { key: 'actions', label: 'Actions', class: 'text-right' }
+              key: 'insurance.datum_isticanja_osiguranja',
+              sortDirection: 'desc',
+              sortable: true,
+               formatter: value => {
+                return moment(String(value)).format('DD.MM.YYYY');
+                },
+              label: 'Datum osiguranja',
+              class: 'text-center'},
+          { key: 'actions', label: 'Actions', class: 'text-center' }
         ],
         // totalRows: 1,
         currentPage: 1,
         perPage: 25,
         pageOptions: [5, 10, 15, 25, 50, 100, 1000],
         sortBy: '',
-        sortDesc: false,
-        sortDirection: 'asc',
+        sortDesc: true,
+        sortDirection: 'desc',
         filter: null,
         filterOn: [],
         infoModal: {
           id: 'info-modal',
           title: '',
-          content: ''
+          vehicle: ''
         }
       }
     },
@@ -226,41 +286,36 @@ import { mapState } from 'vuex'
             items: state => state.vehicles,
             totalRows: state => state.vehiclesCount,
             button_title: state => state.button_title_add_new_vehicle,
+            show_vehicle_table: state => state.show_vehicle_table,
         })
-    //   hide_form () {
-    //         return this.$store.state.hide_vehicle_form;
-    //     }
+
     },
     mounted() {
-        // axios.get('/api/vehicles').then( response => {
-        //     this.items = response.data.vehicles;
-        //     this.totalRows = response.data.count;
-        // }).catch( error => error.response.data.errors);
-
-
         store.dispatch('fetchVehicles');
-
-        // console.log(this.hide_form);
-
     },
     methods: {
       info(item, index, button) {
         this.infoModal.title = `Vozilo: ${item.reg_broj}`
-        this.infoModal.content = JSON.stringify(item, null, 2)
+        this.infoModal.vehicle = item;
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
       resetInfoModal() {
         this.infoModal.title = ''
-        this.infoModal.content = ''
+        this.infoModal.vehicle = ''
       },
       onFiltered(filteredItems) {
-
         store.commit('setVehiclesCount', filteredItems.length);
         this.currentPage = 1
       },
 
+      deleteVehicle(vehicle, index){
+          this.items.splice(index, 1);
+          store.dispatch('deleteVehicle', vehicle.id);
+      },
+
       saveVehicle()
       {
+
         let data = {
           vozilo: this.vozilo,
           reg_broj: this.reg_broj,

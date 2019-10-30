@@ -4,6 +4,7 @@ window.Vue = require('vue');
 
 import BootstrapVue from 'bootstrap-vue'
 import store from './store/store'
+import moment from 'moment'
 
 Vue.use(BootstrapVue);
 
@@ -17,6 +18,13 @@ Vue.component('sidebar-menu-component', require('./components/SidebarMenuCompone
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('new-vehicle-form-component', require('./components/forms/AddNewVehicle.vue').default);
+
+
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(String(value)).format('DD.MM.YYYY');
+    }
+});
 
 Vue.config.productionTip = true
 
