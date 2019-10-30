@@ -79,19 +79,19 @@
                             </ul>
                         </div>
                     </li>
-                    {{-- <li class="header-notification">
+                     <!-- <li class="header-notification">
                         <div class="dropdown-primary dropdown">
                             <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
                                 <i class="feather icon-message-square"></i>
                                 <span class="badge bg-c-green">3</span>
                             </div>
                         </div>
-                    </li> --}}
+                    </li>  -->
                     <li class="user-profile header-notification">
                         <div class="dropdown-primary dropdown">
                             <div class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="`/assets/images/${user.username}.jpg`" class="img-radius" alt="User-Profile-Image">
-                                <span>John Doe</span>
+                                <img :src="`/assets/images/${user.avatar}`" class="img-radius" alt="User-Profile-Image">
+                                <span>{{ user.name }}</span>
                                 <i class="feather icon-chevron-down"></i>
                             </div>
                             <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -100,7 +100,7 @@
                                         <i class="feather icon-settings"></i> Settings
                                     </a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a href="user-profile.htm">
                                         <i class="feather icon-user"></i> Profile
                                     </a>
@@ -114,9 +114,9 @@
                                     <a href="auth-lock-screen.htm">
                                         <i class="feather icon-lock"></i> Lock Screen
                                     </a>
-                                </li>
+                                </li> -->
                                 <li>
-                                    <a href="auth-normal-sign-in.htm" @click.prevent="logout">
+                                    <a href="" @click.prevent="logout">
                                         <i class="feather icon-log-out"></i> Logout
                                     </a>
                                 </li>
@@ -155,17 +155,17 @@ export default {
     },
 
     mounted() {
-        this.user = localStorage.getItem('insurance.user');
+       this.user = JSON.parse( localStorage.getItem('insurance.user') );
     },
 
 
-    actions: {
+    methods: {
 
         logout() {
             axios.post('/logout').then( response => {
                 window.location.href = '/';
-                localStorage.deleteItem('insurance.user');
-                localStorage.deleteItem('insurance.jwt');
+                localStorage.removeItem('insurance.user');
+                localStorage.removeItem('insurance.jwt');
             });
         }
 

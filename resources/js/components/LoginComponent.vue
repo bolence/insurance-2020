@@ -105,12 +105,14 @@ PulseLoader
 
             axios.post('/login', data).then( response => {
 
-                let user = JSON.stringify(response.data.user)
-                let jwt = response.data.token
+                let user = JSON.stringify(response.data.user);
+                let jwt = response.data.token;
+
                 localStorage.setItem('insurance.user', user)
                 localStorage.setItem('insurance.jwt', jwt)
                 window.location.href = "/vehicles"
-                this.loading = false;
+                // this.loading = false;
+                // this.show_button_text = true;
 
             }).catch( error => {
                 this.loading = false;

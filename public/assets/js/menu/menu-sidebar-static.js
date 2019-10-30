@@ -310,4 +310,4 @@ function handlemenutype(get_value) {
     $('.pcoded').attr('nav-type', get_value);
 };
 
-handlemenutype("st2");
+handlemenutype("st5");

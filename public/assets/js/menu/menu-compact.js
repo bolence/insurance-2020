@@ -309,6 +309,7 @@
 });
 function handlemenutype(get_value) {
     $('.pcoded').attr('nav-type', get_value);
+    console.log(get_value);
 };
 
 handlemenutype("st2");
