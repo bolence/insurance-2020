@@ -109,7 +109,7 @@ PulseLoader
                 let jwt = response.data.token
                 localStorage.setItem('insurance.user', user)
                 localStorage.setItem('insurance.jwt', jwt)
-                window.location.href = "/home"
+                window.location.href = "/vehicles"
                 this.loading = false;
 
             }).catch( error => {

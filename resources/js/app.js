@@ -15,11 +15,18 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.component('vuetable-component', require('./components/VueTableComponent.vue').default);
 Vue.component('sidebar-menu-component', require('./components/SidebarMenuComponent.vue').default);
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
+Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('new-vehicle-form-component', require('./components/forms/AddNewVehicle.vue').default);
 
 Vue.config.productionTip = true
 
 const app = new Vue({
     el: '#app',
+    store,
+});
+
+
+const app1 = new Vue({
+    el: '#app1',
     store,
 });
