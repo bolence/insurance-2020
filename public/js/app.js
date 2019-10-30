@@ -3541,6 +3541,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -36668,7 +36671,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\n", ""]);
+exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\n    color: #E34724;\n}\n.material-icons[data-v-90a2b2cc] {\nfont-size: 18px;\n}\n", ""]);
 
 // exports
 
@@ -71990,6 +71993,17 @@ var render = function() {
                 key: "cell(actions)",
                 fn: function(row) {
                   return [
+                    _c("a", { staticClass: "edit" }, [
+                      _c(
+                        "i",
+                        {
+                          staticClass: "material-icons",
+                          attrs: { "data-toggle": "tooltip" }
+                        },
+                        [_vm._v("")]
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "b-button",
                       {
@@ -86233,8 +86247,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/boskoboskovic/Desktop/sites/insurance-2020/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/boskoboskovic/Desktop/sites/insurance-2020/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

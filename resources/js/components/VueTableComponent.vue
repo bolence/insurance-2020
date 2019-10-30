@@ -102,6 +102,9 @@
       </template>
 
       <template v-slot:cell(actions)="row">
+          <a class="edit">
+              <i class="material-icons" data-toggle="tooltip" >&#xE254;</i>
+          </a>
         <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
           Info modal
         </b-button>
@@ -275,5 +278,25 @@ import { mapState } from 'vuex'
     color: white;
     font-weight: bolder;
     font-size: 15px;
+}
+
+table.table tr th, table.table tr td {
+    border-color: #e9e9e9;
+}
+
+
+a.view {
+    color: #03A9F4;
+}
+a.edit {
+    color: #FFC107;
+}
+a.delete {
+    color: #E34724;
+
+}
+
+.material-icons {
+font-size: 18px;
 }
 </style>
