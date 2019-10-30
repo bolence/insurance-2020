@@ -1940,7 +1940,7 @@ __webpack_require__.r(__webpack_exports__);
         var jwt = response.data.token;
         localStorage.setItem('insurance.user', user);
         localStorage.setItem('insurance.jwt', jwt);
-        window.location.href = "/home";
+        window.location.href = "/vehicles";
         _this.loading = false;
       })["catch"](function (error) {
         _this.loading = false;
@@ -36671,7 +36671,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\n    color: #E34724;\n}\n.material-icons[data-v-90a2b2cc] {\nfont-size: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\r\n    color: white;\r\n    font-weight: bolder;\r\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\r\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\r\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\r\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\r\n    color: #E34724;\n}\n.material-icons[data-v-90a2b2cc] {\r\nfont-size: 18px;\n}\r\n", ""]);
 
 // exports
 
@@ -71980,11 +71980,11 @@ var render = function() {
                 fn: function(row) {
                   return [
                     _vm._v(
-                      "\n        " +
+                      "\r\n        " +
                         _vm._s(row.value.first) +
                         " " +
                         _vm._s(row.value.last) +
-                        "\n      "
+                        "\r\n      "
                     )
                   ]
                 }
@@ -72015,7 +72015,7 @@ var render = function() {
                           }
                         }
                       },
-                      [_vm._v("\n          Info modal\n        ")]
+                      [_vm._v("\r\n          Info modal\r\n        ")]
                     ),
                     _vm._v(" "),
                     _c(
@@ -72026,9 +72026,9 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n          " +
+                          "\r\n          " +
                             _vm._s(row.detailsShowing ? "Hide" : "Show") +
-                            " Details\n        "
+                            " Details\r\n        "
                         )
                       ]
                     )
@@ -86247,8 +86247,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/boskoboskovic/Desktop/sites/insurance-2020/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/boskoboskovic/Desktop/sites/insurance-2020/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\insurance-2020\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\insurance-2020\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
