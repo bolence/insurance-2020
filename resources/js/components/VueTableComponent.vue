@@ -85,7 +85,6 @@
       show-empty
       small
       head-variant="light"
-      stacked="md"
       :items="items"
       :fields="fields"
       :current-page="currentPage"
@@ -96,7 +95,6 @@
       :sort-desc.sync="sortDesc"
       :sort-direction="sortDirection"
       @filtered="onFiltered"
-
     >
       <template v-slot:cell(name)="row">
         {{ row.value.first }} {{ row.value.last }}
@@ -242,17 +240,17 @@ import moment from 'moment'
           { key: 'broj_motora', label: 'Broj motora', class: 'text-center'},
           { key: 'inv_broj', label: 'Inv. broj', class: 'text-center'},
           { key: 'broj_sasije', label: 'Broj šasije', class: 'text-center'},
-        //   { key: 'godina_proizvodnje', label: 'Godina proiz.', class: 'text-center'},
           { key: 'insurance.os_drustvo', label: 'Os.društvo', class: 'text-center'},
           {
-              key: 'insurance.datum_isticanja_osiguranja',
-              sortDirection: 'desc',
-              sortable: true,
-               formatter: value => {
-                return moment(String(value)).format('DD.MM.YYYY');
-                },
-              label: 'Datum osiguranja',
-              class: 'text-center'},
+            key: 'insurance.datum_isticanja_osiguranja',
+            sortDirection: 'desc',
+            sortable: true,
+            formatter: value => {
+            return moment(String(value)).format('DD.MM.YYYY');
+            },
+            label: 'Datum osiguranja',
+            class: 'text-center'
+            },
           { key: 'actions', label: 'Actions', class: 'text-center' }
         ],
         // totalRows: 1,
