@@ -12,7 +12,8 @@ export default new Vuex.Store({
         errors: {},
     },
     mutations: {
-        show_vehicle_form(state) {
+
+        showVehicleForm(state) {
             state.hide_vehicle_form = !state.hide_vehicle_form;
             state.button_title_add_new_vehicle = state.hide_vehicle_form ? 'Sakrij formu' : 'Dodaj novo vozilo';
             state.show_vehicle_table = state.hide_vehicle_form ? false : true;
@@ -27,7 +28,7 @@ export default new Vuex.Store({
 
         setErrors(state, errors){
             state.errors = errors;
-        }
+        },
     },
 
     actions: {
@@ -52,15 +53,16 @@ export default new Vuex.Store({
 
         },
 
-        saveVehicle({commit}, vehicle) {
+        saveVehicle({commit, state}, vehicle) {
             console.log(vehicle);
-            // state.vehicle.push(vehicle); // push to array and show immediatelly
-            axion.post('api/vehicles', vehicle).then( response => {
+            state.vehicles.push(vehicle); // push to array and show immediately
+            axios.post('api/vehicles', vehicle).then( response => {
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
+                commit('showVehicleForm');
             }).catch( error => {
                 commit('setErrors', error.response.data.errors);
-            })
+            });
 
         }
     },
