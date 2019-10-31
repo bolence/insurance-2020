@@ -81,6 +81,7 @@
     <b-table
       striped
       bordered
+      responsive
       show-empty
       small
       head-variant="light"
