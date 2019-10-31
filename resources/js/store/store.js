@@ -6,10 +6,12 @@ export default new Vuex.Store({
     state: {
         hide_vehicle_form: false,
         vehicles: [],
+        vehicle: {},
         vehiclesCount: 0,
         button_title_add_new_vehicle: 'Dodaj novo vozilo',
         show_vehicle_table: true,
         errors: {},
+        show_edit_vehicle_form: false,
     },
     mutations: {
 
@@ -17,6 +19,7 @@ export default new Vuex.Store({
             state.hide_vehicle_form = !state.hide_vehicle_form;
             state.button_title_add_new_vehicle = state.hide_vehicle_form ? 'Sakrij formu' : 'Dodaj novo vozilo';
             state.show_vehicle_table = state.hide_vehicle_form ? false : true;
+            state.show_edit_vehicle_form = false;
         },
 
         setVehicles(state, vehicles) {
@@ -29,6 +32,11 @@ export default new Vuex.Store({
         setErrors(state, errors){
             state.errors = errors;
         },
+
+        showEditForm(state){
+            state.show_edit_vehicle_form = !state.show_edit_vehicle_form;
+            state.show_vehicle_table = !state.show_vehicle_table;
+        }
     },
 
     actions: {
@@ -41,7 +49,7 @@ export default new Vuex.Store({
                 });
         },
 
-        deleteVehicle({commit}, index){
+        deleteVehicle({ commit }, index){
             return axios.delete('api/vehicles/' + index)
                         .then( response => {
                             commit('setVehicles', response.data.vehicles);
@@ -49,9 +57,25 @@ export default new Vuex.Store({
                         }).catch( error => {
                             commit('setErrors', error.response.data.errors);
                         });
+        },
 
+        showEditVehicleForm({commit, state},vehicle) {
+            commit('showEditForm');
+            state.vehicle = vehicle;
+        },
+
+        updateVehicle({commit, state}, vehicle){
+
+            axios.put('api/vehicles/' + vehicle.id, vehicle).then( response => {
+                commit('setVehicles', response.data.vehicles);
+                commit('setVehiclesCount', response.data.count);
+                commit('showEditForm');
+            }).catch( error => {
+                state.errors = error.response.data.errors;
+            });
 
         },
+
 
         saveVehicle({commit, state}, vehicle) {
             console.log(vehicle);

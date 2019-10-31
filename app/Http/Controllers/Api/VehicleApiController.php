@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Throwable;
 use App\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\VehiclePostRequest;
@@ -72,7 +73,7 @@ class VehicleApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VehiclePostRequest $request, $id)
     {
 
         $vehicle = Vehicle::findOrFail($id);

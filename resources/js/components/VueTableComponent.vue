@@ -5,6 +5,7 @@
 
 <button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('showVehicleForm')"><i class="fa fa-car"></i> {{ button_title }}</button>
 <AddNewVehicleForm></AddNewVehicleForm>
+<EditVehicleForm></EditVehicleForm>
 
 
 <div v-show="show_vehicle_table">
@@ -106,7 +107,7 @@
       <template v-slot:cell(actions)="row">
         <!-- <a href="" class="view" @click.prevent="info(row.item, row.index, $event.target)"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a> -->
         <a href="" class="view" @click.prevent="row.toggleDetails"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a>
-        <a href="" class="edit" @click.prevent="editVehicle(row.item)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
+        <a href="" class="edit" @click.prevent="editVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
         <!-- <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
           Info modal
@@ -213,12 +214,14 @@
 
 import store from '../store/store';
 import AddNewVehicleForm from '../components/forms/AddNewVehicle';
-import { mapState } from 'vuex'
-import moment from 'moment'
+import EditVehicleForm from '../components/forms/EditVehicleForm';
+import { mapState } from 'vuex';
+import moment from 'moment';
 
   export default {
     components: {
         AddNewVehicleForm,
+        EditVehicleForm,
     },
     data() {
       return {
@@ -277,6 +280,8 @@ import moment from 'moment'
             totalRows: state => state.vehiclesCount,
             button_title: state => state.button_title_add_new_vehicle,
             show_vehicle_table: state => state.show_vehicle_table,
+            hide_form: state => state.show_edit_vehicle_form,
+            vehicle: state => state.vehicle,
         })
 
     },
@@ -297,6 +302,10 @@ import moment from 'moment'
       onFiltered(filteredItems) {
         store.commit('setVehiclesCount', filteredItems.length);
         this.currentPage = 1
+      },
+
+      editVehicle(vehicle) {
+          store.dispatch('showEditVehicleForm', vehicle);
       },
 
       deleteVehicle(vehicle, index){

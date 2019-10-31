@@ -2232,9 +2232,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store/store */ "./resources/js/store/store.js");
 /* harmony import */ var _components_forms_AddNewVehicle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/forms/AddNewVehicle */ "./resources/js/components/forms/AddNewVehicle.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_forms_EditVehicleForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/forms/EditVehicleForm */ "./resources/js/components/forms/EditVehicleForm.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+var _mapState;
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2452,13 +2455,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    AddNewVehicleForm: _components_forms_AddNewVehicle__WEBPACK_IMPORTED_MODULE_1__["default"]
+    AddNewVehicleForm: _components_forms_AddNewVehicle__WEBPACK_IMPORTED_MODULE_1__["default"],
+    EditVehicleForm: _components_forms_EditVehicleForm__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2498,7 +2504,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortDirection: 'desc',
         sortable: true,
         formatter: function formatter(value) {
-          return moment__WEBPACK_IMPORTED_MODULE_3___default()(String(value)).format('DD.MM.YYYY');
+          return moment__WEBPACK_IMPORTED_MODULE_4___default()(String(value)).format('DD.MM.YYYY');
         },
         label: 'Datum osiguranja',
         "class": 'text-center'
@@ -2535,7 +2541,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         };
       });
     }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])({
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])((_mapState = {
     hide_form: function hide_form(state) {
       return state.showVehicleForm;
     },
@@ -2551,7 +2557,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     show_vehicle_table: function show_vehicle_table(state) {
       return state.show_vehicle_table;
     }
-  })),
+  }, _defineProperty(_mapState, "hide_form", function hide_form(state) {
+    return state.show_edit_vehicle_form;
+  }), _defineProperty(_mapState, "vehicle", function vehicle(state) {
+    return state.vehicle;
+  }), _mapState))),
   mounted: function mounted() {
     _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('fetchVehicles');
   },
@@ -2568,6 +2578,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onFiltered: function onFiltered(filteredItems) {
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].commit('setVehiclesCount', filteredItems.length);
       this.currentPage = 1;
+    },
+    editVehicle: function editVehicle(vehicle) {
+      _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('showEditVehicleForm', vehicle);
     },
     deleteVehicle: function deleteVehicle(vehicle, index) {
       this.items.splice(index, 1);
@@ -2885,6 +2898,290 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.datum_isticanja_osiguranja = '';
       this.visina_premije = '';
       this.broj_polise = '';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/EditVehicleForm.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/forms/EditVehicleForm.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../store/store */ "./resources/js/store/store.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuejs-datepicker */ "./node_modules/vuejs-datepicker/dist/vuejs-datepicker.esm.js");
+/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuejs-datepicker/dist/locale */ "./node_modules/vuejs-datepicker/dist/locale/index.js");
+/* harmony import */ var vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Datepicker: vuejs_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      sr: vuejs_datepicker_dist_locale__WEBPACK_IMPORTED_MODULE_3__["sr"]
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    hide_form: function hide_form(state) {
+      return state.show_edit_vehicle_form;
+    },
+    vehicle: function vehicle(state) {
+      return state.vehicle;
+    },
+    errors: function errors(state) {
+      return state.errors;
+    }
+  })),
+  mounted: function mounted() {},
+  methods: {
+    updateVehicle: function updateVehicle(vehicle) {
+      var data = {
+        id: vehicle.id,
+        vozilo: vehicle.vozilo,
+        reg_broj: vehicle.reg_broj,
+        broj_motora: vehicle.broj_motora,
+        dozvoljena_nosivost: vehicle.dozvoljena_nosivost,
+        broj_sasije: vehicle.broj_sasije,
+        godina_proizvodnje: vehicle.godina_proizvodnje,
+        ks: vehicle.ks,
+        radna_zapremina: vehicle.radna_zapremina,
+        broj_sedista: vehicle.broj_sedista,
+        inv_broj: vehicle.inv_broj,
+        os_drustvo: vehicle.os_drustvo,
+        datum_isticanja_osiguranja: vehicle.datum_isticanja_osiguranja,
+        visina_premije: vehicle.visina_premije,
+        registracija: vehicle.registracija,
+        broj_polise: vehicle.broj_polise
+      };
+      _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('updateVehicle', data);
     }
   }
 });
@@ -86320,6 +86617,8 @@ var render = function() {
       _vm._v(" "),
       _c("AddNewVehicleForm"),
       _vm._v(" "),
+      _c("EditVehicleForm"),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -86532,7 +86831,7 @@ var render = function() {
                             on: {
                               click: function($event) {
                                 $event.preventDefault()
-                                return _vm.editVehicle(row.item)
+                                return _vm.editVehicle(row.item, row.index)
                               }
                             }
                           },
@@ -87497,6 +87796,893 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/EditVehicleForm.vue?vue&type=template&id=96dd312a&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/forms/EditVehicleForm.vue?vue&type=template&id=96dd312a& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.hide_form,
+          expression: "hide_form"
+        }
+      ]
+    },
+    [
+      _c(
+        "b-card",
+        { attrs: { "no-body": "" } },
+        [
+          _c(
+            "b-tabs",
+            { attrs: { card: "" } },
+            [
+              _c(
+                "b-tab",
+                { attrs: { title: "Vozilo", active: "" } },
+                [
+                  _c("b-card-text", [
+                    _c(
+                      "form",
+                      { staticClass: "j-pro", attrs: { id: "j-pro" } },
+                      [
+                        _c("div", { staticClass: "j-content" }, [
+                          _c("div", { staticClass: "j-row" }, [
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Vozilo")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "vozilo" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.vozilo,
+                                      expression: "vehicle.vozilo"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Vozilo",
+                                    id: "vozilo",
+                                    name: "vozilo"
+                                  },
+                                  domProps: { value: _vm.vehicle.vozilo },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "vozilo",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.vozilo
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(_vm._s(_vm.errors.vozilo[0]))
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span2 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Reg.broj")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "reg_broj" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.reg_broj,
+                                      expression: "vehicle.reg_broj"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Registarski broj",
+                                    id: "reg_broj",
+                                    name: "reg_broj"
+                                  },
+                                  domProps: { value: _vm.vehicle.reg_broj },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "reg_broj",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.reg_broj
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(_vm._s(_vm.errors.reg_broj[0]))
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Inv.broj")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "reg_broj" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.inv_broj,
+                                      expression: "vehicle.inv_broj"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Inv. broj",
+                                    id: "inv_broj",
+                                    name: "inv_broj"
+                                  },
+                                  domProps: { value: _vm.vehicle.inv_broj },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "inv_broj",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.inv_broj
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(_vm._s(_vm.errors.inv_broj[0]))
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span2 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Godina proizvodnje")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "godina_proizvodnje" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.godina_proizvodnje,
+                                      expression: "vehicle.godina_proizvodnje"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Godina proizvodnje",
+                                    id: "godina_proizvodnje",
+                                    name: "godina_proizvodnje"
+                                  },
+                                  domProps: {
+                                    value: _vm.vehicle.godina_proizvodnje
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "godina_proizvodnje",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.godina_proizvodnje
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(
+                                        _vm._s(_vm.errors.godina_proizvodnje[0])
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span2 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Radna zapremina")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "radna_zapremina" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.radna_zapremina,
+                                      expression: "vehicle.radna_zapremina"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Radna zapremina",
+                                    id: "radna_zapremina",
+                                    name: "radna_zapremina"
+                                  },
+                                  domProps: {
+                                    value: _vm.vehicle.radna_zapremina
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "radna_zapremina",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Broj motora")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "broj_motora" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.broj_motora,
+                                      expression: "vehicle.broj_motora"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Broj motora",
+                                    id: "broj_motora",
+                                    name: "broj_motora"
+                                  },
+                                  domProps: { value: _vm.vehicle.broj_motora },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "broj_motora",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Godina proizvodnje")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "broj_sasije" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.broj_sasije,
+                                      expression: "vehicle.broj_sasije"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Broj šasije",
+                                    id: "broj_sasije",
+                                    name: "broj_sasije"
+                                  },
+                                  domProps: { value: _vm.vehicle.broj_sasije },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "broj_sasije",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span2 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Dozvoljena nosivost")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "dozvoljena_nosivost" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.dozvoljena_nosivost,
+                                      expression: "vehicle.dozvoljena_nosivost"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Dozvoljena nosivost",
+                                    id: "dozvoljena_nosivost",
+                                    name: "dozvoljena_nosivost"
+                                  },
+                                  domProps: {
+                                    value: _vm.vehicle.dozvoljena_nosivost
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "dozvoljena_nosivost",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span2 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("KS")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "ks" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.ks,
+                                      expression: "vehicle.ks"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "KS",
+                                    id: "ks",
+                                    name: "ks"
+                                  },
+                                  domProps: { value: _vm.vehicle.ks },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "ks",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("hr", { staticClass: "fancy" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "j-row" }, [
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Os.društvo")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "label",
+                                {
+                                  staticClass: "j-input j-select",
+                                  attrs: { for: "os_drustvo" }
+                                },
+                                [
+                                  _c(
+                                    "select",
+                                    {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.vehicle.os_drustvo,
+                                          expression: "vehicle.os_drustvo"
+                                        }
+                                      ],
+                                      attrs: { name: "os_drustvo" },
+                                      on: {
+                                        change: function($event) {
+                                          var $$selectedVal = Array.prototype.filter
+                                            .call(
+                                              $event.target.options,
+                                              function(o) {
+                                                return o.selected
+                                              }
+                                            )
+                                            .map(function(o) {
+                                              var val =
+                                                "_value" in o
+                                                  ? o._value
+                                                  : o.value
+                                              return val
+                                            })
+                                          _vm.$set(
+                                            _vm.vehicle,
+                                            "os_drustvo",
+                                            $event.target.multiple
+                                              ? $$selectedVal
+                                              : $$selectedVal[0]
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "", selected: "" } },
+                                        [_vm._v("Izaberi osiguranje")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "DUNAV" } },
+                                        [_vm._v("DUNAV")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "TRIGLAV" } },
+                                        [_vm._v("TRIGLAV")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "option",
+                                        { attrs: { value: "GENERALI" } },
+                                        [_vm._v("GENERALI")]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("i")
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.errors.os_drustvo
+                                ? _c("span", { staticClass: "text-danger" }, [
+                                    _vm._v(_vm._s(_vm.errors.os_drustvo[0]))
+                                  ])
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Broj polise")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "broj_polise" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.broj_polise,
+                                      expression: "vehicle.broj_polise"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Broj polise",
+                                    id: "broj_polise",
+                                    name: "broj_polise"
+                                  },
+                                  domProps: { value: _vm.vehicle.broj_polise },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "broj_polise",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.broj_polise
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(_vm._s(_vm.errors.broj_polise[0]))
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Visina premije")
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "j-input" }, [
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "j-icon-right",
+                                    attrs: { for: "visina_premije" }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icofont icofont-car-alt-1"
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.vehicle.visina_premije,
+                                      expression: "vehicle.visina_premije"
+                                    }
+                                  ],
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Visina premije",
+                                    id: "visina_premije",
+                                    name: "visina_premije"
+                                  },
+                                  domProps: {
+                                    value: _vm.vehicle.visina_premije
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.vehicle,
+                                        "visina_premije",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _vm.errors.visina_premije
+                                  ? _c("span", { staticClass: "text-danger" }, [
+                                      _vm._v(
+                                        _vm._s(_vm.errors.visina_premije[0])
+                                      )
+                                    ])
+                                  : _vm._e()
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "j-span3 j-unit" }, [
+                              _c("label", { staticClass: "j-label" }, [
+                                _vm._v("Datum isticanja osiguranja")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "j-input" },
+                                [
+                                  _c(
+                                    "label",
+                                    {
+                                      staticClass: "j-icon-right",
+                                      attrs: {
+                                        for: "datum_isticanja_osiguranja"
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass:
+                                          "icofont icofont-ui-calendar"
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("datepicker", {
+                                    attrs: {
+                                      name: "datum_isticanja_osiguranja",
+                                      format: "dd MMM yyyy",
+                                      language: _vm.sr,
+                                      "input-class": "form-control",
+                                      "calendar-button-icon": "fa fa-calendar"
+                                    },
+                                    model: {
+                                      value:
+                                        _vm.vehicle.datum_isticanja_osiguranja,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.vehicle,
+                                          "datum_isticanja_osiguranja",
+                                          $$v
+                                        )
+                                      },
+                                      expression:
+                                        "vehicle.datum_isticanja_osiguranja"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _vm.errors.datum_isticanja_osiguranja
+                                    ? _c(
+                                        "span",
+                                        { staticClass: "text-danger" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              _vm.errors
+                                                .datum_isticanja_osiguranja[0]
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ],
+                                1
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm.errors.message
+                            ? _c("div", { staticClass: "j-response" }, [
+                                _vm._v(_vm._s(_vm.errors.message))
+                              ])
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "j-footer" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-primary",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.updateVehicle(_vm.vehicle)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "icofont icofont-car-alt-1"
+                              }),
+                              _vm._v(" Izmeni vozilo")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-default m-r-20",
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.$store.commit("showEditForm")
+                                }
+                              }
+                            },
+                            [_vm._v("Zatvori")]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-tab",
+                { attrs: { title: "Tab 2" } },
+                [_c("b-card-text", [_vm._v("Tab Contents 2")])],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -103341,6 +104527,7 @@ Vue.component('sidebar-menu-component', __webpack_require__(/*! ./components/Sid
 Vue.component('login-component', __webpack_require__(/*! ./components/LoginComponent.vue */ "./resources/js/components/LoginComponent.vue")["default"]);
 Vue.component('header-component', __webpack_require__(/*! ./components/HeaderComponent.vue */ "./resources/js/components/HeaderComponent.vue")["default"]);
 Vue.component('new-vehicle-form-component', __webpack_require__(/*! ./components/forms/AddNewVehicle.vue */ "./resources/js/components/forms/AddNewVehicle.vue")["default"]);
+Vue.component('edit-vehicle-form-component', __webpack_require__(/*! ./components/forms/EditVehicleForm.vue */ "./resources/js/components/forms/EditVehicleForm.vue")["default"]);
 Vue.filter('formatDate', function (value) {
   if (value) {
     return moment__WEBPACK_IMPORTED_MODULE_2___default()(String(value)).format('DD.MM.YYYY');
@@ -103784,6 +104971,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/forms/EditVehicleForm.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/forms/EditVehicleForm.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditVehicleForm_vue_vue_type_template_id_96dd312a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditVehicleForm.vue?vue&type=template&id=96dd312a& */ "./resources/js/components/forms/EditVehicleForm.vue?vue&type=template&id=96dd312a&");
+/* harmony import */ var _EditVehicleForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditVehicleForm.vue?vue&type=script&lang=js& */ "./resources/js/components/forms/EditVehicleForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditVehicleForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditVehicleForm_vue_vue_type_template_id_96dd312a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditVehicleForm_vue_vue_type_template_id_96dd312a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/forms/EditVehicleForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/forms/EditVehicleForm.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/forms/EditVehicleForm.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditVehicleForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditVehicleForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/EditVehicleForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditVehicleForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/forms/EditVehicleForm.vue?vue&type=template&id=96dd312a&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/forms/EditVehicleForm.vue?vue&type=template&id=96dd312a& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditVehicleForm_vue_vue_type_template_id_96dd312a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditVehicleForm.vue?vue&type=template&id=96dd312a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/forms/EditVehicleForm.vue?vue&type=template&id=96dd312a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditVehicleForm_vue_vue_type_template_id_96dd312a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditVehicleForm_vue_vue_type_template_id_96dd312a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/store/store.js":
 /*!*************************************!*\
   !*** ./resources/js/store/store.js ***!
@@ -103803,16 +105059,19 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   state: {
     hide_vehicle_form: false,
     vehicles: [],
+    vehicle: {},
     vehiclesCount: 0,
     button_title_add_new_vehicle: 'Dodaj novo vozilo',
     show_vehicle_table: true,
-    errors: {}
+    errors: {},
+    show_edit_vehicle_form: false
   },
   mutations: {
     showVehicleForm: function showVehicleForm(state) {
       state.hide_vehicle_form = !state.hide_vehicle_form;
       state.button_title_add_new_vehicle = state.hide_vehicle_form ? 'Sakrij formu' : 'Dodaj novo vozilo';
       state.show_vehicle_table = state.hide_vehicle_form ? false : true;
+      state.show_edit_vehicle_form = false;
     },
     setVehicles: function setVehicles(state, vehicles) {
       state.vehicles = vehicles;
@@ -103822,6 +105081,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     },
     setErrors: function setErrors(state, errors) {
       state.errors = errors;
+    },
+    showEditForm: function showEditForm(state) {
+      state.show_edit_vehicle_form = !state.show_edit_vehicle_form;
+      state.show_vehicle_table = !state.show_vehicle_table;
     }
   },
   actions: {
@@ -103841,9 +105104,26 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         commit('setErrors', error.response.data.errors);
       });
     },
-    saveVehicle: function saveVehicle(_ref3, vehicle) {
+    showEditVehicleForm: function showEditVehicleForm(_ref3, vehicle) {
       var commit = _ref3.commit,
           state = _ref3.state;
+      commit('showEditForm');
+      state.vehicle = vehicle;
+    },
+    updateVehicle: function updateVehicle(_ref4, vehicle) {
+      var commit = _ref4.commit,
+          state = _ref4.state;
+      axios.put('api/vehicles/' + vehicle.id, vehicle).then(function (response) {
+        commit('setVehicles', response.data.vehicles);
+        commit('setVehiclesCount', response.data.count);
+        commit('showEditForm');
+      })["catch"](function (error) {
+        state.errors = error.response.data.errors;
+      });
+    },
+    saveVehicle: function saveVehicle(_ref5, vehicle) {
+      var commit = _ref5.commit,
+          state = _ref5.state;
       console.log(vehicle);
       state.vehicles.push(vehicle); // push to array and show immediately
 
