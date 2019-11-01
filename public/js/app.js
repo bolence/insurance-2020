@@ -35946,7 +35946,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\r\n    color: white;\r\n    font-weight: bolder;\r\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\r\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\r\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\r\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\r\n    color: #E34724;\n}\n.material-icons[data-v-90a2b2cc] {\r\nfont-size: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\n    color: #E34724;\n}\n.material-icons[data-v-90a2b2cc] {\nfont-size: 18px;\n}\n", ""]);
 
 // exports
 
@@ -86784,11 +86784,11 @@ var render = function() {
                     fn: function(row) {
                       return [
                         _vm._v(
-                          "\r\n        " +
+                          "\n        " +
                             _vm._s(row.value.first) +
                             " " +
                             _vm._s(row.value.last) +
-                            "\r\n      "
+                            "\n      "
                         )
                       ]
                     }
@@ -87026,7 +87026,9 @@ var render = function() {
                         "Strana: " +
                           _vm._s(_vm.currentPage) +
                           " | Ukupno redova: " +
-                          _vm._s(_vm.totalRows)
+                          _vm._s(_vm.totalRows) +
+                          " | Po strani: " +
+                          _vm._s(_vm.perPage)
                       )
                     ])
                   ]),

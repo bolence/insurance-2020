@@ -151,7 +151,7 @@
     <b-row>
 
     <b-col md="4" class="my-2">
-      <span class="label label-success">Strana: {{ currentPage }} | Ukupno redova: {{ totalRows }}</span>
+      <span class="label label-success">Strana: {{ currentPage }} | Ukupno redova: {{ totalRows }} | Po strani: {{ perPage }}</span>
         <!-- <b-form-group
           label="Filter On"
           label-cols-sm="3"
