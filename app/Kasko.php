@@ -2,18 +2,17 @@
 
 namespace App;
 
-use App\Vehicle;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Insurance extends Model
+class Kasko extends Model
 {
 
     use SoftDeletes;
 
-    protected $guarded = ['id'];
-
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
+    protected $guarded = ['id'];
 
     /**
      * Undocumented function
@@ -24,7 +23,6 @@ class Insurance extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
-
 
 
 }
