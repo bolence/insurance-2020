@@ -65,7 +65,11 @@ class VehicleService {
         $this->logger->log('Novo vozilo u bazi ' . $vehicle);
         // $this->logger->log_to_db('insert', $vehicle);
 
-        return response()->json(['message' => 'Novo vozilo uspešno snimljeno', 'vehicles' => $this->return_vehicles_order_by(), 'count' => Vehicle::count() ], 200);
+        return response()->json([
+            'message' => 'Novo vozilo uspešno snimljeno',
+            'vehicles' => $this->return_vehicles_order_by(),
+            'count' => Vehicle::count()
+            ], 200);
 
     }
 
@@ -173,7 +177,10 @@ class VehicleService {
 
         $this->logger->log('Uspešno obrisano vozilo ' . $vehicle );
 
-        return response()->json([ 'vehicles' => $this->return_vehicles_order_by() , 'count' => Vehicle::count() ], 200);
+        return response()->json([
+            'vehicles' => $this->return_vehicles_order_by(),
+            'count' => Vehicle::count()
+        ], 200);
 
     }
 
