@@ -3,37 +3,40 @@
 
 <div>
 
-<button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('show_vehicle_form')"><i class="fa fa-car"></i> {{ button_title }}</button>
+<button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('showVehicleForm')"><i class="fa fa-car"></i> {{ button_title }}</button>
 <AddNewVehicleForm></AddNewVehicleForm>
+<EditVehicleForm></EditVehicleForm>
 
 
 <div v-show="show_vehicle_table">
 <b-container fluid>
 <!-- <br> -->
 <b-row>
-      <b-col sm="3" md="3" class="my-1" >
+      <b-col lg="6" class="my-10" >
         <b-form-group
           label="Limit"
-          label-cols-sm="2"
-          label-cols-md="2"
-          label-align-sm="right"
+          label-cols-sm="1"
+          label-cols-md="1"
+          label-align-sm="left"
           label-size="sm"
           align="left"
           label-for="perPageSelect"
-          class="mb-0">
+          class="mt-0">
 
         <b-form-select
             v-model="perPage"
             id="perPageSelect"
-            size="md"
-            :options="pageOptions">
+            size="lg"
+            class="w-25 float-left"
+            :options="pageOptions"
+        >
         </b-form-select>
         </b-form-group>
       </b-col>
-<b-col cols="5">
+<!-- <b-col sm="6" md="6">
         <b-form-group
           label="Sortiraj"
-          label-cols-sm="3"
+          label-cols-sm="4"
           label-align-sm="right"
           label-size="sm"
           label-for="sortBySelect"
@@ -50,8 +53,8 @@
             </b-form-select>
           </b-input-group>
         </b-form-group>
-</b-col>
-<b-col sm="12" md="4" class="my-0">
+</b-col> -->
+<b-col lg="6" class="my-0">
         <b-form-group
           label="Filter"
           label-cols-sm="3"
@@ -60,12 +63,12 @@
           label-for="filterInput"
           class="mb-0"
         >
-          <b-input-group size="md">
+          <b-input-group>
             <b-form-input
               v-model="filter"
               type="search"
               id="filterInput"
-              align="fill"
+              class="w-25"
               placeholder="Pretraga"
             ></b-form-input>
             <b-input-group-append>
@@ -103,7 +106,7 @@
       <template v-slot:cell(actions)="row">
         <!-- <a href="" class="view" @click.prevent="info(row.item, row.index, $event.target)"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a> -->
         <a href="" class="view" @click.prevent="row.toggleDetails"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a>
-        <a href="" class="edit" @click.prevent="editVehicle(row.item)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
+        <a href="" class="edit" @click.prevent="editVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
         <!-- <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
           Info modal
@@ -115,43 +118,31 @@
 
       <template v-slot:row-details="row">
         <b-card-group deck>
-           <b-card
-            style="max-width: 30rem;"
-            border-variant="primary"
-            header="Tehničke karakteristike"
-            header-bg-variant="primary"
-            header-text-variant="white"
-            align="center" class="text-center mb-3">
-            <b-card-text>
-                <ul style="font-size: 15px;">
-                    <li>ID: {{ row.item.id }}</li>
-                    <li>Vozilo: {{ row.item.vozilo }}</li>
-                    <li>Regist.broj: {{ row.item.reg_broj }}</li>
-                    <li>Broj motora: {{ row.item.broj_motora }}</li>
-                    <li>Broj sasije: {{ row.item.broj_sasije }}</li>
-                    <li>Godina proizvodnje: {{ row.item.godina_proizvodnje }}</li>
-                    <li>KS: {{ row.item.ks }}</li>
-                    <li>Radna zapremina: {{ row.item.radna_zapremina }}</li>
-                    <li>Dozvoljena nosivost: {{ row.item.dozvoljena_nosivost }}</li>
-                    <li>Broj sedista: {{ row.item.broj_sedista }}</li>
-                    <!-- <li v-for="(value, key) in row.item"  :key="key">{{ key }}: {{ row.item.id }}</li> -->
-                </ul>
-            </b-card-text>
+           <b-card align="center" class="text-center mb-3">
+
+            <b-list-group>
+                    <b-list-group-item>ID: {{ row.item.id }}</b-list-group-item>
+                    <b-list-group-item>Vozilo: {{ row.item.vozilo }}</b-list-group-item>
+                    <b-list-group-item>Regist.broj: {{ row.item.reg_broj }}</b-list-group-item>
+                    <b-list-group-item>Broj motora: {{ row.item.broj_motora }}</b-list-group-item>
+                    <b-list-group-item>Broj sasije: {{ row.item.broj_sasije }}</b-list-group-item>
+                    <b-list-group-item>Godina proizvodnje: {{ row.item.godina_proizvodnje }}</b-list-group-item>
+                    <b-list-group-item>KS: {{ row.item.ks }}</b-list-group-item>
+                    <b-list-group-item>Radna zapremina: {{ row.item.radna_zapremina }}</b-list-group-item>
+                    <b-list-group-item>Dozvoljena nosivost: {{ row.item.dozvoljena_nosivost }}</b-list-group-item>
+                    <b-list-group-item>Broj sedista: {{ row.item.broj_sedista }}</b-list-group-item>
+
+            </b-list-group>
+
         </b-card>
-        <b-card
-            style="max-width: 30rem;"
-            border-variant="success"
-            header="Osiguranje"
-            header-bg-variant="success"
-            header-text-variant="white"
-            align="center" class="text-center mb-3">
-             <ul style="font-size: 15px;">
-                <li>OS drustvo: {{ row.item.insurance.os_drustvo }}</li>
-                <li>Broj polise: {{ row.item.insurance.broj_polise }}</li>
-                <li>Visina premije: {{ row.item.insurance.visina_premije }}</li>
-                <li>Datum isticanja osiguranja: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</li>
+        <b-card align="center" class="text-center mb-3">
+            <b-list-group>
+                <b-list-group-item>OS drustvo: {{ row.item.insurance.os_drustvo }}</b-list-group-item>
+                <b-list-group-item>Broj polise: {{ row.item.insurance.broj_polise }}</b-list-group-item>
+                <b-list-group-item>Visina premije: {{ row.item.insurance.visina_premije }}</b-list-group-item>
+                <b-list-group-item>Datum isticanja osiguranja: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</b-list-group-item>
+            </b-list-group>
             <!-- <li v-for="(value, key) in row.item"  :key="key">{{ key }}: {{ row.item.id }}</li> -->
-            </ul>
         </b-card>
         </b-card-group>
       </template>
@@ -222,12 +213,14 @@
 
 import store from '../store/store';
 import AddNewVehicleForm from '../components/forms/AddNewVehicle';
-import { mapState } from 'vuex'
-import moment from 'moment'
+import EditVehicleForm from '../components/forms/EditVehicleForm';
+import { mapState } from 'vuex';
+import moment from 'moment';
 
   export default {
     components: {
         AddNewVehicleForm,
+        EditVehicleForm,
     },
     data() {
       return {
@@ -281,17 +274,20 @@ import moment from 'moment'
           })
       },
         ...mapState({
-            hide_form: state => state.hide_vehicle_form,
+            hide_form: state => state.showVehicleForm,
             items: state => state.vehicles,
             totalRows: state => state.vehiclesCount,
             button_title: state => state.button_title_add_new_vehicle,
             show_vehicle_table: state => state.show_vehicle_table,
+            hide_form: state => state.show_edit_vehicle_form,
+            vehicle: state => state.vehicle,
         })
 
     },
     mounted() {
         store.dispatch('fetchVehicles');
     },
+
     methods: {
       info(item, index, button) {
         this.infoModal.title = `Vozilo: ${item.reg_broj}`
@@ -307,22 +303,26 @@ import moment from 'moment'
         this.currentPage = 1
       },
 
+      editVehicle(vehicle) {
+          store.dispatch('showEditVehicleForm', vehicle);
+      },
+
       deleteVehicle(vehicle, index){
           this.items.splice(index, 1);
           store.dispatch('deleteVehicle', vehicle.id);
       },
 
-      saveVehicle()
-      {
+    //   saveVehicle()
+    //   {
 
-        let data = {
-          vozilo: this.vozilo,
-          reg_broj: this.reg_broj,
-          broj_motora: this.broj_motora
-        }
+    //     let data = {
+    //       vozilo: this.vozilo,
+    //       reg_broj: this.reg_broj,
+    //       broj_motora: this.broj_motora
+    //     }
 
-        this.items.unshift(data);
-      }
+    //     this.items.unshift(data);
+    //   }
     }
   }
 </script>

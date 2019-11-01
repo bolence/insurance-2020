@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
-use Throwable;
-use App\Vehicle;
-use Illuminate\Http\Request;
+use App\Service\VehicleService;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\VehiclePostRequest;
 
 class VehicleApiController extends Controller
 {
+
+    protected $vehicle;
+
+    public function __construct(VehicleService $vehicle)
+    {
+        $this->vehicle = $vehicle;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,12 +22,7 @@ class VehicleApiController extends Controller
      */
     public function index()
     {
-
-        $vehicles = Cache::remember('vehicles', 3600, function () {
-            return Vehicle::with('insurance')->orderBy('id', 'desc')->get();
-        });
-
-        return response()->json(['vehicles' => $vehicles, 'count' => Vehicle::count()], 200);
+        return $this->vehicle->get();
     }
 
 
@@ -35,19 +34,7 @@ class VehicleApiController extends Controller
      */
     public function store(VehiclePostRequest $request)
     {
-
-        try {
-
-            Vehicle::create( $request->all() );
-
-        } catch (\Throwable $th) {
-
-            Log::error('Update vehicle error: '  . $th->getMessage() );
-            return response()->json(['message' => 'Snimanje vozila nije uspešno'], 400);
-
-        }
-
-        return response()->json(['message' => 'Novo vozilo uspešno snimljeno', 'vehicles' => $this->return_vehicles_order_by(), 'count' => Vehicle::count() ], 200);
+        return $this->vehicle->save( $request->all() );
     }
 
     /**
@@ -58,10 +45,7 @@ class VehicleApiController extends Controller
      */
     public function show($id)
     {
-
-        $vehicle = Vehicle::findOrFail($id);
-        return response()->json(['vehicle' => $vehicle], 200);
-
+        return $this->vehicle->show($id);
     }
 
 
@@ -72,24 +56,9 @@ class VehicleApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(VehiclePostRequest $request, $id)
     {
-
-        $vehicle = Vehicle::findOrFail($id);
-
-        try {
-
-            $vehicle->update( $request->all() );
-
-        } catch (Throwable $th) {
-
-            Log::error('Update vehicle error: '  . $th->getMessage() );
-            return response()->json(['message' => 'Izmena vozila nije uspešna'], 400);
-
-        }
-
-        return response()->json(['message' => 'Uspešno izmenjeno vozilo', 'vehicles' => $this->return_vehicles_order_by(), 'count' => Vehicle::count() ], 200);
-
+       return $this->vehicle->update($request, $id);
     }
 
     /**
@@ -100,30 +69,8 @@ class VehicleApiController extends Controller
      */
     public function destroy($id)
     {
-
-        $vehicle = Vehicle::findOrFail($id);
-
-        try {
-
-            $vehicle->delete();
-
-        } catch (\Throwable $th) {
-
-            return response()->json(['success' => false, 'errors' => $th->getMessage()], 400);
-
-        }
-
-        return response()->json([ 'vehicles' => $this->return_vehicles_order_by() , 'count' => Vehicle::count() ], 200);
-
+        return $this->vehicle->delete($id);
     }
 
-    /**
-     * Helper function to return vehicles ordered by
-     *
-     * @return void
-     */
-    private function return_vehicles_order_by()
-    {
-        return Vehicle::orderBy('id', 'desc')->get();
-    }
+
 }

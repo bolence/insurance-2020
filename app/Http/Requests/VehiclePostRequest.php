@@ -14,7 +14,7 @@ class VehiclePostRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
     /**
@@ -27,10 +27,14 @@ class VehiclePostRequest extends FormRequest
 
         return [
 
-            'vozilo'             => 'required',
-            'reg_broj'           => 'required',
-            'inv_broj'           => 'required',
-            'godina_proizvodnje' => 'required'
+            'vozilo'                     => 'required',
+            'reg_broj'                   => 'required',
+            'inv_broj'                   => 'required',
+            'godina_proizvodnje'         => 'required',
+            'os_drustvo'                 => 'required',
+            'visina_premije'             => 'required',
+            'datum_isticanja_osiguranja' => 'required',
+            'broj_polise'                => 'required',
 
         ];
 
@@ -42,10 +46,14 @@ class VehiclePostRequest extends FormRequest
 
         return [
 
-            'vozilo.required'             => 'Vozilo je obavezno polje',
-            'reg_broj.required'           => 'Registarski broj je obavezno polje',
-            'inv_broj.required'           => 'Inventarni broj je obavezno polje',
-            'godina_proizvodnje.required' => 'Godina je obavezno polje'
+            'vozilo.required'                       => 'Vozilo je obavezno polje',
+            'reg_broj.required'                     => 'Reg. broj je obavezno polje',
+            'inv_broj.required'                     => 'Inventarni broj je obavezno polje',
+            'godina_proizvodnje.required'           => 'Godina je obavezno polje',
+            'os_drustvo.required'                   => 'Os.društvo je obavezno polje',
+            'visina_premije.required'               => 'Visina premije je obavezno polje',
+            'datum_isticanja_osiguranja.required'   => 'Datum je obavezno polje',
+            'broj_polise.required'                  => 'Broj polise je obavezno polje',
 
         ];
     }

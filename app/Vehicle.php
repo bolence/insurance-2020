@@ -16,11 +16,26 @@ class Vehicle extends Model
 
     protected $guarded = ['id'];
 
-
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function insurance()
     {
         return $this->hasOne(Insurance::class);
     }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function kasko()
+    {
+        return $this->hasOne(Kasko::class);
+    }
+
 
 
     public static function boot()
