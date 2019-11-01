@@ -25,7 +25,6 @@ class VehicleApiController extends Controller
         return $this->vehicle->get();
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -47,7 +46,6 @@ class VehicleApiController extends Controller
     {
         return $this->vehicle->show($id);
     }
-
 
     /**
      * Update the specified resource in storage.
