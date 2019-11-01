@@ -10,9 +10,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-
-
-Route::group(['prefix' => 'vehicles'], function() {
+Route::group(['prefix' => 'vehicles', 'middleware' => 'auth'], function() {
 
     Route::get('/', 'VehicleController@index')->name('vehicles.list');
 
