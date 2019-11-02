@@ -2465,6 +2465,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     AddNewVehicleForm: _components_forms_AddNewVehicle__WEBPACK_IMPORTED_MODULE_1__["default"],
     EditVehicleForm: _components_forms_EditVehicleForm__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
+  props: ['columns'],
   data: function data() {
     return {
       vozilo: '',
@@ -35965,7 +35966,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\r\n    border: 0;\r\n    border-bottom: 1px dashed #ccc;\r\n    background: rgb(216, 16, 16);\r\n    margin-bottom: 30px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\n    border: 0;\n    border-bottom: 1px dashed #ccc;\n    background: rgb(216, 16, 16);\n    margin-bottom: 30px;\n}\n\n", ""]);
 
 // exports
 
@@ -105197,8 +105198,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\insurance-2020\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\insurance-2020\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

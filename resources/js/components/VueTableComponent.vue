@@ -222,6 +222,7 @@ import moment from 'moment';
         AddNewVehicleForm,
         EditVehicleForm,
     },
+    props: ['columns'],
     data() {
       return {
         vozilo: '',

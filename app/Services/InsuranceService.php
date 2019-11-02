@@ -11,27 +11,32 @@ use App\Service\LoggerService;
 
 class InsuranceService {
 
+    protected $logger;
+
+    public function __construct(LoggerService $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * Undocumented function
      *
      * @param [type] $limit
      * @return void
      */
-    public function get_insurances( $limit = null )
+    public function get()
     {
 
-        $columns = ['Vozilo', 'Reg.broj','Os.društvo', 'Broj polise', 'Premija', 'Datum polise'];
+        $insurance = Cache::remember('insurance', 3600, function () {
+            return Insurance::with('vehicle.kasko')->orderBy('id', 'desc')->get();
+        });
 
-        return response()->json([
-            'title' => 'Osiguranje - 10 poslednjih unetih osiguranja',
-            'data' => $this->cacheable($limit),
-            'columns' => $columns
-             ]);
+        return response()->json(['insurance' => $insurance], 200);
 
     }
 
 
-    public function save_insurance( $request )
+    public function save( $request )
     {
 
         try
@@ -40,13 +45,11 @@ class InsuranceService {
         }
         catch( Exception $e )
         {
-            LoggerService::log( $e->getMessage() . ' on line ' . $e->getLine() . ' in file ' . $e->getFile() );
+            $this->logger->log( $e->getMessage() . ' on line ' . $e->getLine() . ' in file ' . $e->getFile() );
             return response()->json(['success' => false, 'message' => $e->getMessage() ], 400 );
         }
 
-        LoggerService::log( 'Novo osiguranje u bazi ' . $new_insurance );
-
-        $vehicles = $this->delete_and_return_cache();
+        $this->logger->log( 'Novo osiguranje u bazi ' . $new_insurance );
 
         return response()->json(['success' => true, 'message' => 'Uspešno dodato novo osiguranje', 'data' => $vehicles], 200);
 
@@ -61,24 +64,5 @@ class InsuranceService {
         });
 
     }
-
-    /**
-     * Delete and return cache
-     *
-     * @return Cache
-     */
-    private function delete_and_return_cache($cache_time = 1800)
-    {
-        Cache::forget('vehicles');
-
-        $vehicles = Vehicle::with('insurance', 'damages', 'register_changes', 'archive', 'files')
-        ->orderBy('id', 'desc')
-        ->get();
-
-        Cache::put('vehicles', $vehicles, $cache_time);
-
-        return Cache::get('vehicles');
-    }
-
 
 }
