@@ -6,7 +6,6 @@
       <b-tab title="Vozilo" active>
         <b-card-text>
 
-
 <form class="j-pro" id="j-pro">
 <!-- end /.header-->
 <div class="j-content">
@@ -201,8 +200,27 @@
 
         </b-card-text>
       </b-tab>
-      <b-tab title="Tab 2">
+      <b-tab title="Osiguranje">
         <b-card-text>Tab Contents 2</b-card-text>
+      </b-tab>
+
+       <b-tab title="Fajlovi">
+        <b-card-text>
+              <ul>
+                    <li v-for="(file, index) in vehicle.files" :key="index">
+                        <i class="fa fa-file-pdf-o"></i>
+                        <a :href="`uploads/${file.vehicle_id}/${file.filename}`"> {{ file.filename }}</a>
+                        <a href="" @click.prevent="removeFile(file.id, index)" title="Izbriši fajl"> <i class="fa fa-trash" style="color:red;"></i> </a>
+                    </li>
+                    </ul>
+              <vue-dropzone
+                ref="myVueDropzone"
+                id="dropzone"
+                :options="dropzoneOptions"
+                v-on:vdropzone-sending="sendingEvent"
+                v-on:vdropzone-success="afterSuccessUpload"
+                ></vue-dropzone>
+        </b-card-text>
       </b-tab>
     </b-tabs>
   </b-card>
@@ -218,17 +236,27 @@ import {mapState} from 'vuex';
 
 import Datepicker from 'vuejs-datepicker';
 import {sr} from 'vuejs-datepicker/dist/locale';
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
 
     components: {
         Datepicker,
+        vueDropzone: vue2Dropzone,
     },
 
     data() {
         return {
             sr: sr,
+            dropzoneOptions: {
+            url: '/api/files',
+            thumbnailWidth: 50,
+            maxFilesize: 10,
+            addRemoveLinks: true,
+            dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>UPLOAD ME",
         }
+    }
     },
 
     computed: {
@@ -266,6 +294,24 @@ export default {
 
             };
             store.dispatch('updateVehicle', data);
+            this.$awn.success('Uspešno izmenjeno vozilo');
+        },
+
+
+        removeFile( vehicle_id, index ){
+            this.vehicle.files.splice(index, 1);
+            store.dispatch('removeFile', vehicle_id);
+            this.$awn.success('Uspešno izbrisan fajl');
+        },
+
+        afterSuccessUpload(file, response ){
+            // console.log(response.data);
+            store.dispatch('uploadFiles', response.data);
+            this.$awn.success(response.data.message);
+        },
+
+        sendingEvent (file, xhr, formData) {
+            formData.append('vehicle_id', this.vehicle.id);
         },
 
     },

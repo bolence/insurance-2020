@@ -27,7 +27,7 @@ class VehicleService {
     {
 
         $vehicles = Cache::remember('vehicles', 3600, function () {
-            return Vehicle::with('insurance', 'kasko')->orderBy('id', 'desc')->get();
+            return Vehicle::with('insurance', 'kasko', 'files')->orderBy('id', 'desc')->get();
         });
 
         return response()->json(['vehicles' => $vehicles, 'count' => Vehicle::count()], 200);
@@ -245,7 +245,7 @@ class VehicleService {
 
         $vehicles = Cache::remember('vehicles', 3600, function() {
 
-            return Vehicle::with('insurance','kasko')->orderBy('id', 'desc')->get();
+            return Vehicle::with('insurance','kasko', 'files')->orderBy('id', 'desc')->get();
 
         });
 

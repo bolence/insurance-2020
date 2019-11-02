@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+
     state: {
         hide_vehicle_form: false,
         vehicles: [],
@@ -29,11 +31,15 @@ export default new Vuex.Store({
             state.vehiclesCount = count;
         },
 
-        setErrors(state, errors){
+        setVehicle(state, vehicle) {
+            state.vehicle = vehicle;
+        },
+
+        setErrors(state, errors) {
             state.errors = errors;
         },
 
-        showEditForm(state){
+        showEditForm(state) {
             state.show_edit_vehicle_form = !state.show_edit_vehicle_form;
             state.show_vehicle_table = !state.show_vehicle_table;
         }
@@ -49,44 +55,60 @@ export default new Vuex.Store({
                 });
         },
 
-        deleteVehicle({ commit }, index){
+        deleteVehicle({ commit }, index) {
             return axios.delete('api/vehicles/' + index)
-                        .then( response => {
-                            commit('setVehicles', response.data.vehicles);
-                            commit('setVehiclesCount', response.data.count);
-                        }).catch( error => {
-                            commit('setErrors', error.response.data.errors);
-                        });
+                .then(response => {
+                    commit('setVehicles', response.data.vehicles);
+                    commit('setVehiclesCount', response.data.count);
+                }).catch(error => {
+                    commit('setErrors', error.response.data.errors);
+                });
         },
 
-        showEditVehicleForm({commit, state},vehicle) {
+        showEditVehicleForm({ commit, state }, vehicle) {
             commit('showEditForm');
             state.vehicle = vehicle;
             // console.log(state.vehicle);
         },
 
-        updateVehicle({commit, state}, vehicle){
+        updateVehicle({ commit, state }, vehicle) {
 
             state.vehicles.push(vehicle); // push to array and show immediately
-            axios.put('api/vehicles/' + vehicle.id, vehicle).then( response => {
+            axios.put('api/vehicles/' + vehicle.id, vehicle).then(response => {
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
                 commit('showEditForm');
-            }).catch( error => {
+
+            }).catch(error => {
                 state.errors = error.response.data.errors;
             });
 
         },
 
 
-        saveVehicle({commit, state}, vehicle) {
-            console.log(vehicle);
+        uploadFiles({ commit }, vehicle) {
+            // state.vehicle.push(vehicle);
+            commit('setVehicle', vehicle);
+        },
+
+
+        removeFile({ commit, state }, vehicle_id) {
+            axios.delete('api/files/' + vehicle_id).then(response => {
+                commit('setVehicle', response.data.data);
+            }).catch(error => {
+                commit('setErrors', error.response.data.errors);
+            });
+        },
+
+
+        saveVehicle({ commit, state }, vehicle) {
+            // console.log(vehicle);
             state.vehicles.push(vehicle); // push to array and show immediately
-            axios.post('api/vehicles', vehicle).then( response => {
+            axios.post('api/vehicles', vehicle).then(response => {
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
                 commit('showVehicleForm');
-            }).catch( error => {
+            }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             });
 
