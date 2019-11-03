@@ -6,7 +6,7 @@
 <!-- <button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', null)" v-show="not_all_vehicle"><i class="fa fa-car"></i> Sva vozila</button>
 <button class="btn hor-grd btn-grd-success mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'kasko')"><i class="fa fa-anchor"></i> Vozila sa kasko osiguranjem </button>
 <button class="btn hor-grd btn-grd-danger mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'damage')"><i class="fa fa-ambulance"></i> Vozila sa štetama</button> -->
-<!-- <AddNewVehicleForm></AddNewVehicleForm> -->
+<AddNewDamageForm></AddNewDamageForm>
 <!-- <EditVehicleForm></EditVehicleForm> -->
 
 
@@ -147,17 +147,17 @@
 <script>
 
 import store from '../store/store';
-// import AddNewVehicleForm from '../components/forms/AddNewVehicle';
+import AddNewDamageForm from '../components/forms/AddNewDamage';
 // import EditVehicleForm from '../components/forms/EditVehicleForm';
 import { mapState } from 'vuex';
 import moment from 'moment';
 import numeral from 'numeral';
 
   export default {
-    // components: {
-    //     AddNewVehicleForm,
-    //     EditVehicleForm,
-    // },
+    components: {
+        AddNewDamageForm,
+        // EditVehicleForm,
+    },
     data() {
       return {
         fields: [

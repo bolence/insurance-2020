@@ -46,6 +46,7 @@ Vue.component('login-component', require('./components/LoginComponent.vue').defa
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
 Vue.component('new-vehicle-form-component', require('./components/forms/AddNewVehicle.vue').default);
 Vue.component('edit-vehicle-form-component', require('./components/forms/EditVehicleForm.vue').default);
+// Vue.component('add-new-damage-form-component', require('./components/forms/AddNewDamage.vue').default);
 
 
 Vue.filter('formatDate', function(value) {
