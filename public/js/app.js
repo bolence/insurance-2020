@@ -88550,7 +88550,7 @@ var render = function() {
                             }
                           },
                           [
-                            row.item.damage
+                            row.item.damage.length > 0
                               ? _c(
                                   "i",
                                   {

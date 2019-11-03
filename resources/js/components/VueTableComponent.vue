@@ -112,7 +112,7 @@
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
         <a href="" class="kasko"><i class="fa fa-anchor" v-if="row.item.kasko" title="Vozilo ima kasko"></i></a>
         <a href="" class="damage" @click.prevent="info(row.item, row.index, $event.target)">
-        <i class="material-icons" v-if="row.item.damage" title="Vozilo ima štetu" data-toggle="tooltip">&#xE003;</i>
+        <i class="material-icons" v-if="row.item.damage.length > 0" title="Vozilo ima štetu" data-toggle="tooltip">&#xE003;</i>
         <span v-if="type == 'damage'" title="Broj šteta">({{ row.item.damage.length }})</span>
         </a>
 
