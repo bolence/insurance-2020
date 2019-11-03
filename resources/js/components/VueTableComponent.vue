@@ -157,10 +157,10 @@
         <b-card align="center" class="text-center mb-2" v-if="row.item.kasko">
             <b-text><h4>Kasko</h4></b-text>
             <b-list-group>
-                <b-list-group-item><span classs="font-bold">OS društvo kasko</span>: {{ row.item.kasko.os_drustvo_kasko }}</b-list-group-item>
-                <b-list-group-item><span classs="font-bold">Broj polise kasko</span>: {{ row.item.kasko.broj_polise_kasko }}</b-list-group-item>
-                <b-list-group-item><span classs="font-bold">Visina premije kasko</span>: {{ row.item.kasko.visina_premije_kasko }}</b-list-group-item>
-                <b-list-group-item><span classs="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko | formatDate }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">OS društvo kasko</span>: {{ row.item.kasko.os_drustvo_kasko }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Broj polise kasko</span>: {{ row.item.kasko.broj_polise_kasko }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Visina premije kasko</span>: {{ row.item.kasko.visina_premije_kasko }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko | formatDate }}</b-list-group-item>
             </b-list-group>
         </b-card>
         </b-card-group>

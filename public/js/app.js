@@ -88767,7 +88767,7 @@ var render = function() {
                                         _c("b-list-group-item", [
                                           _c(
                                             "span",
-                                            { attrs: { classs: "font-bold" } },
+                                            { staticClass: "font-bold" },
                                             [_vm._v("OS društvo kasko")]
                                           ),
                                           _vm._v(
@@ -88781,7 +88781,7 @@ var render = function() {
                                         _c("b-list-group-item", [
                                           _c(
                                             "span",
-                                            { attrs: { classs: "font-bold" } },
+                                            { staticClass: "font-bold" },
                                             [_vm._v("Broj polise kasko")]
                                           ),
                                           _vm._v(
@@ -88795,7 +88795,7 @@ var render = function() {
                                         _c("b-list-group-item", [
                                           _c(
                                             "span",
-                                            { attrs: { classs: "font-bold" } },
+                                            { staticClass: "font-bold" },
                                             [_vm._v("Visina premije kasko")]
                                           ),
                                           _vm._v(
@@ -88810,7 +88810,7 @@ var render = function() {
                                         _c("b-list-group-item", [
                                           _c(
                                             "span",
-                                            { attrs: { classs: "font-bold" } },
+                                            { staticClass: "font-bold" },
                                             [_vm._v("Datum isticanja kasko")]
                                           ),
                                           _vm._v(
