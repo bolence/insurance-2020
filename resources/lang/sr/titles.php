@@ -11,7 +11,7 @@ return [
     'checkbox_remember' => 'Zapamti me',
     'forgot_pass'       => 'Zaboravljena šifra',
     'sign_in'           => 'Uloguj se',
-    'main_page_name'    => 'Toneri'
+    'main_page_name'    => 'Osiguranje'
 
 
 

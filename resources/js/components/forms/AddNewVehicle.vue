@@ -117,6 +117,16 @@
             </div>
         </div>
 
+        <!-- Broj sedista -->
+        <div class="j-span2 j-unit">
+            <div class="j-input">
+            <label class="j-icon-right" for="broj_sedista">
+            <i class="icofont icofont-car-alt-1"></i>
+            </label>
+            <input type="text" placeholder="Broj sedišta" id="broj_sedista" name="broj_sedista" v-model="broj_sedista">
+            </div>
+        </div>
+
 
 
 
@@ -172,7 +182,7 @@
             <i class="icofont icofont-ui-calendar"></i>
             </label>
 
-            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM YYYY" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
             <span class="text-danger" v-if="errors.datum_isticanja_osiguranja">{{ errors.datum_isticanja_osiguranja[0] }}</span>
             </div>
         </div>
@@ -257,7 +267,7 @@ export default {
             let data = {
                 vozilo: this.vozilo,
                 reg_broj: this.reg_broj,
-                broj_motora: this.vobroj_motorazilo,
+                broj_motora: this.broj_motora,
                 dozvoljena_nosivost: this.dozvoljena_nosivost,
                 broj_sasije: this.broj_sasije,
                 godina_proizvodnje: this.godina_proizvodnje,
@@ -272,6 +282,7 @@ export default {
             };
 
             store.dispatch('saveVehicle', data); // save vehicle vuex actions
+            this.$awn.success('Uspešno snimljeno vozilo ' + this.reg_broj);
         },
 
         resetForm()

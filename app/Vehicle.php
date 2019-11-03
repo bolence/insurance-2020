@@ -7,6 +7,8 @@ use App\File;
 use App\Kasko;
 use App\Damage;
 use App\Insurance;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,8 +35,14 @@ class Vehicle extends Model
             Cache::forget('vehicles');
         });
 
-        static::updating( function() {
-            Cache::forget('vehicles');
+        static::updating( function($model) {
+            $old_reg = $model->getOriginal('reg_broj');
+            $new_reg = request()->reg_broj;
+            if( $new_reg !== $old_reg ){
+            Log::info("{$old_reg} promenjena na {$new_reg}"); // log changes for registration
+            DB::insert('INSERT INTO registration_changes (stara_registracija, nova_registracija, vehicle_id, created_at) VALUES (?, ?, ?, ?)', [ $old_reg, $new_reg, $model->id, NOW() ]); // insert into table
+            Cache::has('vehicles') ? Cache::forget('vehicles') : null;
+            }
         });
     }
 

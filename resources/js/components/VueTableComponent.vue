@@ -115,13 +115,7 @@
         <i class="material-icons" v-if="row.item.damage.length > 0" title="Vozilo ima štetu" data-toggle="tooltip">&#xE003;</i>
         <span v-if="type == 'damage'" title="Broj šteta">({{ row.item.damage.length }})</span>
         </a>
-
-        <!-- <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
-          Info modal
-        </b-button> -->
-        <!-- <b-button size="sm" @click="row.toggleDetails">
-          {{ row.detailsShowing ? 'Hide' : 'Show' }} Details
-        </b-button> -->
+        <a href="" v-if="row.item.register_changes[0]" title="Istorija vozila" @click.prevent="viewVehicleHistory(row.item.id)"><i class="fa fa-history"></i></a>
       </template>
 
       <template v-slot:row-details="row">

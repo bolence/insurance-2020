@@ -163,7 +163,6 @@ export default new Vuex.Store({
 
 
         saveVehicle({ commit, state }, vehicle) {
-            // console.log(vehicle);
             state.vehicles.push(vehicle); // push to array and show immediately
             axios.post('api/vehicles', vehicle).then(response => {
                 commit('setVehicles', response.data.vehicles);

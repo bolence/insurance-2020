@@ -2487,12 +2487,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3187,6 +3181,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3228,7 +3232,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var data = {
         vozilo: this.vozilo,
         reg_broj: this.reg_broj,
-        broj_motora: this.vobroj_motorazilo,
+        broj_motora: this.broj_motora,
         dozvoljena_nosivost: this.dozvoljena_nosivost,
         broj_sasije: this.broj_sasije,
         godina_proizvodnje: this.godina_proizvodnje,
@@ -3242,6 +3246,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         broj_polise: this.broj_polise
       };
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('saveVehicle', data); // save vehicle vuex actions
+
+      this.$awn.success('Uspešno snimljeno vozilo ' + this.reg_broj);
     },
     resetForm: function resetForm() {
       this.vozilo = '';
@@ -3666,11 +3672,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         datum_isticanja_osiguranja: vehicle.insurance.datum_isticanja_osiguranja,
         visina_premije: vehicle.insurance.visina_premije,
         registracija: vehicle.insurance.registracija,
-        broj_polise: vehicle.insurance.broj_polise,
-        os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
-        visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
-        datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
-        broj_polise_kasko: vehicle.kasko.broj_polise_kasko
+        broj_polise: vehicle.insurance.broj_polise // os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
+        // visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
+        // datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
+        // broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
+
       };
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('updateVehicle', data);
       this.$awn.success('Uspešno izmenjeno vozilo');
@@ -88572,7 +88578,23 @@ var render = function() {
                                 ])
                               : _vm._e()
                           ]
-                        )
+                        ),
+                        _vm._v(" "),
+                        row.item.register_changes[0]
+                          ? _c(
+                              "a",
+                              {
+                                attrs: { href: "", title: "Istorija vozila" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.viewVehicleHistory(row.item.id)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-history" })]
+                            )
+                          : _vm._e()
                       ]
                     }
                   },
@@ -89764,6 +89786,38 @@ var render = function() {
                           }
                         })
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "j-span2 j-unit" }, [
+                      _c("div", { staticClass: "j-input" }, [
+                        _vm._m(10),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.broj_sedista,
+                              expression: "broj_sedista"
+                            }
+                          ],
+                          attrs: {
+                            type: "text",
+                            placeholder: "Broj sedišta",
+                            id: "broj_sedista",
+                            name: "broj_sedista"
+                          },
+                          domProps: { value: _vm.broj_sedista },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.broj_sedista = $event.target.value
+                            }
+                          }
+                        })
+                      ])
                     ])
                   ]),
                   _vm._v(" "),
@@ -89841,7 +89895,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "j-span3 j-unit" }, [
                       _c("div", { staticClass: "j-input" }, [
-                        _vm._m(10),
+                        _vm._m(11),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -89879,7 +89933,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("div", { staticClass: "j-span3 j-unit" }, [
                       _c("div", { staticClass: "j-input" }, [
-                        _vm._m(11),
+                        _vm._m(12),
                         _vm._v(" "),
                         _c("input", {
                           directives: [
@@ -89920,12 +89974,12 @@ var render = function() {
                         "div",
                         { staticClass: "j-input" },
                         [
-                          _vm._m(12),
+                          _vm._m(13),
                           _vm._v(" "),
                           _c("datepicker", {
                             attrs: {
                               name: "datum_isticanja_osiguranja",
-                              format: "dd MMM YYYY",
+                              format: "dd MMM yyyy",
                               language: _vm.sr,
                               "input-class": "form-control",
                               "calendar-button-icon": "fa fa-calendar"
@@ -90097,6 +90151,16 @@ var staticRenderFns = [
     return _c("label", { staticClass: "j-icon-right", attrs: { for: "ks" } }, [
       _c("i", { staticClass: "icofont icofont-car-alt-1" })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "label",
+      { staticClass: "j-icon-right", attrs: { for: "broj_sedista" } },
+      [_c("i", { staticClass: "icofont icofont-car-alt-1" })]
+    )
   },
   function() {
     var _vm = this
@@ -91132,7 +91196,8 @@ var render = function() {
                                                 ],
                                                 attrs: {
                                                   type: "text",
-                                                  placeholder: "Broj polise",
+                                                  placeholder:
+                                                    "Os društvo kasko",
                                                   id: "os_drustvo_kasko",
                                                   name: "os_drustvo_kasko"
                                                 },
@@ -108221,7 +108286,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     saveVehicle: function saveVehicle(_ref10, vehicle) {
       var commit = _ref10.commit,
           state = _ref10.state;
-      // console.log(vehicle);
       state.vehicles.push(vehicle); // push to array and show immediately
 
       axios.post('api/vehicles', vehicle).then(function (response) {

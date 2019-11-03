@@ -16,7 +16,7 @@ class VehicleController extends Controller
 
         return view('vehicles.index')->with(
                 [
-                    'mainPageName' => 'Dashboard - ' . __('titles.main_page_name'),
+                    'mainPageName' => 'Vozila - ' . __('titles.main_page_name'),
                     'pageName'  => 'Vozila',
                     'pageName2' => 'Vozila'
                 ]

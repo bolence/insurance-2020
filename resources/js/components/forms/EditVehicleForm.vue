@@ -225,7 +225,7 @@
             <i class="icofont icofont-car-alt-1"></i>
             </label>
             <input type="text" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="vehicle.kasko.os_drustvo_kasko" v-if="vehicle.kasko !== null">
-            <input type="text" placeholder="Broj polise" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="os_drustvo_kasko" v-else>
+            <input type="text" placeholder="Os društvo kasko" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="os_drustvo_kasko" v-else>
             </div>
         </div>
 
@@ -386,10 +386,10 @@ export default {
                 visina_premije: vehicle.insurance.visina_premije,
                 registracija: vehicle.insurance.registracija,
                 broj_polise: vehicle.insurance.broj_polise,
-                os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
-                visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
-                datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
-                broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
+                // os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
+                // visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
+                // datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
+                // broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
 
 
             };

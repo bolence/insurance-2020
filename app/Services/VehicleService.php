@@ -33,8 +33,8 @@ class VehicleService {
 
         $vehicles = Cache::remember($cache_name, 3600, function () use($type) {
             return !isset($type)
-            ? Vehicle::with('insurance', 'kasko', 'files', 'damage')->orderBy('id', 'desc')->get()
-            : Vehicle::has($type)->with('insurance', 'kasko', 'files', 'damage')->orderBy('id', 'desc')->get();
+            ? Vehicle::with('insurance', 'kasko', 'files', 'damage', 'register_changes')->orderBy('id', 'desc')->get()
+            : Vehicle::has($type)->with('insurance', 'kasko', 'files', 'damage', 'register_changes')->orderBy('id', 'desc')->get();
         });
 
         return response()->json(['vehicles' => $vehicles, 'count' => $vehicles->count()], 200);
@@ -51,6 +51,7 @@ class VehicleService {
     {
 
         DB::beginTransaction();
+        $request = (object) $request;
 
         try
         {
@@ -203,7 +204,7 @@ class VehicleService {
 
         $vehicle = new Vehicle;
 
-        $vehicle->vozilo = $request->name;
+        $vehicle->vozilo = $request->vozilo;
         $vehicle->reg_broj = $request->reg_broj;
         $vehicle->broj_motora = $request->broj_motora;
         $vehicle->broj_sasije = $request->broj_sasije;
@@ -234,7 +235,6 @@ class VehicleService {
         $insurance->os_drustvo = $request->os_drustvo;
         $insurance->visina_premije = $request->visina_premije;
         $insurance->datum_isticanja_osiguranja = $request->datum_isticanja_osiguranja;
-        $insurance->registracija = $request->registracija;
         $insurance->broj_polise = $request->broj_polise;
 
         return $insurance;
@@ -252,7 +252,7 @@ class VehicleService {
 
         $vehicles = Cache::remember('vehicles', 3600, function() {
 
-            return Vehicle::with('insurance','kasko', 'files', 'damage')->orderBy('id', 'desc')->get();
+            return Vehicle::with('insurance','kasko', 'files', 'damage', 'register_changes')->orderBy('id', 'desc')->get();
 
         });
 
