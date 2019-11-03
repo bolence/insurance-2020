@@ -19,7 +19,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 var options = {
     position: 'top-right',
-    duration: 3000,
+    duration: 2000,
     maxNotifications: 10,
 }
 

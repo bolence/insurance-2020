@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -16,6 +17,21 @@ class Kasko extends Model
 
     protected $guarded = ['id'];
 
+
+    public static function boot()
+    {
+
+        parent::boot();
+
+        static::creating( function() {
+            Cache::forget('vehicles');
+        });
+
+        static::updating( function() {
+            Cache::forget('vehicles');
+        });
+    }
+
     /**
      * Undocumented function
      *
@@ -25,6 +41,19 @@ class Kasko extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
+
+
+
+     /**
+     * Format date
+     *
+     * @param Date
+     * @return void
+     */
+    public function setDatumIsticanjaKaskoAttribute($value) {
+        $this->attributes['datum_isticanja_kasko'] = date('Y-m-d', strtotime($value) );
+    }
+
 
 
 }

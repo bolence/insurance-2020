@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Vehicle;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -14,6 +15,22 @@ class Insurance extends Model
     protected $guarded = ['id'];
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+
+
+    public static function boot()
+    {
+
+        parent::boot();
+
+        static::creating( function() {
+            Cache::forget('vehicles');
+        });
+
+        static::updating( function() {
+            Cache::forget('vehicles');
+        });
+    }
 
 
     /**

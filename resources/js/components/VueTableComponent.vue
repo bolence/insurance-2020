@@ -2,8 +2,10 @@
 
 
 <div>
-
 <button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.commit('showVehicleForm')"><i class="fa fa-car"></i> {{ button_title }}</button>
+<button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', null)" v-show="not_all_vehicle"><i class="fa fa-car"></i> Sva vozila</button>
+<button class="btn hor-grd btn-grd-success mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'kasko')"><i class="fa fa-anchor"></i> Vozila sa kasko osiguranjem </button>
+<button class="btn hor-grd btn-grd-danger mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'damage')"><i class="fa fa-ambulance"></i> Vozila sa štetama</button>
 <AddNewVehicleForm></AddNewVehicleForm>
 <EditVehicleForm></EditVehicleForm>
 
@@ -108,6 +110,12 @@
         <a href="" class="view" @click.prevent="row.toggleDetails"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a>
         <a href="" class="edit" @click.prevent="editVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
+        <a href="" class="kasko"><i class="fa fa-anchor" v-if="row.item.kasko" title="Vozilo ima kasko"></i></a>
+        <a href="" class="damage" @click.prevent="info(row.item, row.index, $event.target)">
+        <i class="material-icons" v-if="row.item.damage" title="Vozilo ima štetu" data-toggle="tooltip">&#xE003;</i>
+        <span v-if="type == 'damage'" title="Broj šteta">({{ row.item.damage.length }})</span>
+        </a>
+
         <!-- <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1" align="right;">
           Info modal
         </b-button> -->
@@ -118,31 +126,42 @@
 
       <template v-slot:row-details="row">
         <b-card-group deck>
-           <b-card align="center" class="text-center mb-3">
-
+           <b-card align="center" class="text-center mb-2">
+               <b-text><h4>Detalji vozila</h4></b-text>
             <b-list-group>
-                    <b-list-group-item>ID: {{ row.item.id }}</b-list-group-item>
-                    <b-list-group-item>Vozilo: {{ row.item.vozilo }}</b-list-group-item>
-                    <b-list-group-item>Regist.broj: {{ row.item.reg_broj }}</b-list-group-item>
-                    <b-list-group-item>Broj motora: {{ row.item.broj_motora }}</b-list-group-item>
-                    <b-list-group-item>Broj sasije: {{ row.item.broj_sasije }}</b-list-group-item>
-                    <b-list-group-item>Godina proizvodnje: {{ row.item.godina_proizvodnje }}</b-list-group-item>
-                    <b-list-group-item>KS: {{ row.item.ks }}</b-list-group-item>
-                    <b-list-group-item>Radna zapremina: {{ row.item.radna_zapremina }}</b-list-group-item>
-                    <b-list-group-item>Dozvoljena nosivost: {{ row.item.dozvoljena_nosivost }}</b-list-group-item>
-                    <b-list-group-item>Broj sedista: {{ row.item.broj_sedista }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">ID:</span> {{ row.item.id }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Vozilo</span> {{ row.item.vozilo }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Regist.broj</span> {{ row.item.reg_broj }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Broj motora</span> {{ row.item.broj_motora }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Broj šasije</span> {{ row.item.broj_sasije }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Godina proizvodnje</span> {{ row.item.godina_proizvodnje }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">KS</span> {{ row.item.ks }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Radna zapremina</span> {{ row.item.radna_zapremina }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Dozvoljena nosivost</span> {{ row.item.dozvoljena_nosivost }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Broj sedišta</span> {{ row.item.broj_sedista }}</b-list-group-item>
 
             </b-list-group>
 
         </b-card>
-        <b-card align="center" class="text-center mb-3">
+        <b-card align="center" class="text-center mb-2">
+            <b-text><h4>Osiguranje</h4></b-text>
             <b-list-group>
-                <b-list-group-item>OS drustvo: {{ row.item.insurance.os_drustvo }}</b-list-group-item>
-                <b-list-group-item>Broj polise: {{ row.item.insurance.broj_polise }}</b-list-group-item>
-                <b-list-group-item>Visina premije: {{ row.item.insurance.visina_premije }}</b-list-group-item>
-                <b-list-group-item>Datum isticanja osiguranja: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">OS društvo</span>: {{ row.item.insurance.os_drustvo }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Broj polise</span>: {{ row.item.insurance.broj_polise }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Visina premije</span>: {{ row.item.insurance.visina_premije }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja osiguranja</span>: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</b-list-group-item>
             </b-list-group>
             <!-- <li v-for="(value, key) in row.item"  :key="key">{{ key }}: {{ row.item.id }}</li> -->
+        </b-card>
+
+        <b-card align="center" class="text-center mb-2" v-if="row.item.kasko">
+            <b-text><h4>Kasko</h4></b-text>
+            <b-list-group>
+                <b-list-group-item><span classs="font-bold">OS društvo kasko</span>: {{ row.item.kasko.os_drustvo_kasko }}</b-list-group-item>
+                <b-list-group-item><span classs="font-bold">Broj polise kasko</span>: {{ row.item.kasko.broj_polise_kasko }}</b-list-group-item>
+                <b-list-group-item><span classs="font-bold">Visina premije kasko</span>: {{ row.item.kasko.visina_premije_kasko }}</b-list-group-item>
+                <b-list-group-item><span classs="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko | formatDate }}</b-list-group-item>
+            </b-list-group>
         </b-card>
         </b-card-group>
       </template>
@@ -183,26 +202,42 @@
 
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal" size="lg">
-        <table class="table-md table-bordered table-striped">
+        <table class="table table-bordered table-striped table-responsive">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Šteta</th>
+                <th scope="col">Ime vozača</th>
+                <th scope="col">Mesto udesa</th>
+                <th scope="col">Datum udesa</th>
+                <th scope="col">Opis</th>
+                <th scope="col">Kriv</th>
+                <th scope="col">Servis</th>
+                <th scope="col">Iznos štete</th>
+                <th scope="col">Broj štete</th>
+                <th scope="col">Naplaćeno</th>
+                <th scope="col">Način naplate</th>
+                <th scope="col">Izvršeno od</th>
                 </tr>
             </thead>
 
-            <tbody>
-                <tr>
-                   <td>{{ infoModal.vehicle.vozilo }}</td>
-                   <td></td>
-                   <td></td>
-                   <td></td>
+            <tbody >
+                <tr v-for="(damage, index) in infoModal.damages" :key="index">
+                    <td>{{ index + 1 }}</td>
+                   <td>{{ damage.ime_vozaca }}</td>
+                   <td>{{ damage.mesto_udesa }}</td>
+                   <td>{{ damage.datum_udesa | formatDate }}</td>
+                   <td>{{ damage.opis }}</td>
+                   <td>{{ damage.kriv }}</td>
+                   <td>{{ damage.servis }}</td>
+                   <td>{{ damage.iznos_stete }}</td>
+                   <td>{{ damage.broj_stete }}</td>
+                   <td>{{ damage.naplaceno }}</td>
+                   <td>{{ damage.nacin_naplate }}</td>
+                   <td>{{ damage.izvrseno_od }}</td>
                 </tr>
             </tbody>
         </table>
-      <!-- <pre>{{ infoModal.content }}</pre> -->
+
     </b-modal>
   </b-container>
   </div>
@@ -258,7 +293,7 @@ import moment from 'moment';
         infoModal: {
           id: 'info-modal',
           title: '',
-          vehicle: ''
+          damages: ''
         }
       }
     },
@@ -281,6 +316,8 @@ import moment from 'moment';
             show_vehicle_table: state => state.show_vehicle_table,
             hide_form: state => state.show_edit_vehicle_form,
             vehicle: state => state.vehicle,
+            not_all_vehicle: state => state.not_all_vehicle,
+            type: state => state.type,
         })
 
     },
@@ -290,13 +327,14 @@ import moment from 'moment';
 
     methods: {
       info(item, index, button) {
-        this.infoModal.title = `Vozilo: ${item.reg_broj}`
-        this.infoModal.vehicle = item;
+        //   console.log(item);
+        this.infoModal.title = `Štete za vozilo reg.broj: ${item.reg_broj}`
+        this.infoModal.damages = item.damage;
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
       resetInfoModal() {
         this.infoModal.title = ''
-        this.infoModal.vehicle = ''
+        this.infoModal.damages = ''
       },
       onFiltered(filteredItems) {
         store.commit('setVehiclesCount', filteredItems.length);
@@ -347,7 +385,23 @@ a.edit {
 }
 a.delete {
     color: #E34724;
+}
 
+a.kasko {
+    color: rgb(101, 15, 106);
+}
+
+a.damage {
+    color: rgb(9, 134, 148);
+}
+
+.font-bold {
+    font-weight: bolder;
+    font-style: italic;
+}
+
+.w500 {
+    width: 900px;
 }
 
 .material-icons {

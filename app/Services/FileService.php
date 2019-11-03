@@ -81,6 +81,12 @@ class FileService {
             return response()->json(['success' => false, 'message' => $e->getMessage()],400);
         }
 
+        // delete folder if there is no files
+        if( VehicleFile::where('vehicle_id', '=', $file->vehicle_id)->count() == 0 )
+        {
+            File::deleteDirectory('uploads/' . $file->vehicle_id);
+        }
+
         $vehicle = Vehicle::with('files')->find($file->vehicle_id);
 
         return response()->json(['success' => false, 'message' => 'Uspešno izbrisan fajl', 'data' => $vehicle ],200);

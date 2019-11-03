@@ -92,4 +92,10 @@ class Vehicle extends Model
         return $this->hasMany(Napomena::class);
     }
 
+
+    public function damage()
+    {
+        return $this->hasMany(Damage::class)->orderBy('id', 'desc');
+    }
+
 }

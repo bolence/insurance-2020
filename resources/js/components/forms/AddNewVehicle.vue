@@ -129,7 +129,7 @@
         <!-- Os drustvo -->
         <div class="j-span3 j-unit">
             <label class="j-input j-select" for="os_drustvo">
-            <select name="os_drustvo">
+            <select name="os_drustvo" v-model="os_drustvo">
             <option value="" selected>Izaberi osiguranje</option>
             <option value="DUNAV">DUNAV</option>
             <option value="TRIGLAV">TRIGLAV</option>

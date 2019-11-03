@@ -14,6 +14,9 @@ export default new Vuex.Store({
         show_vehicle_table: true,
         errors: {},
         show_edit_vehicle_form: false,
+        not_all_vehicle: false,
+        type: '',
+
     },
     mutations: {
 
@@ -35,13 +38,26 @@ export default new Vuex.Store({
             state.vehicle = vehicle;
         },
 
+        setType(state, type) {
+            state.type = type;
+        },
+
         setErrors(state, errors) {
             state.errors = errors;
         },
 
         showEditForm(state) {
-            state.show_edit_vehicle_form = !state.show_edit_vehicle_form;
-            state.show_vehicle_table = !state.show_vehicle_table;
+            state.show_edit_vehicle_form = true;
+            state.show_vehicle_table = false;
+        },
+
+        hideEditForm(state) {
+            state.show_edit_vehicle_form = false;
+            state.show_vehicle_table = true;
+        },
+
+        showButtonToGetAllVehicles(state) {
+            state.not_all_vehicle = true;
         }
     },
 
@@ -52,6 +68,7 @@ export default new Vuex.Store({
                 .then(response => {
                     commit('setVehicles', response.data.vehicles);
                     commit('setVehiclesCount', response.data.count);
+                    // commit('showButtonToGetAllVehicles');
                 });
         },
 
@@ -77,12 +94,24 @@ export default new Vuex.Store({
             axios.put('api/vehicles/' + vehicle.id, vehicle).then(response => {
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
-                commit('showEditForm');
+                commit('hideEditForm');
 
             }).catch(error => {
                 state.errors = error.response.data.errors;
             });
 
+        },
+
+
+        showVehicleType({ commit }, vehicle_type) {
+            let string = vehicle_type !== null ? '?type=' + vehicle_type : '';
+            return axios.get('api/vehicles' + string)
+                .then(response => {
+                    commit('setVehicles', response.data.vehicles);
+                    commit('setVehiclesCount', response.data.count);
+                    commit('setType', vehicle_type);
+                    commit('showButtonToGetAllVehicles');
+                });
         },
 
 
