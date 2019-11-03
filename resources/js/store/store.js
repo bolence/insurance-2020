@@ -10,12 +10,15 @@ export default new Vuex.Store({
         vehicles: [],
         vehicle: {},
         vehiclesCount: 0,
+        damagesCount: 0,
         button_title_add_new_vehicle: 'Dodaj novo vozilo',
+        button_title_add_new_damage: 'Dodaj štetu',
         show_vehicle_table: true,
         errors: {},
         show_edit_vehicle_form: false,
         not_all_vehicle: false,
         type: '',
+        damages: [],
 
     },
     mutations: {
@@ -30,8 +33,15 @@ export default new Vuex.Store({
         setVehicles(state, vehicles) {
             state.vehicles = vehicles;
         },
+        setDamages(state, damages) {
+            state.damages = damages;
+        },
         setVehiclesCount(state, count) {
             state.vehiclesCount = count;
+        },
+
+        setDamagesCount(state, count) {
+            state.damagesCount = count;
         },
 
         setVehicle(state, vehicle) {
@@ -69,6 +79,17 @@ export default new Vuex.Store({
                     commit('setVehicles', response.data.vehicles);
                     commit('setVehiclesCount', response.data.count);
                     // commit('showButtonToGetAllVehicles');
+                });
+        },
+
+
+        fetchDamages({ commit }, type) {
+            let string = type !== null ? '?type=' + type : '';
+            return axios.get('api/damages' + string)
+                .then(response => {
+                    commit('setDamages', response.data.damages);
+                    commit('setDamagesCount', response.data.count);
+                    commit('setVehiclesCount', response.data.count_vehicle);
                 });
         },
 
@@ -124,6 +145,17 @@ export default new Vuex.Store({
         removeFile({ commit, state }, vehicle_id) {
             axios.delete('api/files/' + vehicle_id).then(response => {
                 commit('setVehicle', response.data.data);
+            }).catch(error => {
+                commit('setErrors', error.response.data.errors);
+            });
+        },
+
+
+        deleteDamage({ commit, state }, index) {
+            axios.delete('api/damages/' + index).then(response => {
+                commit('setDamages', response.data.damages);
+                commit('setDamagesCount', response.data.count);
+                commit('setVehiclesCount', response.data.count_vehicle);
             }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             });

@@ -8,6 +8,7 @@ import moment from 'moment'
 import VueAWN from "vue-awesome-notifications";
 import VueSweetAlert from 'vue-sweetalert';
 import VuejsDialog from "vuejs-dialog";
+var numeral = require("numeral");
 
 
 // import css
@@ -39,6 +40,7 @@ Vue.use(VuejsDialog); // vue confirmation dialog
 Vue.use(BootstrapVue);
 
 Vue.component('vuetable-component', require('./components/VueTableComponent.vue').default);
+Vue.component('vuetable-damages-component', require('./components/VueTableDamagesComponent.vue').default);
 Vue.component('sidebar-menu-component', require('./components/SidebarMenuComponent.vue').default);
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
@@ -50,6 +52,10 @@ Vue.filter('formatDate', function(value) {
     if (value) {
         return moment(String(value)).format('DD.MM.YYYY');
     }
+});
+
+Vue.filter("formatNumber", function(value) {
+    return numeral(value).format("0,0.00");
 });
 
 Vue.config.productionTip = true;

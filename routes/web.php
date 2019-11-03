@@ -15,3 +15,6 @@ Route::group(['prefix' => 'vehicles', 'middleware' => 'auth'], function() {
     Route::get('/', 'VehicleController@index')->name('vehicles.list');
 
 });
+
+
+Route::get('damages', 'DamageController@index')->middleware('auth');

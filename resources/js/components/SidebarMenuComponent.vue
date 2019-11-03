@@ -29,7 +29,7 @@
                     <a href="/damages">
                         <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
                         <span class="pcoded-mtext">Štete</span>
-                        <span class="pcoded-badge label label-danger">100+</span>
+                        <span class="pcoded-badge label label-danger">{{ damage_count }}</span>
                     </a>
                 </li>
 
@@ -77,6 +77,7 @@ export default {
 
          ...mapState({
             vehicle_count: state => state.vehiclesCount,
+            damage_count: state => state.damagesCount,
         })
 
     },

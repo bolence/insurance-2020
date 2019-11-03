@@ -2,28 +2,44 @@
 
 use Exception;
 use App\Damage;
+use App\Vehicle;
 use App\Service\LoggerService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request;
 
 class DamageService
 {
 
+    protected $logger;
+
+    public function __construct(LoggerService $logger)
+    {
+        $this->logger = $logger;
+    }
     /**
      * Get all damages
      *
      * @return void
      */
-    public function get_damages( $limit = null )
+    public function get()
     {
-        $columns = ['Vozilo', 'Vozač', 'Datum', 'Mesto', 'Kriv', 'Iznos štete'];
-        $data = Damage::with('vehicle')->orderBy('id', 'desc')->limit($limit)->get();
+        $type = request()->input('type');
+
+        $cache_name = isset($type) ? 'damages_' . $type : 'damages';
+
+        $damages = Cache::remember($cache_name, 3600, function() use($type) {
+
+            return !isset($type)
+            ? Damage::with('vehicle')->orderBy('id', 'desc')->get()
+            : Damage::with('vehicle')->where('kriv', '=', $type)->orderBy('id', 'desc')->get();
+
+        });
+
         return response()->json([
-            // 'data' => $this->cacheable('vehicles', $data), // return in production
-            'data' => $data,
-            'totalRecords' => Damage::count(),
-            'columns' => $columns,
-            // 'title' => 'Poslednjih 10 unetih vozila'
-        ]);
+            'damages' => $damages,
+            'count' => $damages->count(),
+            'count_vehicle' => Vehicle::count(),
+        ], 200);
     }
 
     /**
@@ -32,7 +48,7 @@ class DamageService
      * @param Request $request
      * @return void
      */
-    public function save_damage( $request )
+    public function save( $request )
     {
 
         $request['vehicle_id'] = $request['value']['id'];
@@ -43,11 +59,11 @@ class DamageService
         }
         catch( Exception $e )
         {
-            LoggerService::log( $e->getMessage(), 'error' );
+            $this->logger->log( $e->getMessage(), 'error' );
             return response()->json(['message' => $e->getMessage(), 'success' => false], 400);
         }
 
-        LoggerService::log('Successfully saved damage: ' . $damage); // log saving
+        $this->logger->log('Successfully saved damage: ' . $damage); // log saving
 
         $damages = Damage::with('vehicle')->orderBy('id', 'desc')->get(); // return data
 
@@ -62,7 +78,7 @@ class DamageService
      * @param [type] $damage_id
      * @return void
      */
-    public function update_damage( $request, $damage_id )
+    public function update( $request, $damage_id )
     {
 
         $damage = Damage::findOrfail( $damage_id );
@@ -73,11 +89,11 @@ class DamageService
         }
         catch ( Exception $e )
         {
-            LoggerService::log( $e->getMessage(), 'error' );
+            $this->logger->log( $e->getMessage(), 'error' );
             return response()->json(['message' => 'Šteta nije promenjena. Došlo je do greške ' . $damage_id, 'success' => false], 400);
         }
 
-        LoggerService::log('Successfully updated damage: ' . $damage ); // log update
+        $this->logger->log('Successfully updated damage: ' . $damage ); // log update
 
         $damages = Damage::with('vehicle')->orderBy('id', 'desc')->get(); // return data
 
@@ -86,7 +102,7 @@ class DamageService
     }
 
 
-    public function show_damage( $damage_id )
+    public function show( $damage_id )
     {
         $damage = Damage::with('vehicle')->findOrFail($damage_id);
 
@@ -99,10 +115,10 @@ class DamageService
      * @param [type] $damage
      * @return void
      */
-    public function delete_damage( $damage_id )
+    public function delete( $id )
     {
 
-        $damage = Damage::find( $damage_id );
+        $damage = Damage::findOrFail( $id );
 
         try
         {
@@ -110,15 +126,20 @@ class DamageService
         }
         catch( Exception $e )
         {
-            LoggerService::log( $e->getMessage(), 'error');
-            return response()->json(['message' => 'Šteta nije izbrisana šteta ' . $damage_id , 'success' => false], 400);
+            $this->logger->log( $e->getMessage(), 'error');
+            return response()->json(['message' => 'Šteta nije izbrisana šteta ' . $id , 'success' => false], 400);
         }
 
-        LoggerService::log('Successfully deleted damage: ' . $damage); // log delete
+        $this->logger->log('Successfully deleted damage: ' . $damage); // log delete
 
         $damages = Damage::with('vehicle')->orderBy('id', 'desc')->get(); // return data
 
-        return response()->json(['message' => 'Uspešno izbrisana šteta', 'success' => true, 'data' => $damages ], 200);
+        return response()->json([
+            'message' => 'Uspešno izbrisana šteta',
+            'count' => $damages->count(),
+            'count_vehicle' => Vehicle::count(),
+            'damages' => $damages
+            ], 200);
 
     }
 

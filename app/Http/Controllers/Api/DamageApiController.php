@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Service\DamageService;
+use App\Services\DamageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaveDamageRequest;
 
-class DamageControllerApi extends Controller
+class DamageApiController extends Controller
 {
     protected $damage;
 
@@ -28,7 +28,7 @@ class DamageControllerApi extends Controller
      */
     public function index()
     {
-        return $this->damage->get_damages();
+        return $this->damage->get();
     }
 
     /**
@@ -39,18 +39,18 @@ class DamageControllerApi extends Controller
      */
     public function show( $damage_id )
     {
-        return $this->damage->show_damage( $damage_id );
+        return $this->damage->show( $damage_id );
     }
 
     public function store( SaveDamageRequest $request )
     {
-        return $this->damage->save_damage( $request );
+        return $this->damage->save( $request );
     }
 
 
     public function update(SaveDamageRequest $request, $damage_id)
     {
-        return $this->damage->update_damage( $request, $damage_id );
+        return $this->damage->update( $request, $damage_id );
     }
 
     /**
@@ -61,7 +61,7 @@ class DamageControllerApi extends Controller
      */
     public function destroy( $damage_id )
     {
-        return $this->damage->delete_damage( $damage_id );
+        return $this->damage->delete( $damage_id );
     }
 
 }
