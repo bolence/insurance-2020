@@ -58,6 +58,13 @@ Vue.filter("formatNumber", function(value) {
     return numeral(value).format("0,0.00");
 });
 
+
+Vue.filter('formatDateTime', function(value) {
+    if (value) {
+        return moment(String(value)).format('DD/MM/YYYY HH:mm');
+    }
+});
+
 Vue.config.productionTip = true;
 
 const app = new Vue({

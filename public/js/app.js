@@ -2487,6 +2487,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2556,6 +2591,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: 'info-modal',
         title: '',
         damages: ''
+      },
+      changeModal: {
+        id: 'change-modal',
+        title: '',
+        archive: '',
+        registration: ''
       }
     };
   },
@@ -2606,9 +2647,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.infoModal.damages = item.damage;
       this.$root.$emit('bv::show::modal', this.infoModal.id, button);
     },
+    changeinfo: function changeinfo(item, index, button) {
+      this.changeModal.title = "Promene za vozilo reg.broj: ".concat(item.reg_broj);
+      this.changeModal.archive = item.archive;
+      this.changeModal.registration = item.register_changes;
+      this.$root.$emit('bv::show::modal', this.changeModal.id, button);
+    },
     resetInfoModal: function resetInfoModal() {
       this.infoModal.title = '';
       this.infoModal.damages = '';
+    },
+    resetChangeModal: function resetChangeModal() {
+      this.changeModal.title = '';
+      this.changeModal.archive = '';
+      this.changeModal.registration = '';
     },
     onFiltered: function onFiltered(filteredItems) {
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].commit('setVehiclesCount', filteredItems.length);
@@ -2620,16 +2672,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteVehicle: function deleteVehicle(vehicle, index) {
       this.items.splice(index, 1);
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('deleteVehicle', vehicle.id);
-    } //   saveVehicle()
-    //   {
-    //     let data = {
-    //       vozilo: this.vozilo,
-    //       reg_broj: this.reg_broj,
-    //       broj_motora: this.broj_motora
-    //     }
-    //     this.items.unshift(data);
-    //   }
-
+    }
   }
 });
 
@@ -36478,7 +36521,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\n    color: #E34724;\n}\na.kasko[data-v-90a2b2cc] {\n    color: rgb(101, 15, 106);\n}\na.damage[data-v-90a2b2cc] {\n    color: rgb(9, 134, 148);\n}\n.font-bold[data-v-90a2b2cc] {\n    font-weight: bolder;\n    font-style: italic;\n}\n.w500[data-v-90a2b2cc] {\n    width: 900px;\n}\n.material-icons[data-v-90a2b2cc] {\nfont-size: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.text-white[data-v-90a2b2cc] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-90a2b2cc], table.table tr td[data-v-90a2b2cc] {\n    border-color: #e9e9e9;\n}\na.view[data-v-90a2b2cc] {\n    color: #03A9F4;\n}\na.edit[data-v-90a2b2cc] {\n    color: #FFC107;\n}\na.delete[data-v-90a2b2cc] {\n    color: #E34724;\n}\na.kasko[data-v-90a2b2cc] {\n    color: rgb(101, 15, 106);\n}\na.damage[data-v-90a2b2cc] {\n    color: rgb(9, 134, 148);\n}\n.font-bold[data-v-90a2b2cc] {\n    font-weight: bolder;\n    font-style: italic;\n}\n.w500[data-v-90a2b2cc] {\n    width: 900px;\n}\nhr.fancy[data-v-90a2b2cc] {\n    border: 0;\n    border-bottom: 1px dashed #ccc;\n    background: rgb(216, 16, 16);\n    margin-bottom: 30px;\n}\n.material-icons[data-v-90a2b2cc] {\nfont-size: 18px;\n}\n", ""]);
 
 // exports
 
@@ -36497,7 +36540,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-white[data-v-027f8928] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-027f8928], table.table tr td[data-v-027f8928] {\n    border-color: #e9e9e9;\n}\na.view[data-v-027f8928] {\n    color: #03A9F4;\n}\na.edit[data-v-027f8928] {\n    color: #FFC107;\n}\na.delete[data-v-027f8928] {\n    color: #E34724;\n}\na.kasko[data-v-027f8928] {\n    color: rgb(101, 15, 106);\n}\na.damage[data-v-027f8928] {\n    color: rgb(9, 134, 148);\n}\n.font-bold[data-v-027f8928] {\n    font-weight: bolder;\n    font-style: italic;\n}\n.w500[data-v-027f8928] {\n    width: 900px;\n}\n.material-icons[data-v-027f8928] {\nfont-size: 18px;\n}\n", ""]);
+exports.push([module.i, "\n.text-white[data-v-027f8928] {\r\n    color: white;\r\n    font-weight: bolder;\r\n    font-size: 15px;\n}\ntable.table tr th[data-v-027f8928], table.table tr td[data-v-027f8928] {\r\n    border-color: #e9e9e9;\n}\na.view[data-v-027f8928] {\r\n    color: #03A9F4;\n}\na.edit[data-v-027f8928] {\r\n    color: #FFC107;\n}\na.delete[data-v-027f8928] {\r\n    color: #E34724;\n}\na.kasko[data-v-027f8928] {\r\n    color: rgb(101, 15, 106);\n}\na.damage[data-v-027f8928] {\r\n    color: rgb(9, 134, 148);\n}\n.font-bold[data-v-027f8928] {\r\n    font-weight: bolder;\r\n    font-style: italic;\n}\n.w500[data-v-027f8928] {\r\n    width: 900px;\n}\n.material-icons[data-v-027f8928] {\r\nfont-size: 18px;\n}\r\n", ""]);
 
 // exports
 
@@ -36516,7 +36559,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\n    border: 0;\n    border-bottom: 1px dashed #ccc;\n    background: rgb(216, 16, 16);\n    margin-bottom: 30px;\n}\n\n", ""]);
+exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\r\n    border: 0;\r\n    border-bottom: 1px dashed #ccc;\r\n    background: rgb(216, 16, 16);\r\n    margin-bottom: 30px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -88539,6 +88582,26 @@ var render = function() {
                             : _vm._e()
                         ]),
                         _vm._v(" "),
+                        row.item.register_changes[0] || row.item.archive[0]
+                          ? _c(
+                              "a",
+                              {
+                                attrs: { href: "", title: "Istorija vozila" },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.changeinfo(
+                                      row.item,
+                                      row.index,
+                                      $event.target
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-history" })]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
                         _c(
                           "a",
                           {
@@ -88578,23 +88641,7 @@ var render = function() {
                                 ])
                               : _vm._e()
                           ]
-                        ),
-                        _vm._v(" "),
-                        row.item.register_changes[0]
-                          ? _c(
-                              "a",
-                              {
-                                attrs: { href: "", title: "Istorija vozila" },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.viewVehicleHistory(row.item.id)
-                                  }
-                                }
-                              },
-                              [_c("i", { staticClass: "fa fa-history" })]
-                            )
-                          : _vm._e()
+                        )
                       ]
                     }
                   },
@@ -89013,6 +89060,138 @@ var render = function() {
                     ]
                   )
                 ]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-modal",
+                {
+                  attrs: {
+                    id: _vm.changeModal.id,
+                    title: _vm.changeModal.title,
+                    "ok-only": "",
+                    size: "lg"
+                  },
+                  on: { hide: _vm.resetChangeModal }
+                },
+                [
+                  _c("h5", { staticClass: "text-danger" }, [
+                    _vm._v("Promene registracije")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "ul",
+                    {
+                      staticStyle: {
+                        "list-style-type": "square",
+                        margin: "30px"
+                      }
+                    },
+                    _vm._l(_vm.changeModal.registration, function(
+                      register_change,
+                      index
+                    ) {
+                      return _c("li", { key: index }, [
+                        _vm._v("\n                Promena registracije sa "),
+                        _c(
+                          "span",
+                          { staticClass: "text-danger font-weight-bold" },
+                          [
+                            _vm._v(
+                              " " + _vm._s(register_change.stara_registracija)
+                            )
+                          ]
+                        ),
+                        _vm._v(" na novu "),
+                        _c(
+                          "span",
+                          { staticClass: "text-primary font-weight-bold" },
+                          [_vm._v(_vm._s(register_change.nova_registracija))]
+                        )
+                      ])
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c("hr", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.changeModal.archive.length > 0,
+                        expression: "changeModal.archive.length > 0"
+                      }
+                    ],
+                    staticClass: "fancy"
+                  }),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "text-danger" }, [
+                    _vm._v("Promene osiguranja")
+                  ]),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "table",
+                    { staticClass: "table table-striped table-bordered" },
+                    [
+                      _c("thead", { staticClass: "thead-inverse" }, [
+                        _c("tr", [
+                          _c("th", [_vm._v("OS društvo")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Visina premije")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Isticanje osiguranja")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Broj polise")]),
+                          _vm._v(" "),
+                          _c("th", [_vm._v("Izmenjeno dana")])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.changeModal.archive, function(
+                          archive,
+                          index
+                        ) {
+                          return _c("tr", { key: index }, [
+                            _c("td", { attrs: { scope: "row" } }, [
+                              _vm._v(_vm._s(archive.os_drustvo))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("formatNumber")(archive.visina_premije)
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("formatDate")(
+                                    archive.datum_isticanja_osiguranja
+                                  )
+                                )
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(archive.broj_polise))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                _vm._s(
+                                  _vm._f("formatDateTime")(archive.created_at)
+                                )
+                              )
+                            ])
+                          ])
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ]
               )
             ],
             1
@@ -89232,11 +89411,11 @@ var render = function() {
                   fn: function(row) {
                     return [
                       _vm._v(
-                        "\n        " +
+                        "\r\n        " +
                           _vm._s(row.value.first) +
                           " " +
                           _vm._s(row.value.last) +
-                          "\n      "
+                          "\r\n      "
                       )
                     ]
                   }
@@ -107538,6 +107717,11 @@ Vue.filter('formatDate', function (value) {
 Vue.filter("formatNumber", function (value) {
   return numeral(value).format("0,0.00");
 });
+Vue.filter('formatDateTime', function (value) {
+  if (value) {
+    return moment__WEBPACK_IMPORTED_MODULE_2___default()(String(value)).format('DD/MM/YYYY HH:mm');
+  }
+});
 Vue.config.productionTip = true;
 var app = new Vue({
   el: '#app',
@@ -108319,8 +108503,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\insurance-2020\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\insurance-2020\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

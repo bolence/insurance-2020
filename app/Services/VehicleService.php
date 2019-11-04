@@ -27,14 +27,12 @@ class VehicleService {
     {
 
         $type = request()->input('type');
-        // var_dump(isset($type));
-        // return Vehicle::has('kasko')->with('insurance', 'kasko', 'files', 'damage')->orderBy('id', 'desc')->get();
         $cache_name = isset($type) ? 'vehicles_' . $type : 'vehicles';
 
         $vehicles = Cache::remember($cache_name, 3600, function () use($type) {
             return !isset($type)
-            ? Vehicle::with('insurance', 'kasko', 'files', 'damage', 'register_changes')->orderBy('id', 'desc')->get()
-            : Vehicle::has($type)->with('insurance', 'kasko', 'files', 'damage', 'register_changes')->orderBy('id', 'desc')->get();
+            ? Vehicle::with('insurance', 'kasko', 'files', 'damage', 'register_changes', 'archive')->orderBy('id', 'desc')->get()
+            : Vehicle::has($type)->with('insurance', 'kasko', 'files', 'damage', 'register_changes', 'archive')->orderBy('id', 'desc')->get();
         });
 
         return response()->json(['vehicles' => $vehicles, 'count' => $vehicles->count()], 200);
@@ -252,7 +250,7 @@ class VehicleService {
 
         $vehicles = Cache::remember('vehicles', 3600, function() {
 
-            return Vehicle::with('insurance','kasko', 'files', 'damage', 'register_changes')->orderBy('id', 'desc')->get();
+            return Vehicle::with('insurance','kasko', 'files', 'damage', 'register_changes', 'archive')->orderBy('id', 'desc')->get();
 
         });
 

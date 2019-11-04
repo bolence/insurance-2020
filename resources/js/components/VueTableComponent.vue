@@ -111,11 +111,12 @@
         <a href="" class="edit" @click.prevent="editVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
         <a href="" class="kasko"><i class="fa fa-anchor" v-if="row.item.kasko" title="Vozilo ima kasko"></i></a>
+        <a href="" v-if="row.item.register_changes[0] || row.item.archive[0]" title="Istorija vozila" @click.prevent="changeinfo(row.item, row.index, $event.target)"><i class="fa fa-history"></i></a>
         <a href="" class="damage" @click.prevent="info(row.item, row.index, $event.target)">
         <i class="material-icons" v-if="row.item.damage.length > 0" title="Vozilo ima štetu" data-toggle="tooltip">&#xE003;</i>
         <span v-if="type == 'damage'" title="Broj šteta">({{ row.item.damage.length }})</span>
         </a>
-        <a href="" v-if="row.item.register_changes[0]" title="Istorija vozila" @click.prevent="viewVehicleHistory(row.item.id)"><i class="fa fa-history"></i></a>
+
       </template>
 
       <template v-slot:row-details="row">
@@ -233,6 +234,40 @@
         </table>
 
     </b-modal>
+
+
+    <b-modal :id="changeModal.id" :title="changeModal.title" ok-only @hide="resetChangeModal" size="lg">
+        <h5 class="text-danger">Promene registracije</h5>
+        <ul style="list-style-type:square; margin: 30px;">
+            <li v-for="(register_change, index) in changeModal.registration" :key="index">
+                Promena registracije sa <span class="text-danger font-weight-bold"> {{ register_change.stara_registracija }}</span> na novu <span class="text-primary font-weight-bold">{{ register_change.nova_registracija }}</span>
+            </li>
+        </ul>
+
+        <hr class="fancy" v-show="changeModal.archive.length > 0">
+            <h5 class="text-danger">Promene osiguranja</h5><br>
+            <table class="table table-striped table-bordered">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <th>OS društvo</th>
+                                    <th>Visina premije</th>
+                                    <th>Isticanje osiguranja</th>
+                                    <th>Broj polise</th>
+                                    <th>Izmenjeno dana</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(archive, index) in changeModal.archive" :key="index">
+                                        <td scope="row">{{ archive.os_drustvo }}</td>
+                                        <td>{{ archive.visina_premije | formatNumber }}</td>
+                                        <td>{{ archive.datum_isticanja_osiguranja | formatDate }}</td>
+                                        <td>{{ archive.broj_polise }}</td>
+                                        <td>{{ archive.created_at | formatDateTime }}</td>
+                                    </tr>
+                                </tbody>
+                        </table>
+
+    </b-modal>
   </b-container>
   </div>
   </div>
@@ -288,7 +323,13 @@ import moment from 'moment';
           id: 'info-modal',
           title: '',
           damages: ''
-        }
+        },
+        changeModal: {
+            id: 'change-modal',
+            title: '',
+            archive: '',
+            registration: '',
+        },
       }
     },
 
@@ -326,9 +367,22 @@ import moment from 'moment';
         this.infoModal.damages = item.damage;
         this.$root.$emit('bv::show::modal', this.infoModal.id, button)
       },
+      changeinfo( item, index, button ) {
+          this.changeModal.title = `Promene za vozilo reg.broj: ${item.reg_broj}`;
+          this.changeModal.archive = item.archive;
+          this.changeModal.registration = item.register_changes;
+          this.$root.$emit('bv::show::modal', this.changeModal.id, button);
+      },
+
       resetInfoModal() {
         this.infoModal.title = ''
         this.infoModal.damages = ''
+      },
+
+      resetChangeModal() {
+        this.changeModal.title = '';
+        this.changeModal.archive = '';
+        this.changeModal.registration = '';
       },
       onFiltered(filteredItems) {
         store.commit('setVehiclesCount', filteredItems.length);
@@ -344,17 +398,6 @@ import moment from 'moment';
           store.dispatch('deleteVehicle', vehicle.id);
       },
 
-    //   saveVehicle()
-    //   {
-
-    //     let data = {
-    //       vozilo: this.vozilo,
-    //       reg_broj: this.reg_broj,
-    //       broj_motora: this.broj_motora
-    //     }
-
-    //     this.items.unshift(data);
-    //   }
     }
   }
 </script>
@@ -396,6 +439,13 @@ a.damage {
 
 .w500 {
     width: 900px;
+}
+
+hr.fancy {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: rgb(216, 16, 16);
+    margin-bottom: 30px;
 }
 
 .material-icons {
