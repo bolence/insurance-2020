@@ -65,7 +65,7 @@ Vue.filter('formatDateTime', function(value) {
     }
 });
 
-Vue.config.productionTip = true;
+Vue.config.productionTip = false;
 
 const app = new Vue({
     el: '#app',

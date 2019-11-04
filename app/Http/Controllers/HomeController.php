@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home')->with(
+            [
+                'mainPageName' => 'Vozila - ' . __('titles.main_page_name'),
+                'pageName'  => 'Vozila',
+                'pageName2' => 'Vozila'
+            ]
+        );
     }
 }

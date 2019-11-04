@@ -9,6 +9,7 @@ export default new Vuex.Store({
         hide_vehicle_form: false,
         vehicles: [],
         vehicle: {},
+        vehicle_id: '',
         vehiclesCount: 0,
         damagesCount: 0,
         button_title_add_new_vehicle: 'Dodaj novo vozilo',
@@ -20,6 +21,7 @@ export default new Vuex.Store({
         type: '',
         damages: [],
         new_insurance_form: false,
+        show_notifications: false,
 
     },
     mutations: {
@@ -39,6 +41,10 @@ export default new Vuex.Store({
         },
         setVehiclesCount(state, count) {
             state.vehiclesCount = count;
+        },
+
+        showNotification( state ){
+            state.show_notifications = true;
         },
 
         showNewInsuranceForm( state ){
@@ -105,6 +111,7 @@ export default new Vuex.Store({
                 .then(response => {
                     commit('setVehicles', response.data.vehicles);
                     commit('setVehiclesCount', response.data.count);
+                    commit('showNotification');
                 }).catch(error => {
                     commit('setErrors', error.response.data.errors);
                 });
@@ -116,8 +123,20 @@ export default new Vuex.Store({
             // console.log(state.vehicle);
         },
 
-        showNewInsuranceForm({commit}) {
+        showNewInsuranceForm({commit, state}, vehicle_id) {
             commit('showNewInsuranceForm');
+            state.vehicle_id = vehicle_id;
+        },
+
+        saveNewInsurance({commit}, insurance) {
+
+            axios.post('/api/insurance', insurance).then( response => {
+                commit('setVehicles', response.data.vehicles);
+                commit('showNotification');
+            }).catch( error => {
+                commit('setErrors', error.response.data.errors);
+            })
+
         },
 
         updateVehicle({ commit, state }, vehicle) {
