@@ -26,6 +26,7 @@ class InsuranceService {
         try
         {
             $new_insurance = Insurance::create( $request->all() );
+            Insurance::where('vehicle_id', '=', $request->get('vehicle_id'))->orderBy('id', 'asc')->first()->delete();
         }
         catch( Exception $e )
         {
