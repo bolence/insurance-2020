@@ -2513,6 +2513,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -3826,11 +3831,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         datum_isticanja_osiguranja: vehicle.insurance.datum_isticanja_osiguranja,
         visina_premije: vehicle.insurance.visina_premije,
         registracija: vehicle.insurance.registracija,
-        broj_polise: vehicle.insurance.broj_polise,
-        os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
-        visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
-        datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
-        broj_polise_kasko: vehicle.kasko.broj_polise_kasko
+        broj_polise: vehicle.insurance.broj_polise // os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
+        // visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
+        // datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
+        // broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
+
       };
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('updateVehicle', data);
       this.show_notifications ? this.$awn.success('Uspešno izmenjeno vozilo') : false;
@@ -89251,20 +89256,31 @@ var render = function() {
                               { staticClass: "text-danger font-weight-bold" },
                               [
                                 _vm._v(
-                                  " " +
+                                  "\n                    " +
                                     _vm._s(register_change.stara_registracija)
                                 )
                               ]
                             ),
-                            _vm._v(" na novu "),
+                            _vm._v("\n                    na novu "),
                             _c(
                               "span",
                               { staticClass: "text-primary font-weight-bold" },
                               [
                                 _vm._v(
-                                  _vm._s(register_change.nova_registracija)
+                                  "\n                        " +
+                                    _vm._s(register_change.nova_registracija) +
+                                    "\n                    "
                                 )
                               ]
+                            ),
+                            _vm._v(
+                              "\n                     (" +
+                                _vm._s(
+                                  _vm._f("formatDate")(
+                                    register_change.created_at
+                                  )
+                                ) +
+                                ")\n            "
                             )
                           ])
                         }),

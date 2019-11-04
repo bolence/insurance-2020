@@ -491,10 +491,10 @@ export default {
                 visina_premije: vehicle.insurance.visina_premije,
                 registracija: vehicle.insurance.registracija,
                 broj_polise: vehicle.insurance.broj_polise,
-                os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
-                visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
-                datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
-                broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
+                // os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
+                // visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
+                // datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
+                // broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
 
 
             };

@@ -228,7 +228,12 @@
         <h5 class="text-danger">Promene registracije</h5>
         <ul style="list-style-type:square; margin: 30px;">
             <li v-for="(register_change, index) in changeModal.registration" :key="index">
-                Promena registracije sa <span class="text-danger font-weight-bold"> {{ register_change.stara_registracija }}</span> na novu <span class="text-primary font-weight-bold">{{ register_change.nova_registracija }}</span>
+                Promena registracije sa <span class="text-danger font-weight-bold">
+                    {{ register_change.stara_registracija }}</span>
+                    na novu <span class="text-primary font-weight-bold">
+                        {{ register_change.nova_registracija }}
+                    </span>
+                     ({{ register_change.created_at | formatDate }})
             </li>
         </ul>
         </div>
