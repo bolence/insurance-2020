@@ -106,8 +106,8 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <a href="" class="add" @click.prevent="addNewInsurance(row.item.id)" title="Dodaj novo osiguranje"><i class="material-icons">&#xe148;</i></a>
         <a href="" class="view" @click.prevent="row.toggleDetails"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a>
+        <a href="" class="add" @click.prevent="addNewInsurance(row.item.id)" title="Dodaj novo osiguranje"><i class="material-icons">&#xe148;</i></a>
         <a href="" class="edit" @click.prevent="editVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
         <a href="" class="kasko"><i class="fa fa-anchor" v-if="row.item.kasko" title="Vozilo ima kasko"></i></a>
@@ -125,15 +125,15 @@
                <b-text><h4>Detalji vozila</h4></b-text>
             <b-list-group>
                     <b-list-group-item><span class="font-bold">ID:</span> {{ row.item.id }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Vozilo</span> {{ row.item.vozilo }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Regist.broj</span> {{ row.item.reg_broj }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Broj motora</span> {{ row.item.broj_motora }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Broj šasije</span> {{ row.item.broj_sasije }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Godina proizvodnje</span> {{ row.item.godina_proizvodnje }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">KS</span> {{ row.item.ks }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Radna zapremina</span> {{ row.item.radna_zapremina }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Dozvoljena nosivost</span> {{ row.item.dozvoljena_nosivost }}</b-list-group-item>
-                    <b-list-group-item><span class="font-bold">Broj sedišta</span> {{ row.item.broj_sedista }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Vozilo:</span> {{ row.item.vozilo }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Regist.broj:</span> {{ row.item.reg_broj }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Broj motora:</span> {{ row.item.broj_motora }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Broj šasije:</span> {{ row.item.broj_sasije }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Godina proizvodnje:</span> {{ row.item.godina_proizvodnje }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">KS:</span> {{ row.item.ks }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Radna zapremina:</span> {{ row.item.radna_zapremina }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Dozvoljena nosivost:</span> {{ row.item.dozvoljena_nosivost }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Broj sedišta:</span> {{ row.item.broj_sedista }}</b-list-group-item>
 
             </b-list-group>
 
@@ -143,10 +143,9 @@
             <b-list-group>
                 <b-list-group-item><span class="font-bold">OS društvo</span>: {{ row.item.insurance.os_drustvo }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Broj polise</span>: {{ row.item.insurance.broj_polise }}</b-list-group-item>
-                <b-list-group-item><span class="font-bold">Visina premije</span>: {{ row.item.insurance.visina_premije }}</b-list-group-item>
-                <b-list-group-item><span class="font-bold">Datum isticanja osiguranja</span>: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Visina premije</span>: {{ row.item.insurance.visina_premije | formatNumber }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja osiguranja</span>: {{ row.item.insurance.datum_isticanja_osiguranja }}</b-list-group-item>
             </b-list-group>
-            <!-- <li v-for="(value, key) in row.item"  :key="key">{{ key }}: {{ row.item.id }}</li> -->
         </b-card>
 
         <b-card align="center" class="text-center mb-2" v-if="row.item.kasko">
@@ -155,7 +154,7 @@
                 <b-list-group-item><span class="font-bold">OS društvo kasko</span>: {{ row.item.kasko.os_drustvo_kasko }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Broj polise kasko</span>: {{ row.item.kasko.broj_polise_kasko }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Visina premije kasko</span>: {{ row.item.kasko.visina_premije_kasko }}</b-list-group-item>
-                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko | formatDate }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko }}</b-list-group-item>
             </b-list-group>
         </b-card>
         </b-card-group>
@@ -166,19 +165,6 @@
 
     <b-col md="4" class="my-2">
       <span class="label label-success">Strana: {{ currentPage }} | Ukupno redova: {{ totalRows }} | Po strani: {{ perPage }}</span>
-        <!-- <b-form-group
-          label="Filter On"
-          label-cols-sm="3"
-          label-align-sm="right"
-          label-size="sm"
-          description="Leave all unchecked to filter on all data"
-          class="my-0">
-          <b-form-checkbox-group v-model="filterOn" class="mt-1">
-            <b-form-checkbox value="name">Vozilo</b-form-checkbox>
-            <b-form-checkbox value="age">Reg.broj</b-form-checkbox>
-            <b-form-checkbox value="isActive">Broj motora</b-form-checkbox>
-          </b-form-checkbox-group>
-        </b-form-group> -->
     </b-col>
 
       <b-col sm="7" md="8" class="my-0">
@@ -358,6 +344,7 @@ import moment from 'moment';
             vehicle: state => state.vehicle,
             not_all_vehicle: state => state.not_all_vehicle,
             type: state => state.type,
+            show_notifications: state => state.show_notifications,
         })
 
     },
@@ -401,10 +388,10 @@ import moment from 'moment';
       deleteVehicle(vehicle, index){
           this.items.splice(index, 1);
           store.dispatch('deleteVehicle', vehicle.id);
+          this.show_notifications ? this.$awn.success('Uspešno izbrisano vozilo') : false;
       },
 
       addNewInsurance(vehicle) {
-
           store.dispatch('showNewInsuranceForm', vehicle)
       }
 

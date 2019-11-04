@@ -262,13 +262,13 @@
 
          <!-- Isticanje osiguranja -->
         <div class="j-span3 j-unit">
-            <label class="j-label">Datum isticanja osiguranja</label>
+            <label class="j-label">Datum registracije</label>
             <div class="j-input">
             <label class="j-icon-right" for="datum_isticanja_osiguranja">
             <i class="icofont icofont-ui-calendar"></i>
             </label>
 
-            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
             <span class="text-danger" v-if="errors.datum_isticanja_osiguranja">{{ errors.datum_isticanja_osiguranja[0] }}</span>
             </div>
         </div>
@@ -521,6 +521,7 @@ export default {
 
 
         newInsurance(vehicle_id){
+
             let data = {
                 vehicle_id : vehicle_id,
                 os_drustvo: this.os_drustvo,

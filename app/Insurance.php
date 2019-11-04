@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Vehicle;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,7 +15,7 @@ class Insurance extends Model
 
     protected $guarded = ['id'];
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'datum_isticanja_osiguranja'];
 
 
 
@@ -44,6 +45,11 @@ class Insurance extends Model
     }
 
 
+    // public function getDatumIsticanjaOsiguranjaAttribute($value) {
+
+    //     return Carbon::parse($value)->format('d.m.Y');
+    // }
+
     /**
      * Format date
      *
@@ -51,7 +57,7 @@ class Insurance extends Model
      * @return void
      */
     public function setDatumIsticanjaOsiguranjaAttribute($value) {
-        $this->attributes['datum_isticanja_osiguranja'] = date('Y-m-d', strtotime($value) );
+        $this->attributes['datum_isticanja_osiguranja'] = Carbon::parse($value)->addYear()->format('Y-m-d');
     }
 
 

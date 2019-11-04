@@ -2513,20 +2513,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2641,6 +2627,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return state.not_all_vehicle;
   }), _defineProperty(_mapState, "type", function type(state) {
     return state.type;
+  }), _defineProperty(_mapState, "show_notifications", function show_notifications(state) {
+    return state.show_notifications;
   }), _mapState))),
   mounted: function mounted() {
     _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('fetchVehicles');
@@ -2677,6 +2665,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteVehicle: function deleteVehicle(vehicle, index) {
       this.items.splice(index, 1);
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('deleteVehicle', vehicle.id);
+      this.show_notifications ? this.$awn.success('Uspešno izbrisano vozilo') : false;
     },
     addNewInsurance: function addNewInsurance(vehicle) {
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('showNewInsuranceForm', vehicle);
@@ -3242,6 +3231,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3266,7 +3256,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       os_drustvo: '',
       datum_isticanja_osiguranja: '',
       visina_premije: '',
-      registracija: '',
       broj_polise: ''
     };
   },
@@ -3276,6 +3265,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     errors: function errors(state) {
       return state.errors;
+    },
+    show_notifications: function show_notifications(state) {
+      return state.show_notifications;
     }
   })),
   methods: {
@@ -3298,7 +3290,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       };
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('saveVehicle', data); // save vehicle vuex actions
 
-      this.$awn.success('Uspešno snimljeno vozilo ' + this.reg_broj);
+      this.show_notifications ? this.$awn.success('Uspešno snimljeno vozilo ' + this.reg_broj) : false;
     },
     resetForm: function resetForm() {
       this.vozilo = '';
@@ -36670,7 +36662,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.text-white[data-v-027f8928] {\r\n    color: white;\r\n    font-weight: bolder;\r\n    font-size: 15px;\n}\ntable.table tr th[data-v-027f8928], table.table tr td[data-v-027f8928] {\r\n    border-color: #e9e9e9;\n}\na.view[data-v-027f8928] {\r\n    color: #03A9F4;\n}\na.edit[data-v-027f8928] {\r\n    color: #FFC107;\n}\na.delete[data-v-027f8928] {\r\n    color: #E34724;\n}\na.kasko[data-v-027f8928] {\r\n    color: rgb(101, 15, 106);\n}\na.damage[data-v-027f8928] {\r\n    color: rgb(9, 134, 148);\n}\n.font-bold[data-v-027f8928] {\r\n    font-weight: bolder;\r\n    font-style: italic;\n}\n.w500[data-v-027f8928] {\r\n    width: 900px;\n}\n.material-icons[data-v-027f8928] {\r\nfont-size: 18px;\n}\r\n", ""]);
+exports.push([module.i, "\n.text-white[data-v-027f8928] {\n    color: white;\n    font-weight: bolder;\n    font-size: 15px;\n}\ntable.table tr th[data-v-027f8928], table.table tr td[data-v-027f8928] {\n    border-color: #e9e9e9;\n}\na.view[data-v-027f8928] {\n    color: #03A9F4;\n}\na.edit[data-v-027f8928] {\n    color: #FFC107;\n}\na.delete[data-v-027f8928] {\n    color: #E34724;\n}\na.kasko[data-v-027f8928] {\n    color: rgb(101, 15, 106);\n}\na.damage[data-v-027f8928] {\n    color: rgb(9, 134, 148);\n}\n.font-bold[data-v-027f8928] {\n    font-weight: bolder;\n    font-style: italic;\n}\n.w500[data-v-027f8928] {\n    width: 900px;\n}\n.material-icons[data-v-027f8928] {\nfont-size: 18px;\n}\n", ""]);
 
 // exports
 
@@ -36689,7 +36681,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\r\n    border: 0;\r\n    border-bottom: 1px dashed #ccc;\r\n    background: rgb(216, 16, 16);\r\n    margin-bottom: 30px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\n    border: 0;\n    border-bottom: 1px dashed #ccc;\n    background: rgb(216, 16, 16);\n    margin-bottom: 30px;\n}\n\n", ""]);
 
 // exports
 
@@ -88634,25 +88626,6 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            staticClass: "add",
-                            attrs: { href: "", title: "Dodaj novo osiguranje" },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.addNewInsurance(row.item.id)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", { staticClass: "material-icons" }, [
-                              _vm._v("")
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
                             staticClass: "view",
                             attrs: { href: "" },
                             on: {
@@ -88671,6 +88644,25 @@ var render = function() {
                               },
                               [_vm._v("")]
                             )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "add",
+                            attrs: { href: "", title: "Dodaj novo osiguranje" },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.addNewInsurance(row.item.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", { staticClass: "material-icons" }, [
+                              _vm._v("")
+                            ])
                           ]
                         ),
                         _vm._v(" "),
@@ -88825,35 +88817,35 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Vozilo")
+                                        _vm._v("Vozilo:")
                                       ]),
                                       _vm._v(" " + _vm._s(row.item.vozilo))
                                     ]),
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Regist.broj")
+                                        _vm._v("Regist.broj:")
                                       ]),
                                       _vm._v(" " + _vm._s(row.item.reg_broj))
                                     ]),
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Broj motora")
+                                        _vm._v("Broj motora:")
                                       ]),
                                       _vm._v(" " + _vm._s(row.item.broj_motora))
                                     ]),
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Broj šasije")
+                                        _vm._v("Broj šasije:")
                                       ]),
                                       _vm._v(" " + _vm._s(row.item.broj_sasije))
                                     ]),
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Godina proizvodnje")
+                                        _vm._v("Godina proizvodnje:")
                                       ]),
                                       _vm._v(
                                         " " +
@@ -88863,14 +88855,14 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("KS")
+                                        _vm._v("KS:")
                                       ]),
                                       _vm._v(" " + _vm._s(row.item.ks))
                                     ]),
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Radna zapremina")
+                                        _vm._v("Radna zapremina:")
                                       ]),
                                       _vm._v(
                                         " " + _vm._s(row.item.radna_zapremina)
@@ -88879,7 +88871,7 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Dozvoljena nosivost")
+                                        _vm._v("Dozvoljena nosivost:")
                                       ]),
                                       _vm._v(
                                         " " +
@@ -88889,7 +88881,7 @@ var render = function() {
                                     _vm._v(" "),
                                     _c("b-list-group-item", [
                                       _c("span", { staticClass: "font-bold" }, [
-                                        _vm._v("Broj sedišta")
+                                        _vm._v("Broj sedišta:")
                                       ]),
                                       _vm._v(
                                         " " + _vm._s(row.item.broj_sedista)
@@ -88943,7 +88935,9 @@ var render = function() {
                                       _vm._v(
                                         ": " +
                                           _vm._s(
-                                            row.item.insurance.visina_premije
+                                            _vm._f("formatNumber")(
+                                              row.item.insurance.visina_premije
+                                            )
                                           )
                                       )
                                     ]),
@@ -88955,10 +88949,8 @@ var render = function() {
                                       _vm._v(
                                         ": " +
                                           _vm._s(
-                                            _vm._f("formatDate")(
-                                              row.item.insurance
-                                                .datum_isticanja_osiguranja
-                                            )
+                                            row.item.insurance
+                                              .datum_isticanja_osiguranja
                                           )
                                       )
                                     ])
@@ -89034,10 +89026,8 @@ var render = function() {
                                           _vm._v(
                                             ": " +
                                               _vm._s(
-                                                _vm._f("formatDate")(
-                                                  row.item.kasko
-                                                    .datum_isticanja_kasko
-                                                )
+                                                row.item.kasko
+                                                  .datum_isticanja_kasko
                                               )
                                           )
                                         ])
@@ -89604,11 +89594,11 @@ var render = function() {
                   fn: function(row) {
                     return [
                       _vm._v(
-                        "\r\n        " +
+                        "\n        " +
                           _vm._s(row.value.first) +
                           " " +
                           _vm._s(row.value.last) +
-                          "\r\n      "
+                          "\n      "
                       )
                     ]
                   }
@@ -90351,7 +90341,7 @@ var render = function() {
                           _c("datepicker", {
                             attrs: {
                               name: "datum_isticanja_osiguranja",
-                              format: "dd MMM yyyy",
+                              format: "dd MMM",
                               language: _vm.sr,
                               "input-class": "form-control",
                               "calendar-button-icon": "fa fa-calendar"
@@ -90364,6 +90354,23 @@ var render = function() {
                               expression: "datum_isticanja_osiguranja"
                             }
                           }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: !_vm.errors.datum_isticanja_osiguranja,
+                                  expression:
+                                    "!errors.datum_isticanja_osiguranja"
+                                }
+                              ],
+                              staticClass: "text-info"
+                            },
+                            [_vm._v("Unosi se datum registracije vozila")]
+                          ),
                           _vm._v(" "),
                           _vm.errors.datum_isticanja_osiguranja
                             ? _c("span", { staticClass: "text-danger" }, [
@@ -91720,7 +91727,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("div", { staticClass: "j-span3 j-unit" }, [
                                   _c("label", { staticClass: "j-label" }, [
-                                    _vm._v("Datum isticanja osiguranja")
+                                    _vm._v("Datum registracije")
                                   ]),
                                   _vm._v(" "),
                                   _c(
@@ -91746,7 +91753,7 @@ var render = function() {
                                       _c("datepicker", {
                                         attrs: {
                                           name: "datum_isticanja_osiguranja",
-                                          format: "dd MMM yyyy",
+                                          format: "dd MMM",
                                           language: _vm.sr,
                                           "input-class": "form-control",
                                           "calendar-button-icon":
@@ -108940,7 +108947,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref4.commit,
           state = _ref4.state;
       commit('showEditForm');
-      state.vehicle = vehicle; // console.log(state.vehicle);
+      state.vehicle = vehicle;
     },
     showNewInsuranceForm: function showNewInsuranceForm(_ref5, vehicle_id) {
       var commit = _ref5.commit,
@@ -108952,7 +108959,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       var commit = _ref6.commit;
       axios.post('/api/insurance', insurance).then(function (response) {
         commit('setVehicles', response.data.vehicles);
+        commit('setVehiclesCount', response.data.count);
         commit('showNotification');
+        commit('hideEditForm');
       })["catch"](function (error) {
         commit('setErrors', error.response.data.errors);
       });
@@ -108966,6 +108975,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         commit('setVehicles', response.data.vehicles);
         commit('setVehiclesCount', response.data.count);
         commit('hideEditForm');
+        commit('showNotification');
       })["catch"](function (error) {
         state.errors = error.response.data.errors;
       });
@@ -108990,6 +109000,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
           state = _ref10.state;
       axios["delete"]('api/files/' + vehicle_id).then(function (response) {
         commit('setVehicle', response.data.data);
+        commit('showNotification');
       })["catch"](function (error) {
         commit('setErrors', error.response.data.errors);
       });
@@ -109001,6 +109012,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         commit('setDamages', response.data.damages);
         commit('setDamagesCount', response.data.count);
         commit('setVehiclesCount', response.data.count_vehicle);
+        commit('showNotification');
       })["catch"](function (error) {
         commit('setErrors', error.response.data.errors);
       });
@@ -109014,6 +109026,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
         commit('setVehicles', response.data.vehicles);
         commit('setVehiclesCount', response.data.count);
         commit('showVehicleForm');
+        commit('showNotification');
       })["catch"](function (error) {
         commit('setErrors', error.response.data.errors);
       });
@@ -109041,8 +109054,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\insurance-2020\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\insurance-2020\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Volumes/Bosko 2TB/projects/beba/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

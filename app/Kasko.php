@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -51,8 +52,22 @@ class Kasko extends Model
      * @return void
      */
     public function setDatumIsticanjaKaskoAttribute($value) {
-        $this->attributes['datum_isticanja_kasko'] = date('Y-m-d', strtotime($value) );
+        $this->attributes['datum_isticanja_osiguranja_kasko'] = Carbon::parse($value)->addYear()->format('Y-m-d');
     }
+
+
+
+    public function getDatumIsticanjaKaskoAttribute($value) {
+
+        return Carbon::parse($value)->format('d.m.Y');
+    }
+
+
+    public function getVisinaPremijeKaskoAttribute($value) {
+
+        return number_format($value, 2, ".", ',');
+    }
+
 
 
 

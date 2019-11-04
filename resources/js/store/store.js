@@ -43,11 +43,11 @@ export default new Vuex.Store({
             state.vehiclesCount = count;
         },
 
-        showNotification( state ){
+        showNotification(state) {
             state.show_notifications = true;
         },
 
-        showNewInsuranceForm( state ){
+        showNewInsuranceForm(state) {
             state.new_insurance_form = !state.new_insurance_form;
             state.show_edit_vehicle_form = true;
             state.show_vehicle_table = false;
@@ -120,20 +120,21 @@ export default new Vuex.Store({
         showEditVehicleForm({ commit, state }, vehicle) {
             commit('showEditForm');
             state.vehicle = vehicle;
-            // console.log(state.vehicle);
         },
 
-        showNewInsuranceForm({commit, state}, vehicle_id) {
+        showNewInsuranceForm({ commit, state }, vehicle_id) {
             commit('showNewInsuranceForm');
             state.vehicle_id = vehicle_id;
         },
 
-        saveNewInsurance({commit}, insurance) {
+        saveNewInsurance({ commit }, insurance) {
 
-            axios.post('/api/insurance', insurance).then( response => {
+            axios.post('/api/insurance', insurance).then(response => {
                 commit('setVehicles', response.data.vehicles);
+                commit('setVehiclesCount', response.data.count);
                 commit('showNotification');
-            }).catch( error => {
+                commit('hideEditForm');
+            }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             })
 
@@ -146,6 +147,7 @@ export default new Vuex.Store({
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
                 commit('hideEditForm');
+                commit('showNotification');
 
             }).catch(error => {
                 state.errors = error.response.data.errors;
@@ -175,6 +177,7 @@ export default new Vuex.Store({
         removeFile({ commit, state }, vehicle_id) {
             axios.delete('api/files/' + vehicle_id).then(response => {
                 commit('setVehicle', response.data.data);
+                commit('showNotification');
             }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             });
@@ -186,6 +189,7 @@ export default new Vuex.Store({
                 commit('setDamages', response.data.damages);
                 commit('setDamagesCount', response.data.count);
                 commit('setVehiclesCount', response.data.count_vehicle);
+                commit('showNotification');
             }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             });
@@ -198,6 +202,7 @@ export default new Vuex.Store({
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
                 commit('showVehicleForm');
+                commit('showNotification');
             }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             });

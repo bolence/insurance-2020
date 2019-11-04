@@ -182,7 +182,8 @@
             <i class="icofont icofont-ui-calendar"></i>
             </label>
 
-            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <span v-show="!errors.datum_isticanja_osiguranja" class="text-info">Unosi se datum registracije vozila</span>
             <span class="text-danger" v-if="errors.datum_isticanja_osiguranja">{{ errors.datum_isticanja_osiguranja[0] }}</span>
             </div>
         </div>
@@ -242,7 +243,6 @@ export default {
             os_drustvo: '',
             datum_isticanja_osiguranja: '',
             visina_premije: '',
-            registracija: '',
             broj_polise: '',
 
         }
@@ -255,6 +255,7 @@ export default {
         ...mapState({
             hide_form: state => state.hide_vehicle_form,
             errors: state => state.errors,
+            show_notifications: state => state.show_notifications,
         }),
 
     },
@@ -282,7 +283,7 @@ export default {
             };
 
             store.dispatch('saveVehicle', data); // save vehicle vuex actions
-            this.$awn.success('Uspešno snimljeno vozilo ' + this.reg_broj);
+            this.show_notifications ? this.$awn.success('Uspešno snimljeno vozilo ' + this.reg_broj) : false;
         },
 
         resetForm()
