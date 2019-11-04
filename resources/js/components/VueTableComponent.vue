@@ -247,7 +247,7 @@
         </ul>
         </div>
 
-        <hr class="fancy" v-show="changeModal.archive.length > 0 || changeModal.registration.length > 0">
+        <hr class="fancy" v-show="changeModal.archive.length > 0 && changeModal.registration.length > 0">
         <div v-show="changeModal.archive.length > 0">
             <h5 class="text-danger">Promene osiguranja</h5><br>
             <table class="table table-striped table-bordered">

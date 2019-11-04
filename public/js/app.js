@@ -89145,10 +89145,10 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value:
-                          _vm.changeModal.archive.length > 0 ||
+                          _vm.changeModal.archive.length > 0 &&
                           _vm.changeModal.registration.length > 0,
                         expression:
-                          "changeModal.archive.length > 0 || changeModal.registration.length > 0"
+                          "changeModal.archive.length > 0 && changeModal.registration.length > 0"
                       }
                     ],
                     staticClass: "fancy"
