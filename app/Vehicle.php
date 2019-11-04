@@ -69,7 +69,7 @@ class Vehicle extends Model
 
     public function archive()
     {
-        return $this->hasMany(InsuranceArchive::class);
+        return $this->hasMany(InsuranceArchive::class)->orderBy('id', 'desc');
     }
 
     /**
@@ -85,13 +85,13 @@ class Vehicle extends Model
 
     public function files()
     {
-        return $this->hasMany( File::class );
+        return $this->hasMany( File::class )->orderBy('id', 'desc');
     }
 
 
     public function register_changes()
     {
-        return $this->hasMany(RegistrationChange::class);
+        return $this->hasMany(RegistrationChange::class)->orderBy('id', 'desc');
     }
 
 
