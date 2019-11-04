@@ -237,14 +237,18 @@
 
 
     <b-modal :id="changeModal.id" :title="changeModal.title" ok-only @hide="resetChangeModal" size="lg">
+
+        <div v-show="changeModal.registration.length > 0">
         <h5 class="text-danger">Promene registracije</h5>
         <ul style="list-style-type:square; margin: 30px;">
             <li v-for="(register_change, index) in changeModal.registration" :key="index">
                 Promena registracije sa <span class="text-danger font-weight-bold"> {{ register_change.stara_registracija }}</span> na novu <span class="text-primary font-weight-bold">{{ register_change.nova_registracija }}</span>
             </li>
         </ul>
+        </div>
 
-        <hr class="fancy" v-show="changeModal.archive.length > 0">
+        <hr class="fancy" v-show="changeModal.archive.length > 0 || changeModal.registration.length > 0">
+        <div v-show="changeModal.archive.length > 0">
             <h5 class="text-danger">Promene osiguranja</h5><br>
             <table class="table table-striped table-bordered">
                             <thead class="thead-inverse">
@@ -266,6 +270,7 @@
                                     </tr>
                                 </tbody>
                         </table>
+        </div>
 
     </b-modal>
   </b-container>

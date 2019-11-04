@@ -2522,6 +2522,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -89074,42 +89079,64 @@ var render = function() {
                   on: { hide: _vm.resetChangeModal }
                 },
                 [
-                  _c("h5", { staticClass: "text-danger" }, [
-                    _vm._v("Promene registracije")
-                  ]),
-                  _vm._v(" "),
                   _c(
-                    "ul",
+                    "div",
                     {
-                      staticStyle: {
-                        "list-style-type": "square",
-                        margin: "30px"
-                      }
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.changeModal.registration.length > 0,
+                          expression: "changeModal.registration.length > 0"
+                        }
+                      ]
                     },
-                    _vm._l(_vm.changeModal.registration, function(
-                      register_change,
-                      index
-                    ) {
-                      return _c("li", { key: index }, [
-                        _vm._v("\n                Promena registracije sa "),
-                        _c(
-                          "span",
-                          { staticClass: "text-danger font-weight-bold" },
-                          [
+                    [
+                      _c("h5", { staticClass: "text-danger" }, [
+                        _vm._v("Promene registracije")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "ul",
+                        {
+                          staticStyle: {
+                            "list-style-type": "square",
+                            margin: "30px"
+                          }
+                        },
+                        _vm._l(_vm.changeModal.registration, function(
+                          register_change,
+                          index
+                        ) {
+                          return _c("li", { key: index }, [
                             _vm._v(
-                              " " + _vm._s(register_change.stara_registracija)
+                              "\n                Promena registracije sa "
+                            ),
+                            _c(
+                              "span",
+                              { staticClass: "text-danger font-weight-bold" },
+                              [
+                                _vm._v(
+                                  " " +
+                                    _vm._s(register_change.stara_registracija)
+                                )
+                              ]
+                            ),
+                            _vm._v(" na novu "),
+                            _c(
+                              "span",
+                              { staticClass: "text-primary font-weight-bold" },
+                              [
+                                _vm._v(
+                                  _vm._s(register_change.nova_registracija)
+                                )
+                              ]
                             )
-                          ]
-                        ),
-                        _vm._v(" na novu "),
-                        _c(
-                          "span",
-                          { staticClass: "text-primary font-weight-bold" },
-                          [_vm._v(_vm._s(register_change.nova_registracija))]
-                        )
-                      ])
-                    }),
-                    0
+                          ])
+                        }),
+                        0
+                      )
+                    ]
                   ),
                   _vm._v(" "),
                   _c("hr", {
@@ -89117,77 +89144,99 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.changeModal.archive.length > 0,
-                        expression: "changeModal.archive.length > 0"
+                        value:
+                          _vm.changeModal.archive.length > 0 ||
+                          _vm.changeModal.registration.length > 0,
+                        expression:
+                          "changeModal.archive.length > 0 || changeModal.registration.length > 0"
                       }
                     ],
                     staticClass: "fancy"
                   }),
                   _vm._v(" "),
-                  _c("h5", { staticClass: "text-danger" }, [
-                    _vm._v("Promene osiguranja")
-                  ]),
-                  _c("br"),
-                  _vm._v(" "),
                   _c(
-                    "table",
-                    { staticClass: "table table-striped table-bordered" },
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.changeModal.archive.length > 0,
+                          expression: "changeModal.archive.length > 0"
+                        }
+                      ]
+                    },
                     [
-                      _c("thead", { staticClass: "thead-inverse" }, [
-                        _c("tr", [
-                          _c("th", [_vm._v("OS društvo")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Visina premije")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Isticanje osiguranja")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Broj polise")]),
-                          _vm._v(" "),
-                          _c("th", [_vm._v("Izmenjeno dana")])
-                        ])
+                      _c("h5", { staticClass: "text-danger" }, [
+                        _vm._v("Promene osiguranja")
                       ]),
+                      _c("br"),
                       _vm._v(" "),
                       _c(
-                        "tbody",
-                        _vm._l(_vm.changeModal.archive, function(
-                          archive,
-                          index
-                        ) {
-                          return _c("tr", { key: index }, [
-                            _c("td", { attrs: { scope: "row" } }, [
-                              _vm._v(_vm._s(archive.os_drustvo))
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("formatNumber")(archive.visina_premije)
-                                )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("formatDate")(
-                                    archive.datum_isticanja_osiguranja
-                                  )
-                                )
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [_vm._v(_vm._s(archive.broj_polise))]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _vm._v(
-                                _vm._s(
-                                  _vm._f("formatDateTime")(archive.created_at)
-                                )
-                              )
+                        "table",
+                        { staticClass: "table table-striped table-bordered" },
+                        [
+                          _c("thead", { staticClass: "thead-inverse" }, [
+                            _c("tr", [
+                              _c("th", [_vm._v("OS društvo")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Visina premije")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Isticanje osiguranja")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Broj polise")]),
+                              _vm._v(" "),
+                              _c("th", [_vm._v("Izmenjeno dana")])
                             ])
-                          ])
-                        }),
-                        0
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.changeModal.archive, function(
+                              archive,
+                              index
+                            ) {
+                              return _c("tr", { key: index }, [
+                                _c("td", { attrs: { scope: "row" } }, [
+                                  _vm._v(_vm._s(archive.os_drustvo))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("formatNumber")(
+                                        archive.visina_premije
+                                      )
+                                    )
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("formatDate")(
+                                        archive.datum_isticanja_osiguranja
+                                      )
+                                    )
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(archive.broj_polise))]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm._f("formatDateTime")(
+                                        archive.created_at
+                                      )
+                                    )
+                                  )
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
                       )
                     ]
                   )
