@@ -206,65 +206,66 @@
         <b-card-text>
             <div class="card">
                         <div class="card-header">
-                            <h2>Izmeni/dodaj kasko osiguranje</h2>
+                            <h2 v-if="vehicle.kasko">Izmeni/dodaj kasko osiguranje</h2>
+                            <h2 v-else>Vozilo za sada nema kasko</h2>
                         </div>
 
                         <div class="card-block">
 
-<form class="j-pro" id="j-pro" v-if="hide_form">
+<form class="j-pro" id="j-pro" v-show="vehicle.kasko && vehicle.kasko !== null">
 <!-- end /.header-->
 <div class="j-content">
 
      <div class="j-row">
 
-      <!-- Os drustvo kasko -->
+
         <div class="j-span3 j-unit">
             <label class="j-label">Os drustvo kasko</label>
             <div class="j-input">
             <label class="j-icon-right" for="visina_premije">
             <i class="icofont icofont-car-alt-1"></i>
             </label>
-            <input type="text" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="vehicle.kasko.os_drustvo_kasko" v-if="vehicle.kasko !== null">
+            <input type="text" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="vehicle.kasko.os_drustvo_kasko" v-if="vehicle.kasko && vehicle.kasko !== null">
             <input type="text" placeholder="Os društvo kasko" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="os_drustvo_kasko" v-else>
             </div>
         </div>
 
 
-         <!--Broj polise kasko -->
+
         <div class="j-span3 j-unit">
               <label class="j-label">Broj polise kasko</label>
             <div class="j-input">
             <label class="j-icon-right" for="broj_polise_kasko">
             <i class="icofont icofont-car-alt-1"></i>
             </label>
-            <input type="text" id="broj_polise_kasko" name="broj_polise_kasko" v-model="vehicle.kasko.broj_polise_kasko" v-if="vehicle.kasko !== null">
+            <input type="text" id="broj_polise_kasko" name="broj_polise_kasko" v-model="vehicle.kasko.broj_polise_kasko" v-if="vehicle.kasko && vehicle.kasko !== null">
             <input type="text" placeholder="Broj polise kasko" id="broj_polise_kasko" name="broj_polise_kasko" v-model="broj_polise_kasko" v-else>
             </div>
         </div>
 
 
-         <!-- Visina premije kasko -->
+
         <div class="j-span3 j-unit">
                <label class="j-label">Visina premije kasko</label>
             <div class="j-input">
             <label class="j-icon-right" for="visina_premija_kasko">
             <i class="icofont icofont-car-alt-1"></i>
             </label>
-            <input type="text" id="visina_premija_kasko" name="visina_premija_kasko" v-model="vehicle.kasko.visina_premije_kasko" v-if="vehicle.kasko !== null">
+            <input type="text" id="visina_premija_kasko" name="visina_premija_kasko" v-model="vehicle.kasko.visina_premije_kasko" v-if="vehicle.kasko && vehicle.kasko !== null">
             <input type="text" placeholder="Visina premije kasko" id="visina_premija_kasko" name="visina_premija_kasko" v-model="visina_premije_kasko" v-else>
 
             </div>
         </div>
 
 
-         <!-- Isticanje osiguranja -->
+
         <div class="j-span3 j-unit">
             <label class="j-label">Datum isticanja kaska</label>
             <div class="j-input">
             <label class="j-icon-right" for="datum_isticanja_kasko">
             <i class="icofont icofont-car-alt-1"></i>
             </label>
-            <datepicker v-model="vehicle.kasko.datum_isticanja_kasko" v-if="vehicle.kasko !== null" name="datum_isticanja_kasko" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="vehicle.kasko.datum_isticanja_kasko" v-if="vehicle.kasko && vehicle.kasko !== null" name="datum_isticanja_kasko" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
             <datepicker v-model="datum_isticanja_kasko" v-else name="datum_isticanja_kasko" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
 
             </div>
@@ -386,10 +387,10 @@ export default {
                 visina_premije: vehicle.insurance.visina_premije,
                 registracija: vehicle.insurance.registracija,
                 broj_polise: vehicle.insurance.broj_polise,
-                // os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
-                // visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
-                // datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
-                // broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
+                os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
+                visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
+                datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
+                broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
 
 
             };
