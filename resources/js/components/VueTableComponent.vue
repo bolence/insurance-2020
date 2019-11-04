@@ -106,7 +106,7 @@
       </template>
 
       <template v-slot:cell(actions)="row">
-        <!-- <a href="" class="view" @click.prevent="info(row.item, row.index, $event.target)"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a> -->
+        <a href="" class="add" @click.prevent="addNewInsurance(row.item)" title="Dodaj novo osiguranje"><i class="material-icons">&#xe148;</i></a>
         <a href="" class="view" @click.prevent="row.toggleDetails"><i class="material-icons" data-toggle="tooltip">&#xE417;</i></a>
         <a href="" class="edit" @click.prevent="editVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip" >&#xE254;</i></a>
         <a href="" class="delete" @click.prevent="deleteVehicle(row.item, row.index)"><i class="material-icons" data-toggle="tooltip">&#xE872;</i></a>
@@ -398,6 +398,10 @@ import moment from 'moment';
           store.dispatch('deleteVehicle', vehicle.id);
       },
 
+      addNewInsurance() {
+          store.dispatch('showNewInsuranceForm')
+      }
+
     }
   }
 </script>
@@ -430,6 +434,10 @@ a.kasko {
 
 a.damage {
     color: rgb(9, 134, 148);
+}
+
+a.add {
+   color: rgb(33, 2, 104);
 }
 
 .font-bold {

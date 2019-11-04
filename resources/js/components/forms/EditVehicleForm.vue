@@ -3,7 +3,7 @@
 <div v-show="hide_form">
   <b-card no-body>
     <b-tabs card>
-      <b-tab title="Vozilo" active>
+      <b-tab title="Vozilo">
         <b-card-text>
 
 <form class="j-pro" id="j-pro">
@@ -201,6 +201,101 @@
         </b-card-text>
       </b-tab>
 
+      <b-tab title="Novo osiguranje" v-show="new_insurance_form">
+
+          <b-card-text>
+            <div class="card">
+                        <div class="card-header">
+                            <h2 v-if="vehicle.kasko">Izmeni/dodaj kasko osiguranje</h2>
+                            <h2 v-else>Vozilo za sada nema kasko</h2>
+                        </div>
+
+                        <div class="card-block">
+
+<form class="j-pro" id="j-pro" v-show="vehicle.kasko && vehicle.kasko !== null">
+<!-- end /.header-->
+<div class="j-content">
+
+     <div class="j-row">
+
+
+        <div class="j-span3 j-unit">
+            <label class="j-label">Os drustvo kasko</label>
+            <div class="j-input">
+            <label class="j-icon-right" for="visina_premije">
+            <i class="icofont icofont-car-alt-1"></i>
+            </label>
+            <input type="text" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="vehicle.kasko.os_drustvo_kasko" v-if="vehicle.kasko && vehicle.kasko !== null">
+            <input type="text" placeholder="Os društvo kasko" id="os_drustvo_kasko" name="os_drustvo_kasko" v-model="os_drustvo_kasko" v-else>
+            </div>
+        </div>
+
+
+
+        <div class="j-span3 j-unit">
+              <label class="j-label">Broj polise kasko</label>
+            <div class="j-input">
+            <label class="j-icon-right" for="broj_polise_kasko">
+            <i class="icofont icofont-car-alt-1"></i>
+            </label>
+            <input type="text" id="broj_polise_kasko" name="broj_polise_kasko" v-model="vehicle.kasko.broj_polise_kasko" v-if="vehicle.kasko && vehicle.kasko !== null">
+            <input type="text" placeholder="Broj polise kasko" id="broj_polise_kasko" name="broj_polise_kasko" v-model="broj_polise_kasko" v-else>
+            </div>
+        </div>
+
+
+
+        <div class="j-span3 j-unit">
+               <label class="j-label">Visina premije kasko</label>
+            <div class="j-input">
+            <label class="j-icon-right" for="visina_premija_kasko">
+            <i class="icofont icofont-car-alt-1"></i>
+            </label>
+            <input type="text" id="visina_premija_kasko" name="visina_premija_kasko" v-model="vehicle.kasko.visina_premije_kasko" v-if="vehicle.kasko && vehicle.kasko !== null">
+            <input type="text" placeholder="Visina premije kasko" id="visina_premija_kasko" name="visina_premija_kasko" v-model="visina_premije_kasko" v-else>
+
+            </div>
+        </div>
+
+
+
+        <div class="j-span3 j-unit">
+            <label class="j-label">Datum isticanja kaska</label>
+            <div class="j-input">
+            <label class="j-icon-right" for="datum_isticanja_kasko">
+            <i class="icofont icofont-car-alt-1"></i>
+            </label>
+            <datepicker v-model="vehicle.kasko.datum_isticanja_kasko" v-if="vehicle.kasko && vehicle.kasko !== null" name="datum_isticanja_kasko" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="datum_isticanja_kasko" v-else name="datum_isticanja_kasko" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+
+            </div>
+        </div>
+
+    </div>
+<!-- end name -->
+
+<!-- start response from server -->
+<div class="j-response" v-if="errors.message">{{ errors.message }}</div>
+<!-- end response from server -->
+</div>
+<!-- end /.content -->
+<div class="j-footer">
+<button class="btn btn-primary" @click.prevent="updateVehicle(vehicle)"><i class="icofont icofont-car-alt-1"></i> Snimi</button>
+<button class="btn btn-default m-r-20" @click.prevent="$store.commit('hideEditForm')">Zatvori</button>
+</div>
+<!-- end /.footer -->
+</form>
+
+
+
+                        </div>
+
+                    </div>
+
+        </b-card-text>
+
+      </b-tab>
+
 
       <b-tab title="Kasko">
         <b-card-text>
@@ -360,6 +455,7 @@ export default {
             hide_form: state => state.show_edit_vehicle_form,
             vehicle: state => state.vehicle,
             errors: state => state.errors,
+            new_insurance_form: state => state.new_insurance_form,
         })
     },
 

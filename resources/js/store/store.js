@@ -19,6 +19,7 @@ export default new Vuex.Store({
         not_all_vehicle: false,
         type: '',
         damages: [],
+        new_insurance_form: false,
 
     },
     mutations: {
@@ -38,6 +39,12 @@ export default new Vuex.Store({
         },
         setVehiclesCount(state, count) {
             state.vehiclesCount = count;
+        },
+
+        showNewInsuranceForm( state ){
+            state.new_insurance_form = !state.new_insurance_form;
+            state.show_edit_vehicle_form = true;
+            state.show_vehicle_table = false;
         },
 
         setDamagesCount(state, count) {
@@ -107,6 +114,10 @@ export default new Vuex.Store({
             commit('showEditForm');
             state.vehicle = vehicle;
             // console.log(state.vehicle);
+        },
+
+        showNewInsuranceForm({commit}) {
+            commit('showNewInsuranceForm');
         },
 
         updateVehicle({ commit, state }, vehicle) {
