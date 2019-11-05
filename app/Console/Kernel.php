@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Console\Commands\ClearCache::class,
+        \App\Console\Commands\ClearCache::class,
     ];
 
     /**
