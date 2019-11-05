@@ -2500,6 +2500,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2623,6 +2624,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('fetchVehicles');
   },
   methods: {
+    pastInMonth: function pastInMonth(item, type) {
+      if (!item) return;
+      if (moment__WEBPACK_IMPORTED_MODULE_5___default()().subtract(1, 'month').format('Y-MM-DD' + ' 00:00:00') == item.insurance.datum_isticanja_osiguranja) return 'table-danger';
+    },
     info: function info(item, index, button) {
       //   console.log(item);
       this.infoModal.title = "\u0160tete za vozilo reg.broj: ".concat(item.reg_broj);
@@ -88709,6 +88714,7 @@ var render = function() {
               _vm._v(" "),
               _c("b-table", {
                 attrs: {
+                  "tbody-tr-class": _vm.pastInMonth,
                   striped: "",
                   bordered: "",
                   responsive: "",

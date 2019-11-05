@@ -65,6 +65,7 @@
 
     <!-- Main table element -->
     <b-table
+    :tbody-tr-class="pastInMonth"
       striped
       bordered
       responsive
@@ -341,6 +342,11 @@ import moment from 'moment';
     },
 
     methods: {
+
+      pastInMonth(item, type) {
+        if (!item) return
+        if (moment().subtract(1, 'month').format('Y-MM-DD' + ' 00:00:00') == item.insurance.datum_isticanja_osiguranja) return 'table-danger'
+      },
       info(item, index, button) {
         //   console.log(item);
         this.infoModal.title = `Štete za vozilo reg.broj: ${item.reg_broj}`
