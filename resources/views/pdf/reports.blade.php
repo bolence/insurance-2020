@@ -57,9 +57,9 @@
 
               <div class="card-footer">
 
-                <button type="submit" class="btn btn-primary float-right">
+                <button type="submit" class="btn btn-primary float-right mb-2">
                     <i class="fa fa-pdf"></i>
-                    Napravi izveštaj
+                    Napravi izveštaj za osiguranje
                     </button>
 
               </div>
@@ -102,9 +102,9 @@
 
           <div class="card-footer">
 
-            <button type="submit" class="btn btn-primary float-right">
+            <button type="submit" class="btn btn-primary float-right mb-2">
                 <i class="fa fa-pdf"></i>
-                Napravi izveštaj
+                Napravi izveštaj za štete
                 </button>
 
           </div>

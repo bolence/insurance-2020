@@ -56,7 +56,7 @@ class FileService {
 
         $vehicle = Vehicle::with('files')->findOrFail($vehicle_id);
 
-        return response()->json(['success' => true, 'message' => 'Uspešno uplodovani fajlovi', 'data' => $vehicle], 200);
+        return response()->json(['success' => true, 'message' => 'Uspešno uplodovan-i fajl-ovi', 'data' => $vehicle], 200);
     }
 
 

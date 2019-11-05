@@ -44,6 +44,12 @@ class Kasko extends Model
     }
 
 
+    public function getDatumIsticanjaKaskoAttribute($value) {
+
+        return Carbon::parse($value)->format('Y-m-d');
+    }
+
+
 
      /**
      * Format date
@@ -52,14 +58,7 @@ class Kasko extends Model
      * @return void
      */
     public function setDatumIsticanjaKaskoAttribute($value) {
-        $this->attributes['datum_isticanja_kasko'] = Carbon::parse($value)->addYear()->format('Y-m-d');
-    }
-
-
-
-    public function getDatumIsticanjaKaskoAttribute($value) {
-
-        return Carbon::parse($value)->format('d.m.Y');
+        $this->attributes['datum_isticanja_kasko'] = date('Y-m-d', strtotime($value));
     }
 
 

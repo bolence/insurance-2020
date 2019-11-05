@@ -5,6 +5,7 @@ window.Vue = require('vue');
 import BootstrapVue from 'bootstrap-vue'
 import store from './store/store'
 import moment from 'moment'
+import VueMoment from 'vue-moment';
 import VueAWN from "vue-awesome-notifications";
 import VueSweetAlert from 'vue-sweetalert';
 import VuejsDialog from "vuejs-dialog";
@@ -14,7 +15,6 @@ var numeral = require("numeral");
 // import css
 import "vue-awesome-notifications/dist/styles/style.css"; // vue notification css
 import "vuejs-dialog/dist/vuejs-dialog.min.css"; // vue confirmation css
-// import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
@@ -38,6 +38,8 @@ Vue.use(VueAWN, options); // toastr notifications
 Vue.use(VueSweetAlert); // sweet alert js
 Vue.use(VuejsDialog); // vue confirmation dialog
 Vue.use(BootstrapVue);
+
+Vue.use(VueMoment, { moment });
 
 Vue.component('vuetable-component', require('./components/VueTableComponent.vue').default);
 Vue.component('vuetable-damages-component', require('./components/VueTableDamagesComponent.vue').default);

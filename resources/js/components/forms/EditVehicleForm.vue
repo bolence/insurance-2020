@@ -352,7 +352,7 @@ export default {
             sr: sr,
             dropzoneOptions: {
             url: '/api/files',
-            thumbnailWidth: 50,
+            thumbnailWidth: 100,
             maxFilesize: 10,
             addRemoveLinks: true,
             dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>UPLOAD ME",
@@ -410,9 +410,8 @@ export default {
         },
 
         afterSuccessUpload(file, response ){
-            // console.log(response.data);
             store.dispatch('uploadFiles', response.data);
-            this.$awn.success(response.data.message);
+            this.$awn.success(response.message);
         },
 
         sendingEvent (file, xhr, formData) {

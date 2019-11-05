@@ -54,10 +54,10 @@ class PdfController extends Controller
         ) insurances ON vehicles.id = insurances.vehicle_id
         LEFT JOIN
         (
-            SELECT datum_udesa, vehicle_id FROM damages where year(datum_udesa) = ".$previous_year . "
+            SELECT datum_udesa, vehicle_id FROM damages where year(datum_udesa) = '.$previous_year . '
         ) damages ON damages.vehicle_id = vehicles.id
-        WHERE MONTH(datum_isticanja_osiguranja) = ".$month."
-        AND year(datum_isticanja_osiguranja) = ".$year."
+        WHERE MONTH(datum_isticanja_osiguranja) = '.$month.'
+        AND year(datum_isticanja_osiguranja) = '.$year.'
         ORDER BY DATE(datum_isticanja_osiguranja) ASC
         ");
 
@@ -92,7 +92,7 @@ class PdfController extends Controller
         * FROM damages d
         JOIN vehicles v
         ON v.id = d.vehicle_id
-        WHERE YEAR(datum_udesa) = ".$year."
+        WHERE YEAR(datum_udesa) = '.$year.'
         ORDER BY DATE(datum_udesa) ASC
         ");
 

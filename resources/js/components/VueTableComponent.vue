@@ -6,6 +6,12 @@
 <button class="btn hor-grd btn-grd-primary mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', null)" v-show="not_all_vehicle"><i class="fa fa-car"></i> Sva vozila</button>
 <button class="btn hor-grd btn-grd-success mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'kasko')"><i class="fa fa-anchor"></i> Vozila sa kasko osiguranjem </button>
 <button class="btn hor-grd btn-grd-danger mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'damage')"><i class="fa fa-ambulance"></i> Vozila sa štetama</button>
+   <b-form-select v-model="insurance_year" class="mb-3 float-right" @change="insuranceYearFind">
+      <option :value="null">Izaberi godinu osiguranja</option>
+      <option value="2019" selected>{{ $moment().year() }}</option>
+      <option value="2018">{{ $moment().year() - 1 }}</option>
+      <option value="2017">{{ $moment().year() -2 }}</option>
+    </b-form-select>
 <AddNewVehicleForm></AddNewVehicleForm>
 <EditVehicleForm></EditVehicleForm>
 <AddNewInsurance></AddNewInsurance>
@@ -104,7 +110,7 @@
       <template v-slot:row-details="row">
         <b-card-group deck>
            <b-card align="center" class="text-center mb-2">
-               <b-text><h4>Detalji vozila</h4></b-text>
+               <b-card-text><h4>Detalji vozila</h4></b-card-text>
             <b-list-group>
                     <b-list-group-item><span class="font-bold">ID:</span> {{ row.item.id }}</b-list-group-item>
                     <b-list-group-item><span class="font-bold">Vozilo:</span> {{ row.item.vozilo }}</b-list-group-item>
@@ -122,7 +128,7 @@
 
         </b-card>
         <b-card align="center" class="text-center mb-2">
-            <b-text><h4>Osiguranje</h4></b-text>
+            <b-card-text><h4>Osiguranje</h4></b-card-text>
             <b-list-group>
                 <b-list-group-item><span class="font-bold">OS društvo</span>: {{ row.item.insurance.os_drustvo }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Broj polise</span>: {{ row.item.insurance.broj_polise }}</b-list-group-item>
@@ -132,12 +138,12 @@
         </b-card>
 
         <b-card align="center" class="text-center mb-2" v-if="row.item.kasko">
-            <b-text><h4>Kasko</h4></b-text>
+            <b-card-text><h4>Kasko</h4></b-card-text>
             <b-list-group>
                 <b-list-group-item><span class="font-bold">OS društvo kasko</span>: {{ row.item.kasko.os_drustvo_kasko }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Broj polise kasko</span>: {{ row.item.kasko.broj_polise_kasko }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Visina premije kasko</span>: {{ row.item.kasko.visina_premije_kasko }}</b-list-group-item>
-                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko  }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko | formatDate  }}</b-list-group-item>
             </b-list-group>
         </b-card>
         </b-card-group>
@@ -311,6 +317,7 @@ import moment from 'moment';
             archive: '',
             registration: '',
         },
+        insurance_year: null,
       }
     },
 
@@ -343,6 +350,11 @@ import moment from 'moment';
     },
 
     methods: {
+
+    momentFormat(date) {
+        let format = !date ? moment().format('Y') : moment(date, 'YYYY-MM-DD').format('Y');
+        return format;
+    },
 
       pastInMonth(item, type) {
         if (!item) return
@@ -388,6 +400,10 @@ import moment from 'moment';
 
       addNewInsurance(vehicle) {
           store.dispatch('showNewInsuranceForm', vehicle)
+      },
+
+      insuranceYearFind() {
+        //   console.log(this.insurance_year)
       }
 
     }

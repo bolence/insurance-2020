@@ -166,7 +166,7 @@
             <label class="j-icon-right" for="datum_isticanja_kasko">
             <i class="icofont icofont-car-alt-1"></i>
             </label>
-            <datepicker v-model="datum_isticanja_kasko"  name="datum_isticanja_kasko" format="dd MMM" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="datum_isticanja_kasko"  name="datum_isticanja_kasko" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
             <span class="text-info">Unosi se datum kasko vozila</span>
             </div>
         </div>
@@ -206,6 +206,7 @@ import store from '../../store/store';
 import {mapState} from 'vuex';
 import Datepicker from 'vuejs-datepicker';
 import {sr} from 'vuejs-datepicker/dist/locale';
+import moment from 'moment';
 
 export default {
     components: {
@@ -258,7 +259,7 @@ export default {
                 os_drustvo_kasko: this.os_drustvo_kasko,
                 visina_premije_kasko: this.visina_premije_kasko,
                 broj_polise_kasko: this.broj_polise_kasko,
-                datum_isticanja_kasko: this.datum_isticanja_kasko
+                datum_isticanja_kasko: moment(this.datum_isticanja_kasko).add(1, 'year').format('Y-MM-DD')
             }
 
             store.dispatch('saveNewKasko', data);

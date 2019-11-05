@@ -28,6 +28,7 @@
         "moment": "^2.24.0",
         "numeral": "^2.0.6",
         "vue-awesome-notifications": "^3.0.3",
+        "vue-moment": "^4.0.0",
         "vue-spinner": "^1.0.3",
         "vue-sweetalert": "^0.1.18",
         "vue-validate": "^1.0.1",
