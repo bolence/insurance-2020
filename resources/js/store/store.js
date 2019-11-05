@@ -49,8 +49,8 @@ export default new Vuex.Store({
 
         showNewInsuranceForm(state) {
             state.new_insurance_form = !state.new_insurance_form;
-            state.show_edit_vehicle_form = true;
-            state.show_vehicle_table = false;
+            // state.show_edit_vehicle_form = true;
+            state.show_vehicle_table = !state.show_vehicle_table;
         },
 
         setDamagesCount(state, count) {
@@ -133,11 +133,22 @@ export default new Vuex.Store({
                 commit('setVehicles', response.data.vehicles);
                 commit('setVehiclesCount', response.data.count);
                 commit('showNotification');
-                commit('hideEditForm');
+                commit('showNewInsuranceForm');
             }).catch(error => {
                 commit('setErrors', error.response.data.errors);
             })
 
+        },
+
+        saveNewKasko({commit}, kasko) {
+            axios.post('/api/kasko', kasko).then(response => {
+                commit('setVehicles', response.data.vehicles);
+                commit('setVehiclesCount', response.data.count);
+                commit('showNotification');
+                commit('showNewInsuranceForm');
+            }).catch(error => {
+                commit('setErrors', error.response.data.errors);
+            })
         },
 
         updateVehicle({ commit, state }, vehicle) {

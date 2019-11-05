@@ -14,7 +14,7 @@ class Kasko extends Model
 
     public $table = 'kasko';
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'datum_isticanja_kasko'];
 
     protected $guarded = ['id'];
 
@@ -52,7 +52,7 @@ class Kasko extends Model
      * @return void
      */
     public function setDatumIsticanjaKaskoAttribute($value) {
-        $this->attributes['datum_isticanja_osiguranja_kasko'] = Carbon::parse($value)->addYear()->format('Y-m-d');
+        $this->attributes['datum_isticanja_kasko'] = Carbon::parse($value)->addYear()->format('Y-m-d');
     }
 
 

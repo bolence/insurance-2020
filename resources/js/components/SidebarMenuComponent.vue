@@ -19,12 +19,12 @@
                         <span class="pcoded-badge label label-warning ml-5" title="Broj vozila">{{ vehicle_count }}</span>
                     </a>
                 </li>
-                <li class="">
+                <!-- <li class="">
                     <a href="/insurance">
                         <span class="pcoded-micon"><i class="feather icon-menu"></i></span>
                         <span class="pcoded-mtext">Osiguranje</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="pcoded">
                     <a href="/damages">
                         <span class="pcoded-micon"><i class="feather icon-layers"></i></span>
@@ -33,12 +33,12 @@
                     </a>
                 </li>
 
-                <li class="pcoded">
+                <!-- <li class="pcoded">
                     <a href="/kasko">
                         <span class="pcoded-micon"><i class="feather icon-box"></i></span>
                         <span class="pcoded-mtext">Kasko</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="pcoded">
                     <a href="/reports">

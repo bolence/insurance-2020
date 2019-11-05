@@ -20,7 +20,11 @@ class PdfController extends Controller
      */
     public function index()
     {
-        return view('pdf.reports')->withTitle('Izveštaji');
+        return view('pdf.reports')->with([
+        'mainPageName' => 'Izveštaji - ' . __('titles.main_page_name'),
+        'pageName'  => 'Izveštaji',
+        'pageName2' => 'Izveštaji'
+        ]);
     }
 
 
@@ -37,7 +41,7 @@ class PdfController extends Controller
 
         $insurance = DB::select("SELECT
         vehicles.id as vehicle_id,
-        name as vozilo,
+        vozilo,
         reg_broj as registracija,
         datum_udesa as steta,
         insurances.visina_premije,

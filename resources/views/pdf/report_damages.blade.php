@@ -46,7 +46,7 @@
             <tbody>
                 @foreach( $data as $damage )
                 <tr>
-                    <td>{{ $damage->name }}</td>
+                    <td>{{ $damage->vozilo }}</td>
                     <td>{{ $damage->ime_vozaca }}</td>
                     <td><span style="float:right;font-weight: bolder;">{{ date('d.m.Y', strtotime($damage->datum_udesa)) }}</span></td>
                     <td>{{ $damage->mesto_udesa }}</td>

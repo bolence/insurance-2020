@@ -8,6 +8,7 @@
 <button class="btn hor-grd btn-grd-danger mb-3 text-white" @click.prevent="$store.dispatch('showVehicleType', 'damage')"><i class="fa fa-ambulance"></i> Vozila sa štetama</button>
 <AddNewVehicleForm></AddNewVehicleForm>
 <EditVehicleForm></EditVehicleForm>
+<AddNewInsurance></AddNewInsurance>
 
 
 <div v-show="show_vehicle_table">
@@ -35,27 +36,7 @@
         </b-form-select>
         </b-form-group>
       </b-col>
-<!-- <b-col sm="6" md="6">
-        <b-form-group
-          label="Sortiraj"
-          label-cols-sm="4"
-          label-align-sm="right"
-          label-size="sm"
-          label-for="sortBySelect"
-          class="mb-0">
-          <b-input-group size="md">
-            <b-form-select v-model="sortBy" id="sortBySelect" :options="sortOptions" class="w-75">
-              <template v-slot:first>
-                <option value="">-- none --</option>
-              </template>
-            </b-form-select>
-            <b-form-select v-model="sortDesc" size="md" :disabled="!sortBy" class="w-25">
-              <option :value="false">Asc</option>
-              <option :value="true">Desc</option>
-            </b-form-select>
-          </b-input-group>
-        </b-form-group>
-</b-col> -->
+
 <b-col lg="6" class="my-0">
         <b-form-group
           label="Filter"
@@ -274,6 +255,7 @@
 import store from '../store/store';
 import AddNewVehicleForm from '../components/forms/AddNewVehicle';
 import EditVehicleForm from '../components/forms/EditVehicleForm';
+import AddNewInsurance from '../components/forms/AddNewInsurance';
 import { mapState } from 'vuex';
 import moment from 'moment';
 
@@ -281,6 +263,7 @@ import moment from 'moment';
     components: {
         AddNewVehicleForm,
         EditVehicleForm,
+        AddNewInsurance
     },
     data() {
       return {
@@ -349,7 +332,7 @@ import moment from 'moment';
             vehicle: state => state.vehicle,
             not_all_vehicle: state => state.not_all_vehicle,
             type: state => state.type,
-            show_notifications: state => state.show_notifications,
+            show_notifications: state => state.show_notifications
         })
 
     },

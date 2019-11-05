@@ -44,8 +44,9 @@ Vue.component('vuetable-damages-component', require('./components/VueTableDamage
 Vue.component('sidebar-menu-component', require('./components/SidebarMenuComponent.vue').default);
 Vue.component('login-component', require('./components/LoginComponent.vue').default);
 Vue.component('header-component', require('./components/HeaderComponent.vue').default);
-Vue.component('new-vehicle-form-component', require('./components/forms/AddNewVehicle.vue').default);
-Vue.component('edit-vehicle-form-component', require('./components/forms/EditVehicleForm.vue').default);
+// Vue.component('new-vehicle-form-component', require('./components/forms/AddNewVehicle.vue').default);
+// Vue.component('new-insurance-form-component', require('./components/forms/AddNewInsurance.vue').default);
+// Vue.component('edit-vehicle-form-component', require('./components/forms/EditVehicleForm.vue').default);
 
 
 Vue.filter('formatDate', function(value) {
