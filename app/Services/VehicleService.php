@@ -104,9 +104,9 @@ class VehicleService {
     public function update( $request, $id)
     {
 
-        $vehicle_request = $request->only('vozilo','reg_broj','ks','inv_broj','broj_sasije','broj_motora','godina_proizvodnje','ks','broj_sedista','radna_zapremina','dozvoljena_nosivost');
+        $vehicle_request = $request->only('vozilo','reg_broj','ks','inv_broj','broj_sasije','broj_motora','godina_proizvodnje','broj_sedista','radna_zapremina','dozvoljena_nosivost');
 
-        $insurance_request = $request->only('os_drustvo','datum_isticanja_osiguranja','visina_premije','registracija','broj_polise');
+        $insurance_request = $request->only('os_drustvo','datum_isticanja_osiguranja','visina_premije','broj_polise');
 
         $kasko_request = $request->only('os_drustvo_kasko','datum_isticanja_kasko','visina_premije_kasko','broj_polise_kasko');
 

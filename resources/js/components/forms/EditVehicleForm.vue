@@ -87,7 +87,7 @@
 
         <!-- Broj sasije -->
         <div class="j-span3 j-unit">
-            <label class="j-label">Godina proizvodnje</label>
+            <label class="j-label">Broj šasije</label>
             <div class="j-input">
             <label class="j-icon-right" for="broj_sasije">
             <i class="icofont icofont-car-alt-1"></i>
@@ -393,10 +393,7 @@ export default {
                 os_drustvo: vehicle.insurance.os_drustvo,
                 datum_isticanja_osiguranja: vehicle.insurance.datum_isticanja_osiguranja,
                 visina_premije: vehicle.insurance.visina_premije,
-                registracija: vehicle.insurance.registracija,
                 broj_polise: vehicle.insurance.broj_polise
-
-
             };
             store.dispatch('updateVehicle', data);
             this.show_notifications ? this.$awn.success('Uspešno izmenjeno vozilo') : false;
