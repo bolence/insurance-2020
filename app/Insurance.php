@@ -45,10 +45,10 @@ class Insurance extends Model
     }
 
 
-    // public function getDatumIsticanjaOsiguranjaAttribute($value) {
+    public function getDatumIsticanjaOsiguranjaAttribute($value) {
 
-    //     return Carbon::parse($value)->format('d.m.Y');
-    // }
+        return Carbon::parse($value)->format('Y-m-d');
+    }
 
     /**
      * Format date
@@ -57,7 +57,7 @@ class Insurance extends Model
      * @return void
      */
     public function setDatumIsticanjaOsiguranjaAttribute($value) {
-        $this->attributes['datum_isticanja_osiguranja'] = Carbon::parse($value)->addYear()->format('Y-m-d');
+        $this->attributes['datum_isticanja_osiguranja'] = date('Y-m-d', strtotime($value));
     }
 
 

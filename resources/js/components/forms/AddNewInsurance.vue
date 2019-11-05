@@ -244,7 +244,7 @@ export default {
                 os_drustvo: this.os_drustvo,
                 visina_premije: this.visina_premije,
                 broj_polise: this.broj_polise,
-                datum_isticanja_osiguranja: this.datum_isticanja_osiguranja
+                datum_isticanja_osiguranja: moment(this.datum_isticanja_osiguranja).add(1, 'year').format('Y-MM-DD')
             }
 
             store.dispatch('saveNewInsurance', data);

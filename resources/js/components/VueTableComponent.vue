@@ -116,6 +116,7 @@
                     <b-list-group-item><span class="font-bold">Radna zapremina:</span> {{ row.item.radna_zapremina }}</b-list-group-item>
                     <b-list-group-item><span class="font-bold">Dozvoljena nosivost:</span> {{ row.item.dozvoljena_nosivost }}</b-list-group-item>
                     <b-list-group-item><span class="font-bold">Broj sedišta:</span> {{ row.item.broj_sedista }}</b-list-group-item>
+                    <b-list-group-item><span class="font-bold">Kreiran:</span> {{ row.item.created_at | formatDate }}</b-list-group-item>
 
             </b-list-group>
 
@@ -126,7 +127,7 @@
                 <b-list-group-item><span class="font-bold">OS društvo</span>: {{ row.item.insurance.os_drustvo }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Broj polise</span>: {{ row.item.insurance.broj_polise }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Visina premije</span>: {{ row.item.insurance.visina_premije | formatNumber }}</b-list-group-item>
-                <b-list-group-item><span class="font-bold">Datum isticanja osiguranja</span>: {{ row.item.insurance.datum_isticanja_osiguranja }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja osiguranja</span>: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</b-list-group-item>
             </b-list-group>
         </b-card>
 
@@ -136,7 +137,7 @@
                 <b-list-group-item><span class="font-bold">OS društvo kasko</span>: {{ row.item.kasko.os_drustvo_kasko }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Broj polise kasko</span>: {{ row.item.kasko.broj_polise_kasko }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Visina premije kasko</span>: {{ row.item.kasko.visina_premije_kasko }}</b-list-group-item>
-                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko }}</b-list-group-item>
+                <b-list-group-item><span class="font-bold">Datum isticanja kasko</span>: {{ row.item.kasko.datum_isticanja_kasko  }}</b-list-group-item>
             </b-list-group>
         </b-card>
         </b-card-group>

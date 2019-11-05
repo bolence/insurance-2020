@@ -182,7 +182,7 @@
             <i class="icofont icofont-ui-calendar"></i>
             </label>
 
-            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
+            <datepicker v-model="datum_isticanja_osiguranja" name="datum_isticanja_osiguranja" format="dd MMM yyyy" :language="sr" input-class="form-control" calendar-button-icon="fa fa-calendar"></datepicker>
             <span v-show="!errors.datum_isticanja_osiguranja" class="text-info">Unosi se datum registracije vozila</span>
             <span class="text-danger" v-if="errors.datum_isticanja_osiguranja">{{ errors.datum_isticanja_osiguranja[0] }}</span>
             </div>
@@ -277,7 +277,7 @@ export default {
                 broj_sedista: this.broj_sedista,
                 inv_broj: this.inv_broj,
                 os_drustvo: this.os_drustvo,
-                datum_isticanja_osiguranja: this.datum_isticanja_osiguranja,
+                datum_isticanja_osiguranja: moment(this.datum_isticanja_osiguranja).add(1, 'year').format('Y-MM-DD'),
                 visina_premije: this.visina_premije,
                 broj_polise: this.broj_polise,
             };

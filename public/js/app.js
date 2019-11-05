@@ -2501,6 +2501,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3253,7 +3254,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         os_drustvo: this.os_drustvo,
         visina_premije: this.visina_premije,
         broj_polise: this.broj_polise,
-        datum_isticanja_osiguranja: this.datum_isticanja_osiguranja
+        datum_isticanja_osiguranja: moment(this.datum_isticanja_osiguranja).add(1, 'year').format('Y-MM-DD')
       };
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('saveNewInsurance', data);
       this.show_notifications ? this.$awn.success('Uspešno dodato novo osiguranje') : false;
@@ -3564,7 +3565,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         broj_sedista: this.broj_sedista,
         inv_broj: this.inv_broj,
         os_drustvo: this.os_drustvo,
-        datum_isticanja_osiguranja: this.datum_isticanja_osiguranja,
+        datum_isticanja_osiguranja: moment(this.datum_isticanja_osiguranja).add(1, 'year').format('Y-MM-DD'),
         visina_premije: this.visina_premije,
         broj_polise: this.broj_polise
       };
@@ -4008,11 +4009,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         datum_isticanja_osiguranja: vehicle.insurance.datum_isticanja_osiguranja,
         visina_premije: vehicle.insurance.visina_premije,
         registracija: vehicle.insurance.registracija,
-        broj_polise: vehicle.insurance.broj_polise // os_drustvo_kasko: vehicle.kasko.os_drustvo_kasko,
-        // visina_premije_kasko: vehicle.kasko.visina_premije_kasko,
-        // datum_isticanja_kasko: vehicle.kasko.datum_isticanja_kasko,
-        // broj_polise_kasko: vehicle.kasko.broj_polise_kasko,
-
+        broj_polise: vehicle.insurance.broj_polise
       };
       _store_store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('updateVehicle', data);
       this.show_notifications ? this.$awn.success('Uspešno izmenjeno vozilo') : false;
@@ -36852,7 +36849,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\r\n    border: 0;\r\n    border-bottom: 1px dashed #ccc;\r\n    background: rgb(216, 16, 16);\r\n    margin-bottom: 30px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\nhr.fancy[data-v-51429b1c] {\n    border: 0;\n    border-bottom: 1px dashed #ccc;\n    background: rgb(216, 16, 16);\n    margin-bottom: 30px;\n}\n\n", ""]);
 
 // exports
 
@@ -89028,6 +89025,20 @@ var render = function() {
                                       _vm._v(
                                         " " + _vm._s(row.item.broj_sedista)
                                       )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("b-list-group-item", [
+                                      _c("span", { staticClass: "font-bold" }, [
+                                        _vm._v("Kreiran:")
+                                      ]),
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(
+                                            _vm._f("formatDate")(
+                                              row.item.created_at
+                                            )
+                                          )
+                                      )
                                     ])
                                   ],
                                   1
@@ -89091,8 +89102,10 @@ var render = function() {
                                       _vm._v(
                                         ": " +
                                           _vm._s(
-                                            row.item.insurance
-                                              .datum_isticanja_osiguranja
+                                            _vm._f("formatDate")(
+                                              row.item.insurance
+                                                .datum_isticanja_osiguranja
+                                            )
                                           )
                                       )
                                     ])
@@ -91233,7 +91246,7 @@ var render = function() {
                           _c("datepicker", {
                             attrs: {
                               name: "datum_isticanja_osiguranja",
-                              format: "dd MMM",
+                              format: "dd MMM yyyy",
                               language: _vm.sr,
                               "input-class": "form-control",
                               "calendar-button-icon": "fa fa-calendar"
