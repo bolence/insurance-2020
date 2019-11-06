@@ -249,6 +249,7 @@ export default {
             }
 
             store.dispatch('saveNewInsurance', data);
+            this.clearFieldsAfterSaving();
             this.show_notifications ? this.$awn.success('Uspešno dodato novo osiguranje') : false;
         },
 
@@ -263,8 +264,21 @@ export default {
             }
 
             store.dispatch('saveNewKasko', data);
+            this.clearFieldsAfterSaving();
             this.show_notifications ? this.$awn.success('Uspešno dodato novo kasko osiguranje') : false;
 
+        },
+
+
+        clearFieldsAfterSaving(){
+            this.os_drustvo = '';
+            this.visina_premije = '';
+            this.broj_polise = '';
+            this.datum_isticanja_osiguranja = '';
+            this.os_drustvo_kasko = '';
+            this.visina_premije_kasko = '';
+            this.broj_polise_kasko = '';
+            this.datum_isticanja_kasko = '';
         }
 
     }
