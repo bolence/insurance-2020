@@ -135,6 +135,14 @@
                 <b-list-group-item><span class="font-bold">Visina premije</span>: {{ row.item.insurance.visina_premije | formatNumber }}</b-list-group-item>
                 <b-list-group-item><span class="font-bold">Datum isticanja osiguranja</span>: {{ row.item.insurance.datum_isticanja_osiguranja | formatDate }}</b-list-group-item>
             </b-list-group>
+
+             <b-card-text class="mt-2" v-show="row.item.files.length > 0"><h4>Fajlovi</h4></b-card-text>
+            <b-list-group v-show="row.item.files.length > 0">
+                <b-list-group-item v-for="(file, index) in row.item.files" :key="index">
+                    <span class="font-bold"><a :href="`/uploads/${file.vehicle_id}/${file.filename}`">{{ index + 1 }}.{{ file.filename }}</a></span>
+                </b-list-group-item>
+            </b-list-group>
+
         </b-card>
 
         <b-card align="center" class="text-center mb-2" v-if="row.item.kasko">
