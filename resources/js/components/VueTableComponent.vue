@@ -287,6 +287,7 @@ import moment from 'moment';
         reg_broj: '',
         broj_motora: '',
         fields: [
+          {key: 'id', label: 'ID', sortable: true},
           { key: 'vozilo', label: 'Vehicle', sortable: true, sortDirection: 'desc' },
           { key: 'reg_broj', label: 'Reg.broj', sortable: true, class: 'text-center', status: 'awesome' },
           { key: 'broj_motora', label: 'Broj motora', class: 'text-center'},
