@@ -40,6 +40,12 @@ class LoginController extends Controller
     }
 
 
+    public function index()
+    {
+        return view('auth.login');
+    }
+
+
     /**
      * Response after user is authenticated
      *
